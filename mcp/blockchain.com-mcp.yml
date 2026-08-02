@@ -1,0 +1,179 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml
+status: candidate
+summary: >-
+  No official hosted, remote or local Model Context Protocol server was found for
+  Blockchain.com. Searched the developer docs (api.blockchain.com/v3,
+  docs.blockchain.com, exchange.blockchain.com/api), the github.com/blockchain
+  organization (64 repositories), npm under @modelcontextprotocol and the public
+  MCP directories. The third-party "blockchain" MCP servers that surface in search
+  belong to other vendors (Tatum, thirdweb and similar) and are not
+  Blockchain.com projects. The candidate tool set below is DERIVED from the
+  published OpenAPI operations as a proposal only — it is not published by
+  Blockchain.com, and no MCPServer pointer is wired into apis.yml.
+server: null
+transport: null
+auth:
+  type: apiKey
+  headers:
+  - X-API-Token          # Exchange REST API
+  - X-Public-API-Key     # Pay Partner API, all endpoints
+  - X-Private-API-Key    # Pay Partner API, order endpoints
+candidate_tools:
+- name: list_symbols
+  maps_to: GET /symbols
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getSymbols
+  description: List every tradeable symbol on the Blockchain.com Exchange.
+  read_only: true
+- name: get_symbol
+  maps_to: GET /symbols/{symbol}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getSymbolByName
+  description: Get scaling, lot size and status detail for one symbol.
+  read_only: true
+- name: get_tickers
+  maps_to: GET /tickers
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getTickers
+  description: Get 24h price and volume for every symbol.
+  read_only: true
+- name: get_ticker
+  maps_to: GET /tickers/{symbol}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getTickerBySymbol
+  description: Get the ticker for one symbol.
+  read_only: true
+- name: get_l2_order_book
+  maps_to: GET /l2/{symbol}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getL2OrderBook
+  description: Get the aggregated level 2 order book for a symbol.
+  read_only: true
+- name: get_l3_order_book
+  maps_to: GET /l3/{symbol}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getL3OrderBook
+  description: Get the per-order level 3 order book for a symbol.
+  read_only: true
+- name: get_fees
+  maps_to: GET /fees
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getFees
+  description: Get the account's current maker/taker fee level and 30-day USD volume.
+  read_only: true
+- name: list_orders
+  maps_to: GET /orders
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getOrders
+  description: List orders, filtered by symbol, status and time window.
+  read_only: true
+- name: get_order
+  maps_to: GET /orders/{orderId}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getOrderById
+  description: Get one order by exchange order id.
+  read_only: true
+- name: list_fills
+  maps_to: GET /trades
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getFills
+  description: List filled orders for a symbol and time window.
+  read_only: true
+- name: create_order
+  maps_to: POST /orders
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#createOrder
+  description: Place a market, limit, stop or stop-limit order.
+  read_only: false
+  consequence: financial — requires explicit human confirmation
+- name: cancel_order
+  maps_to: DELETE /orders/{orderId}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#deleteOrder
+  description: Cancel one open order.
+  read_only: false
+- name: cancel_all_orders
+  maps_to: DELETE /orders
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#deleteAllOrders
+  description: Cancel every open order, optionally scoped to one symbol.
+  read_only: false
+- name: list_balances
+  maps_to: GET /accounts
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getAccounts
+  description: Get current balances across accounts.
+  read_only: true
+- name: get_balance
+  maps_to: GET /accounts/{account}/{currency}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getAccountByTypeAndCurrency
+  description: Get the balance for one account and currency.
+  read_only: true
+- name: get_deposit_address
+  maps_to: POST /deposits/{currency}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getDepositAddress
+  description: Generate a crypto deposit address for a currency.
+  read_only: false
+- name: list_deposits
+  maps_to: GET /deposits
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getDeposits
+  description: List deposits in a time window.
+  read_only: true
+- name: get_deposit
+  maps_to: GET /deposits/{depositId}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getDepositById
+  description: Get the status of one deposit.
+  read_only: true
+- name: list_withdrawals
+  maps_to: GET /withdrawals
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getWithdrawals
+  description: List withdrawals in a time window.
+  read_only: true
+- name: get_withdrawal
+  maps_to: GET /withdrawals/{withdrawalId}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getWithdrawalById
+  description: Get the status of one withdrawal.
+  read_only: true
+- name: create_withdrawal
+  maps_to: POST /withdrawals
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#createWithdrawal
+  description: Request a withdrawal to a whitelisted beneficiary.
+  read_only: false
+  consequence: financial — requires explicit human confirmation
+- name: list_whitelist
+  maps_to: GET /whitelist
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getWhitelist
+  description: List whitelisted withdrawal beneficiaries.
+  read_only: true
+- name: get_whitelist_by_currency
+  maps_to: GET /whitelist/{currency}
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getWhitelistByCurrency
+  description: List whitelisted withdrawal beneficiaries for one currency.
+  read_only: true
+- name: pay_list_currencies
+  maps_to: GET /v1/currencies
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetCurrencies
+  description: List fiat and crypto currencies enabled on the Pay partner account.
+  read_only: true
+- name: pay_list_regions
+  maps_to: GET /v1/regions
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetRegions
+  description: List supported countries and US states.
+  read_only: true
+- name: pay_list_payment_methods
+  maps_to: GET /v1/payment-methods
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetPaymentMethods
+  description: List supported payment methods.
+  read_only: true
+- name: pay_get_buy_quote
+  maps_to: GET /v1/quote/buy
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetQuoteBuy
+  description: Get a real-time buy quote for a fiat amount, crypto asset and payment method.
+  read_only: true
+- name: pay_list_orders
+  maps_to: GET /v1/orders
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#ListOrders
+  description: List up to 50 recent Pay orders with filters.
+  read_only: true
+  requires: X-Private-API-Key
+- name: pay_get_order
+  maps_to: GET /v1/orders/{id}
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetOrderById
+  description: Get one Pay order by id or partner external reference.
+  read_only: true
+  requires: X-Private-API-Key
+coverage:
+  rest_operations_total: 30
+  candidate_tools: 29
+  unmapped_operations:
+  - openapi/blockchain.com-nft-market-api-swagger.json (6 duplicate trailing-slash paths, 3 distinct operations)

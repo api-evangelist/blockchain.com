@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/webhook-event-payload",
+  "definitions": {
+    "webhook-event-payload": {
+      "type": "object",
+      "title": "webhook-event-payload",
+      "additionalProperties": false,
+      "properties": {
+        "eventId": {
+          "type": "string",
+          "format": "string",
+          "description": "Unique identifier of the event"
+        },
+        "orderId": {
+          "type": "string",
+          "format": "string",
+          "description": "Unique identifier of the order"
+        },
+        "externalReference": {
+          "type": "string",
+          "description": "An optional external order reference set by the partner. It is limited to 100 characters."
+        },
+        "subPartnerId": {
+          "type": "string",
+          "description": "An optional 3rd party reference set by the partner. It is limited to 50 characters."
+        },
+        "orderType": {
+          "enum": [
+            "BUY",
+            "SELL"
+          ],
+          "description": "Type of the order. BUY for on-ramp, SELL for off-ramp"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the order was created"
+        },
+        "orderState": {
+          "enum": [
+            "PENDING",
+            "WITHDRAWING",
+            "COMPLETED",
+            "FAILED"
+          ],
+          "description": "Current state of the order"
+        },
+        "orderStateUpdatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of the last order state change"
+        },
+        "paymentMethod": {
+          "enum": [
+            "CARD",
+            "APPLE_PAY",
+            "GOOGLE_PAY",
+            "BANK_TRANSFER_NIP"
+          ],
+          "description": "Payment method used for the order"
+        },
+        "inputCurrency": {
+          "type": "string",
+          "description": "Currency code used for funding the order"
+        },
+        "inputAmount": {
+          "type": "number",
+          "description": "Amount of the input currency used for the order"
+        },
+        "outputCurrency": {
+          "type": "string",
+          "description": "Currency code of the output currency"
+        },
+        "outputAmount": {
+          "type": "number",
+          "description": "Amount of the output currency"
+        },
+        "amountUsd": {
+          "type": "number",
+          "description": "Amount of the transaction denominated in USD. Will be an approximate value in case of `inputCurrency` different than USD."
+        },
+        "processingFee": {
+          "type": "number",
+          "description": "Blockchain.com Pay processing fee denominated in `inputCurrency`"
+        },
+        "processingFeeUsd": {
+          "type": "number",
+          "description": "Blockchain.com Pay processing fee denominated in USD. Will be an approximate value in case of `inputCurrency` different than USD."
+        },
+        "partnerFee": {
+          "type": "number",
+          "description": "Partner fee denominated in `inputCurrency`"
+        },
+        "partnerFeeUsd": {
+          "type": "number",
+          "description": "Partner fee denominated in USD. Will be an approximate value in case of `inputCurrency` different than USD."
+        },
+        "networkFee": {
+          "type": "number",
+          "description": "Transaction network fee denominated in `inputCurrency`"
+        },
+        "networkFeeUsd": {
+          "type": "number",
+          "description": "Transaction network fee denominated in USD. Will be an approximate value in case of `inputCurrency` different than USD."
+        },
+        "network": {
+          "type": "string",
+          "description": "Blockchain network code used for the cryptocurrency transaction (e.g., BTC, ETH, BASE, MATIC, etc.)"
+        },
+        "userId": {
+          "type": "string",
+          "description": "Unique identifier of the user"
+        },
+        "userCountry": {
+          "type": "string",
+          "description": "Country code of the user address (2 letter ISO 3166-1 alpha-2 code). Example: US, GB, FR, DE, etc."
+        },
+        "userState": {
+          "type": "string",
+          "description": "State code of the user address (2 letter code prefixed with 2 letter country code and a hyphen). Will only be present for users in the US. Example: US-FL"
+        },
+        "targetWalletAddress": {
+          "type": "string",
+          "description": "Target wallet address of the crypto transaction"
+        },
+        "transactionHash": {
+          "type": "string",
+          "description": "Transaction hash of the crypto transaction. Will only be present for orders in COMPLETED state"
+        }
+      },
+      "required": [
+        "eventId",
+        "orderId",
+        "orderType",
+        "createdAt",
+        "orderState",
+        "orderStateUpdatedAt",
+        "paymentMethod",
+        "inputCurrency",
+        "inputAmount",
+        "outputCurrency",
+        "outputAmount",
+        "processingFee",
+        "processingFeeUsd",
+        "partnerFee",
+        "partnerFeeUsd",
+        "networkFee",
+        "networkFeeUsd",
+        "network",
+        "userId",
+        "targetWalletAddress"
+      ]
+    }
+  }
+}

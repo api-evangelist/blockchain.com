@@ -1,0 +1,180 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml,
+  json-schema/blockchain.com-pay-webhook-event.json
+note: >-
+  Entity graph derived from the components.schemas of the published specs and the
+  id-reference fields between them. Blockchain.com's specs use scalar named types
+  (symbol, currency, ExchangeOrderId, ...) rather than $ref links between object
+  schemas, so most relationships below are id-reference relationships carried on a
+  named field rather than nested objects.
+
+domains:
+- domain: exchange
+  api: Blockchain.com Exchange REST API
+  spec: openapi/blockchain.com-exchange-openapi.yml
+- domain: pay
+  api: Blockchain.com Pay Partner API
+  spec: openapi/blockchain.com-pay-partner-api-openapi.yml
+- domain: nft
+  api: Blockchain.com NFT Market API
+  spec: openapi/blockchain.com-nft-market-api-swagger.json
+
+entities:
+- name: SymbolStatus
+  domain: exchange
+  description: Tradeable market pair and its scaling/lot/size rules.
+  identifier: id
+  natural_key: '<BASE>-<COUNTER>'
+  fields: [base_currency, base_currency_scale, counter_currency, counter_currency_scale,
+    min_price_increment, min_price_increment_scale, min_order_size, min_order_size_scale,
+    max_order_size, max_order_size_scale, lot_size, lot_size_scale, status, id]
+  operations: [getSymbols, getSymbolByName]
+- name: OrderBook
+  domain: exchange
+  description: L2/L3 book for one symbol, made of OrderBookEntry rows.
+  fields: [symbol, bids, asks]
+  operations: [getL2OrderBook, getL3OrderBook]
+- name: OrderBookEntry
+  domain: exchange
+  fields: [px, qty, num]
+- name: PriceEvent
+  domain: exchange
+  description: Ticker row for one symbol.
+  fields: [symbol, price_24h, volume_24h, last_trade_price]
+  operations: [getTickers, getTickerBySymbol]
+- name: BaseOrder
+  domain: exchange
+  description: Order request payload using FIX 4.2 field names.
+  identifier: clOrdId
+  fields: [clOrdId, ordType, symbol, side, orderQty, timeInForce, price, expireDate,
+    minQty, stopPx, execInst]
+  operations: [createOrder]
+- name: OrderSummary
+  domain: exchange
+  description: Server-side order state and last execution.
+  identifier: exOrdId
+  fields: [exOrdId, clOrdId, ordType, ordStatus, side, price, text, symbol, lastShares,
+    lastPx, leavesQty, cumQty, avgPx, timestamp]
+  operations: [getOrders, getOrderById, getFills, deleteOrder, deleteAllOrders]
+- name: Balance
+  domain: exchange
+  fields: [currency, balance, available, balance_local, available_local, rate]
+  operations: [getAccounts, getAccountByTypeAndCurrency]
+- name: Fees
+  domain: exchange
+  fields: [makerRate, takerRate, volumeInUSD]
+  operations: [getFees]
+- name: DepositInfo
+  domain: exchange
+  identifier: depositId
+  fields: [depositId, amount, currency, address, txHash, state, timestamp]
+  operations: [getDeposits, getDepositById, getDepositAddress]
+- name: WithdrawalInfo
+  domain: exchange
+  identifier: withdrawalId
+  fields: [withdrawalId, amount, fee, currency, beneficiary, state, timestamp]
+  operations: [getWithdrawals, getWithdrawalById, createWithdrawal]
+- name: WhitelistEntry
+  domain: exchange
+  identifier: whitelistId
+  fields: [whitelistId, name, currency]
+  operations: [getWhitelist, getWhitelistByCurrency]
+- name: Currency
+  domain: pay
+  description: Fiat or crypto currency enabled on the partner account.
+  operations: [GetCurrencies]
+- name: Country
+  domain: pay
+  operations: [GetRegions]
+- name: UsState
+  domain: pay
+  operations: [GetRegions]
+- name: PaymentMethod
+  domain: pay
+  operations: [GetPaymentMethods]
+- name: PartnerOrderResponse
+  domain: pay
+  identifier: orderId
+  alternate_keys: [externalReference]
+  operations: [ListOrders, GetOrderById]
+- name: WebhookEventPayload
+  domain: pay
+  identifier: eventId
+  schema: json-schema/blockchain.com-pay-webhook-event.json
+  operations: []
+
+relationships:
+- from: OrderBook
+  to: SymbolStatus
+  kind: belongs_to
+  via: symbol
+- from: OrderBook
+  to: OrderBookEntry
+  kind: has_many
+  via: bids/asks
+- from: PriceEvent
+  to: SymbolStatus
+  kind: belongs_to
+  via: symbol
+- from: BaseOrder
+  to: SymbolStatus
+  kind: belongs_to
+  via: symbol
+- from: OrderSummary
+  to: BaseOrder
+  kind: has_one
+  via: clOrdId
+- from: OrderSummary
+  to: SymbolStatus
+  kind: belongs_to
+  via: symbol
+- from: Balance
+  to: SymbolStatus
+  kind: references
+  via: currency
+- from: DepositInfo
+  to: Balance
+  kind: references
+  via: currency
+- from: WithdrawalInfo
+  to: WhitelistEntry
+  kind: belongs_to
+  via: beneficiary
+- from: WithdrawalInfo
+  to: Balance
+  kind: references
+  via: currency
+- from: WebhookEventPayload
+  to: PartnerOrderResponse
+  kind: belongs_to
+  via: orderId
+- from: PartnerOrderResponse
+  to: Currency
+  kind: references
+  via: inputCurrency/outputCurrency
+- from: PartnerOrderResponse
+  to: PaymentMethod
+  kind: references
+  via: paymentMethod
+- from: PartnerOrderResponse
+  to: Country
+  kind: references
+  via: userCountry
+- from: PartnerOrderResponse
+  to: UsState
+  kind: references
+  via: userState
+
+id_conventions:
+- domain: exchange
+  ids: >-
+    exOrdId and gwOrderId are integers assigned by the exchange; clOrdId is a
+    client-supplied string of at most 20 characters; depositId, withdrawalId and
+    whitelistId are opaque strings.
+- domain: pay
+  ids: >-
+    orderId, eventId and userId are UUIDs; externalReference (100 chars) and
+    subPartnerId (50 chars) are partner-supplied strings.

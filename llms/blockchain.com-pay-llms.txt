@@ -1,0 +1,32 @@
+# Blockchain.com Pay
+
+## Blockchain.com Pay
+
+- [Welcome to Blockchain.com Pay](https://docs.blockchain.com/pay/welcome-to-blockchain.com-pay.md): 🤝 Empower your users to buy and sell crypto
+- [Getting Started](https://docs.blockchain.com/pay/getting-started.md): Enable users to buy crypto in your app
+- [Ramps](https://docs.blockchain.com/pay/getting-started/ramps.md): Integrated our crypto on-ramp today
+- [Try our Widget](https://docs.blockchain.com/pay/getting-started/try-our-widget.md): Try it, test it, and more
+- [Integration Options](https://docs.blockchain.com/pay/getting-started/integration-options.md): Get started with your integration of Blockchain.com Pay
+- [Mobile Integration](https://docs.blockchain.com/pay/getting-started/integration-options/mobile-integration.md): Integrate Blockchain.com Pay on Mobile
+- [iOS Integration Options](https://docs.blockchain.com/pay/getting-started/integration-options/mobile-integration/ios-integration-options.md): 📱 Installation guide for our iOS
+- [Android Integration Guide](https://docs.blockchain.com/pay/getting-started/integration-options/mobile-integration/android-integration-guide.md): 📱 Installation guide for Android
+- [Web Integration](https://docs.blockchain.com/pay/getting-started/integration-options/web-integration.md): Installation guide for web
+- [Brand Guidance](https://docs.blockchain.com/pay/getting-started/integration-options/brand-guidance.md): How to implement our branding
+- [Testing your integration](https://docs.blockchain.com/pay/getting-started/testing-your-integration.md): 🧪 Make sure your integration works
+- [Pre-Launch Checklist](https://docs.blockchain.com/pay/getting-started/pre-launch-checklist.md): ⏱️ Final countdown
+- [Customise the Widget](https://docs.blockchain.com/pay/getting-started/customise-the-widget.md): Enhance the user experience
+- [Optional Customisation](https://docs.blockchain.com/pay/getting-started/customise-the-widget/optional-customisation.md): Create seamless experiences specific to your app
+- [Query parameter signing](https://docs.blockchain.com/pay/getting-started/query-parameter-signing.md): Sign your URL query parameters
+- [API](https://docs.blockchain.com/pay/api.md): Authentication, Eligibility and Quotes
+- [Partner API](https://docs.blockchain.com/pay/api/partner-api.md): Authentication, Eligibility and Quotes
+- [Authentication](https://docs.blockchain.com/pay/api/partner-api/authentication.md): Use API keys to authenticate API requests.
+- [Eligibility](https://docs.blockchain.com/pay/api/partner-api/eligibility.md): Get supported currencies, countries, and states
+- [Quotes](https://docs.blockchain.com/pay/api/partner-api/quotes.md): Returns the quote for a specific fiat currency, amount and payment method
+- [Orders](https://docs.blockchain.com/pay/api/partner-api/orders.md): Returns the latest state of user orders
+- [Rate Limits](https://docs.blockchain.com/pay/api/partner-api/rate-limits.md): Learn about the Blockchain.com Pay rate limits and how to handle them
+- [Webhooks](https://docs.blockchain.com/pay/api/webhooks.md): Instant notifications about user orders state changes
+- [Regions, payments and cryptos](https://docs.blockchain.com/pay/regions-payments-and-cryptos.md): Find out what crypto you can offer and with what methods
+- [Supported Regions](https://docs.blockchain.com/pay/regions-payments-and-cryptos/supported-regions.md): 🌍 Explore the regions Blockchain.com Pay is available
+- [Supported Payment Methods](https://docs.blockchain.com/pay/regions-payments-and-cryptos/supported-payment-methods.md): 📱 From credit to debit cards
+- [Supported Cryptocurrencies](https://docs.blockchain.com/pay/regions-payments-and-cryptos/supported-cryptocurrencies.md): Explore what cryptos are available
+- [FAQs](https://docs.blockchain.com/pay/faqs.md): ✨ General questions about Blockchain.com Pay

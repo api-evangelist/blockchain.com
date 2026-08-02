@@ -1,0 +1,27 @@
+generated: '2026-08-02'
+method: generated
+source: >-
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml,
+  https://api.blockchain.com/v3/, https://docs.blockchain.com/pay/api
+note: >-
+  Blockchain.com publishes no AGENTS.md or provider-authored agent skills. These
+  skills are generated from the provider's own OpenAPI documents; every operationId
+  referenced was verified against the spec in this repo.
+skills:
+- file: blockchain.com-exchange-place-and-manage-order.md
+  name: Place and manage an order on the Blockchain.com Exchange
+  api: openapi/blockchain.com-exchange-openapi.yml
+  operations: [getSymbolByName, getL2OrderBook, getFees, createOrder, getOrderById,
+    getOrders, deleteOrder, deleteAllOrders]
+- file: blockchain.com-exchange-deposit-and-withdraw.md
+  name: Fund and withdraw from a Blockchain.com Exchange account
+  api: openapi/blockchain.com-exchange-openapi.yml
+  operations: [getAccounts, getAccountByTypeAndCurrency, getDepositAddress, getDeposits,
+    getDepositById, getWhitelist, getWhitelistByCurrency, createWithdrawal, getWithdrawals,
+    getWithdrawalById]
+- file: blockchain.com-pay-quote-and-track-order.md
+  name: Quote a crypto purchase and track the order with Blockchain.com Pay
+  api: openapi/blockchain.com-pay-partner-api-openapi.yml
+  operations: [GetCurrencies, GetRegions, GetPaymentMethods, GetQuoteBuy, ListOrders,
+    GetOrderById]

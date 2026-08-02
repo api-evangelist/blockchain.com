@@ -1,0 +1,47 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.blockchain.com/oauth-resources/oauth-resources.md
+docs: https://docs.blockchain.com/oauth-resources
+note: >-
+  Blockchain.com operates an OAuth 2.0 resource gateway that lets a third-party
+  app read a user's custodial wallet data with the user's consent. No OpenAPI
+  declares these scopes and no /.well-known/oauth-authorization-server or
+  /.well-known/oauth-protected-resource document is served (both 404 on
+  api.blockchain.info/partner-resource-gateway), so the scopes below are
+  harvested from the published OAuth Resources documentation only. The
+  authorization server endpoints themselves are not publicly documented —
+  partners are onboarded directly by Blockchain.com.
+schemes:
+- name: OAuth2 Bearer
+  type: oauth2
+  token_type: bearer
+  in: header
+  parameter: Authorization
+  resource_server: https://api.blockchain.info/partner-resource-gateway
+  authorization_url: not publicly documented
+  token_url: not publicly documented
+  source: https://docs.blockchain.com/oauth-resources/oauth-resources.md
+scopes:
+- scope: read_transactions
+  description: >-
+    Retrieve the authenticated user's transaction history from their
+    Blockchain.com custodial wallet. Returns at most 30 days of history; types
+    are withdrawal, deposit and trade.
+  operation: GET /v1/transactions
+  sources: [https://docs.blockchain.com/oauth-resources/oauth-resources.md]
+- scope: read_balance
+  description: >-
+    Retrieve an overview of the authenticated user's account, including per-asset
+    symbol, fiat flag, quantity and current worth.
+  operation: GET /v1/balances
+  sources: [https://docs.blockchain.com/oauth-resources/oauth-resources.md]
+x-evidence:
+  fetched: '2026-08-02'
+  probes:
+  - url: https://api.blockchain.info/partner-resource-gateway/v1/balances
+    http_status: 401
+    note: endpoint is live and rejects anonymous requests
+  - url: https://api.blockchain.info/partner-resource-gateway/.well-known/oauth-authorization-server
+    http_status: 404
+  - url: https://api.blockchain.info/partner-resource-gateway/.well-known/oauth-protected-resource
+    http_status: 404

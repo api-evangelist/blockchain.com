@@ -1,0 +1,89 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml,
+  openapi/blockchain.com-nft-market-api-swagger.json,
+  https://www.blockchain.com/legal/licenses,
+  https://www.blockchain.com/.well-known/security.txt
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    Exchange REST API publishes OpenAPI 3.0.0 (github.com/blockchain/lib-exchange-client/specification.yaml);
+    Pay Partner API publishes OpenAPI 3.0.3 via the GitBook docs.
+- id: swagger-2.0
+  conforms: true
+  evidence: NFT Market API serves Swagger 2.0 at /nft-market-api/documentation/json
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme in any spec; all surfaces use api-key headers
+- id: oidc
+  conforms: false
+  evidence: no /.well-known/openid-configuration on any host
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    error responses use vendor JSON envelopes ({"error":...} on Exchange,
+    {"type","message"} on Pay), not application/problem+json
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: https://www.blockchain.com/.well-known/security.txt with Contact, Canonical and Policy fields
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header support documented
+- id: rfc8615-well-known-agent-card
+  conforms: false
+  evidence: no /.well-known/agent-card.json or /.well-known/agent.json on any host
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    three documented event surfaces (Pay webhooks, Exchange WebSocket, Explorer
+    WebSocket) but no AsyncAPI document published
+- id: fix-4.2
+  conforms: partial
+  evidence: >-
+    Exchange WebSocket trading messages and Exchange REST order fields use FIX 4.2
+    field naming (clOrdID, ordType, timeInForce, side, orderQty, price, stopPx,
+    execInst, minQty) — naming conformance, not a FIX session protocol implementation
+- id: json-schema
+  conforms: true
+  evidence: >-
+    Pay webhook event payload published as a JSON Schema draft-06 document
+    (json-schema/blockchain.com-pay-webhook-event.json)
+- id: json-api
+  conforms: false
+  evidence: plain JSON arrays/objects; no JSON:API document structure
+- id: llms-txt
+  conforms: true
+  evidence: https://docs.blockchain.com/llms.txt and https://docs.blockchain.com/pay/llms.txt
+compliance:
+  published: true
+  url: https://www.blockchain.com/legal/licenses
+  kind: regulatory licensing (no security certifications published)
+  security_certifications: []
+  note: >-
+    Blockchain.com publishes no SOC 2 / ISO 27001 / PCI DSS attestation and
+    operates no trust center. It does publish a detailed regulatory licensing
+    register, which is the compliance posture recorded here.
+  registrations:
+  - regulator: Malta Financial Services Authority (MFSA)
+    entity: Blue Cube (Malta) Limited
+    authorization: Crypto-Asset Service Provider under Regulation (EU) 2023/1114 (MiCAR)
+    reference: BCML8-25339
+  - regulator: Financial Conduct Authority (UK)
+    entity: BC Operations Limited
+    authorization: Cryptoasset Exchange Provider and Custodian Wallet Provider
+    reference: FRN 1036678
+  - regulator: Monetary Authority of Singapore (MAS)
+    entity: Blockchain.com (Singapore) Pte. Ltd.
+    authorization: Major Payment Institution (Digital Payment Token services)
+    reference: PS20200530
+  - regulator: Cayman Islands Monetary Authority (CIMA)
+    entity: Blockchain.com (Cayman) Limited
+    authorization: Virtual Asset Service Provider
+  - regulator: FinCEN (US)
+    authorization: Money Services Business (MSB) registration
+  - regulator: US states
+    authorization: Money Transmitter Licenses
+    count: 35

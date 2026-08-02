@@ -1,0 +1,69 @@
+# Blockchain.com
+
+> Blockchain.com is a cryptocurrency financial services company operating the Blockchain.com Explorer, a self-custody and custodial wallet, an institutional spot exchange, and Blockchain.com Pay — an embeddable fiat-to-crypto on-ramp for partners. Its public API surface spans an OpenAPI-described Exchange REST API, a FIX-named WebSocket trading gateway, the Pay Partner API with order webhooks, the free blockchain.info Data / Simple Query / Exchange Rates / Charts APIs, an Explorer WebSocket stream, an NFT Market API, an OAuth 2.0 custodial-wallet resource gateway, and the open-source Wallet API service.
+
+Provenance: generated 2026-08-02 by the API Evangelist enrichment pipeline from apis.yml and the artifacts in this repository. Blockchain.com publishes its own llms.txt files, harvested verbatim alongside this one:
+- https://docs.blockchain.com/llms.txt (see blockchain.com-docs-llms.txt)
+- https://docs.blockchain.com/pay/llms.txt (see blockchain.com-pay-llms.txt)
+- https://docs.blockchain.com/oauth-resources/llms.txt
+
+## APIs
+
+- [Blockchain.com Exchange REST API](https://api.blockchain.com/v3/): Market data, trading, and payments for the Blockchain.com Exchange. Base URL https://api.blockchain.com/v3/exchange, authenticated with an X-API-Token header.
+- [Blockchain.com Exchange WebSocket API](https://exchange.blockchain.com/api/): Real-time channels — heartbeat, l2, l3, prices, symbols, ticker, trades, auth, balances, trading. wss://ws.blockchain.info/mercury-gateway/v1/ws
+- [Blockchain.com Pay Partner API](https://docs.blockchain.com/pay/api): Eligibility, buy quotes and order lookup for the Pay on-ramp. Base URL https://api.blockchain.info/partner-gateway/partner-api, X-Public-API-Key and X-Private-API-Key headers.
+- [Blockchain.com OAuth Resources API](https://docs.blockchain.com/oauth-resources): OAuth 2.0 bearer-token access to a consenting user's custodial wallet transactions and balances. Base URL https://api.blockchain.info/partner-resource-gateway
+- [Blockchain Data API](https://www.blockchain.com/explorer/api/blockchain_api): Free JSON API for blocks, transactions, addresses and unspent outputs. Base URL https://blockchain.info
+- [Blockchain.com Simple Query API](https://www.blockchain.com/explorer/api/q): Plain-text single-value blockchain statistics. Base URL https://blockchain.info/q
+- [Blockchain.com Exchange Rates API](https://www.blockchain.com/explorer/api/exchange_rates_api): Bitcoin exchange rates across major fiat currencies. Base URL https://blockchain.info/ticker
+- [Blockchain.com Charts and Statistics API](https://www.blockchain.com/explorer/api/charts_api): Chart time series, network statistics and mining pool distribution. Base URL https://api.blockchain.info/charts
+- [Blockchain.com Explorer WebSocket API](https://www.blockchain.com/explorer/api/api_websocket): Real-time block, transaction and address notifications. wss://ws.blockchain.info/inv
+- [Blockchain.com NFT Market API](https://api.blockchain.com/nft-market-api/documentation/): NFT asset lookup by owner address or by network/contract/token id.
+- [Blockchain.com Wallet API](https://github.com/blockchain/service-my-wallet-v3): Open-source local HTTP service for wallet creation, payments and balances, plus Receive Payments V2.
+
+## Specs
+
+- Exchange REST API OpenAPI 3.0.0: https://raw.githubusercontent.com/blockchain/lib-exchange-client/master/specification.yaml
+- Pay Partner API OpenAPI 3.0.3: published through the Blockchain.com Pay GitBook docs
+- NFT Market API Swagger 2.0: https://api.blockchain.com/nft-market-api/documentation/json
+- Pay webhook event payload JSON Schema (draft-06): https://docs.blockchain.com/pay/api/webhooks
+
+## Authentication
+
+- Exchange REST: `X-API-Token` header, keys created under Exchange Settings > API and email-verified before use.
+- Exchange WebSocket: subscribe to the `auth` channel with a `token` field, or send an `auth_token` cookie header.
+- Pay Partner API: `X-Public-API-Key` on all endpoints; `X-Private-API-Key` additionally on order endpoints (server-to-server only).
+- OAuth Resources: OAuth 2.0 bearer token, scopes `read_transactions` and `read_balance`.
+- blockchain.info Data / Query / Charts / Exchange Rates: unauthenticated.
+
+## Events
+
+- Pay order webhooks: HTTPS POST, at-least-once, unordered, 5-second ack timeout, retried up to 3 days, verified by a fixed source IP allow-list (no signature).
+- Order states: PENDING, WITHDRAWING, COMPLETED, FAILED.
+- No AsyncAPI document is published.
+
+## Conventions and limits
+
+- Versioning is uri-path only (v3 exchange, v1 pay, v2 wallet). No deprecation or sunset policy is published.
+- No idempotency-key contract exists on any surface; `clOrdId` (Exchange) and `externalReference` (Pay) are correlation references, not dedupe keys.
+- Errors are vendor JSON, not RFC 9457: `{"error": "..."}` on the Exchange, `{"type": "...", "message": "..."}` on Pay.
+- Pay rate limits: 10 rps per IP with the public key, 100 rps per organization with the private key; 429 with `Retry-After`.
+- There is no sandbox — all calls run against production.
+
+## SDKs
+
+- Python: https://pypi.org/project/blockchain/
+- Node.js: https://www.npmjs.com/package/blockchain.info
+- Ruby: https://rubygems.org/gems/blockchain
+- PHP: https://packagist.org/packages/blockchain/blockchain
+- Java: https://github.com/blockchain/api-v1-client-java
+- Wallet service: https://www.npmjs.com/package/blockchain-wallet-service
+- Generated Exchange clients (13 languages): https://github.com/blockchain/lib-exchange-client
+
+## Operations
+
+- Status page: https://status.blockchain.com/ (Statuspage v2 JSON at /api/v2/status.json)
+- Security policy: https://www.blockchain.com/.well-known/security.txt — HackerOne contact, Bugcrowd and HackenProof programs.
+- Regulatory licensing: https://www.blockchain.com/legal/licenses (MiCAR CASP, FCA, MAS, CIMA, FinCEN MSB, 35 US state MTLs)
+- Terms: https://www.blockchain.com/legal/terms — Privacy: https://www.blockchain.com/legal/privacy
+- Support: https://support.blockchain.com/ — Pay partner contact: pay@blockchain.com

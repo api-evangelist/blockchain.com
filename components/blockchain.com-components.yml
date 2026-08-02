@@ -1,0 +1,80 @@
+generated: '2026-08-02'
+method: searched
+source: >-
+  https://docs.blockchain.com/pay/getting-started/integration-options,
+  https://docs.blockchain.com/pay/getting-started/integration-options/web-integration,
+  https://docs.blockchain.com/pay/getting-started/integration-options/mobile-integration/ios-integration-options,
+  https://docs.blockchain.com/pay/getting-started/integration-options/mobile-integration/android-integration-guide,
+  https://docs.blockchain.com/pay/getting-started/customise-the-widget,
+  https://docs.blockchain.com/pay/getting-started/customise-the-widget/optional-customisation,
+  https://docs.blockchain.com/pay/getting-started/query-parameter-signing
+families:
+- family: Blockchain.com Pay Widget
+  kind: hosted embeddable web application
+  url: https://www.blockchain.com/pay/widget
+  loader: none — the widget is a standalone URL, embedded via iframe or opened in a new window/tab
+  sdk_status: >-
+    No JavaScript/native SDK is published; the docs state "SDK is coming soon".
+    Every integration option is a wrapper around the hosted widget URL.
+  integrations:
+  - platform: web
+    method: iframe embed
+    snippet: >-
+      <iframe title="Blockchain.com Pay widget"
+      src="https://www.blockchain.com/pay/widget?apiKey=[your-api-key]"
+      allow="autoplay *; camera *; microphone *; fullscreen *; accelerometer *;
+      magnetometer *; gyroscope *; picture-in-picture *; payment *" />
+    requirement: the embedding domain must be allow-listed in the Blockchain.com Pay dashboard
+  - platform: web
+    method: open in a new window or tab using the pre-configured widget URL
+  - platform: ios
+    method: SFSafariViewController via UIKit
+    note: shares cookies and autofill and natively supports Apple Pay
+  - platform: ios
+    method: SwiftUI with a UIViewControllerRepresentable wrapper around SFSafariViewController
+  - platform: ios
+    method: React Native
+  - platform: android
+    method: Chrome Custom Tab (androidx.browser)
+    surfaces: [Jetpack Compose, Android View System, React Native]
+  configuration:
+    transport: URL query parameters (all values must be URL-encoded)
+    required:
+    - name: apiKey
+      description: Public API key that links widget activity and customisations to the partner account.
+    optional:
+    - name: baseCurrency
+      description: Cryptocurrency to buy, as a ticker symbol; locks the user to that asset.
+    - name: walletAddress
+      description: Destination wallet address; requires baseCurrency and walletAddressSignature.
+    - name: walletAddressSignature
+      description: Signature proving walletAddress was not altered in transit.
+    - name: walletAddressTag
+      description: Secondary address identifier/memo for assets such as XLM and XRP (documented as coming soon).
+    - name: quoteCurrency
+      description: Fiat currency used to buy — USD, GBP or EUR.
+    - name: quoteCurrencyAmount
+      description: Default fiat amount; the user can change it.
+    - name: email
+      description: Pre-fills the user's email so the email entry screen is skipped.
+    - name: externalReference
+      description: Partner order reference echoed back on order data and webhooks; max 100 chars.
+    - name: subPartnerId
+      description: Third-party reference used for internal metrics; max 50 chars.
+    - name: paymentMethod
+      description: Default payment method — CARD, APPLE_PAY or GOOGLE_PAY.
+    - name: redirectUrl
+      description: Post-purchase redirect target; requires redirectUrlSignature.
+    - name: redirectUrlSignature
+      description: Signature proving redirectUrl was not altered in transit.
+  security:
+    query_parameter_signing: https://docs.blockchain.com/pay/getting-started/query-parameter-signing
+    domain_allow_list: required for iframe embedding
+  brand_guidance: https://docs.blockchain.com/pay/getting-started/integration-options/brand-guidance
+summary:
+  families: 1
+  published_ui_sdks: 0
+  note: >-
+    Blockchain.com ships no element/web-component library. The only embeddable
+    client-side surface is the hosted Pay widget, configured entirely through
+    signed URL query parameters.

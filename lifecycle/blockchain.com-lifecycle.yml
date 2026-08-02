@@ -1,0 +1,49 @@
+generated: '2026-08-02'
+method: searched
+source: >-
+  https://status.blockchain.com/, https://status.blockchain.com/api/v2/status.json,
+  https://api.blockchain.com/v3/, https://docs.blockchain.com/pay/,
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml
+versioning:
+  scheme: uri-path
+  current:
+    exchange_rest: v3
+    exchange_websocket: v1
+    pay_partner_api: v1
+    wallet_api: v2
+    nft_market_api: '1.0.12'
+  docs: https://api.blockchain.com/v3/
+  note: >-
+    No version-negotiation header, date-pinning, or version train is documented;
+    the major version is carried in the path only.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation or sunset policy is published for any Blockchain.com API, and
+    no operation in either OpenAPI is marked `deprecated: true`. The Exchange
+    docs repository (github.com/blockchain/docs-exchange-api) is the only public
+    record of endpoint changes.
+sla:
+  url: null
+  uptime_target: null
+  note: no public SLA or uptime commitment published for the public APIs
+status_page:
+  url: https://status.blockchain.com/
+  machine_readable: https://status.blockchain.com/api/v2/status.json
+  components_endpoint: https://status.blockchain.com/api/v2/components.json
+  probed: '2026-08-02'
+  probe_status: 200
+  note: >-
+    Statuspage-compatible v2 JSON API. Components are per-chain (Bitcoin,
+    Ethereum, Solana, Base, Arbitrum, Polygon, Stellar, Polkadot, Optimism,
+    Binance Smart Chain, Bitcoin Cash, Stacks, DeSo) plus Charts and
+    Blockchain.com platform entries.
+deprecated_operations: []
+support:
+  developer_support: https://support.blockchain.com/
+  pay_contact: pay@blockchain.com
+  security_contact: https://hackerone.com/blockchain

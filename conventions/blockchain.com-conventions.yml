@@ -1,0 +1,131 @@
+generated: '2026-08-02'
+method: searched
+source: >-
+  https://api.blockchain.com/v3/,
+  https://docs.blockchain.com/pay/api/partner-api/authentication,
+  https://docs.blockchain.com/pay/api/partner-api/rate-limits,
+  https://docs.blockchain.com/pay/api/webhooks,
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml
+note: >-
+  Blockchain.com ships several independently-designed API surfaces rather than one
+  house style. The conventions below are recorded per surface; where a surface
+  publishes no convention that is stated as an explicit gap rather than filled in.
+
+authentication:
+  style: api-key headers (no OAuth anywhere in the public surface)
+  artifact: authentication/blockchain.com-authentication.yml
+  surfaces:
+  - api: Blockchain.com Exchange REST API
+    header: X-API-Token
+    provisioning: Exchange account > Settings > API; key must be email-verified before use
+    options: optional trading permission and IP allow-listing per key
+  - api: Blockchain.com Exchange WebSocket API
+    mechanism: subscribe to the `auth` channel with a `token` field, or send an auth_token cookie header on connect
+  - api: Blockchain.com Pay Partner API
+    headers:
+    - X-Public-API-Key   # all endpoints; identifies the partner; browser-safe
+    - X-Private-API-Key  # order endpoints only; server-to-server
+    docs: https://docs.blockchain.com/pay/api/partner-api/authentication
+  - api: Blockchain Data / Simple Query / Charts / Exchange Rates APIs
+    mechanism: unauthenticated; no key or auth header documented
+
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or request-deduplication contract is documented on
+    any Blockchain.com API. The Exchange accepts a client-supplied `clOrdId`
+    (FIX tag 11, max 20 characters) on order creation, which is a client order
+    reference used for correlation and cancel-by-reference — the docs do not
+    describe it as a retry/deduplication key. On the Pay webhook side the
+    provider pushes idempotency onto the CONSUMER: partners are instructed to log
+    processed `eventId` values because delivery is at-least-once.
+  client_reference_fields:
+  - api: Blockchain.com Exchange REST API
+    field: clOrdId
+    scope: per order, max 20 chars
+  - api: Blockchain.com Pay Partner API
+    field: externalReference
+    scope: partner-set order reference, max 100 chars, queryable on ListOrders
+
+pagination:
+  surfaces:
+  - api: Blockchain.com Pay Partner API
+    style: limit/offset
+    params: [limit, offset]
+    additional_filters: [externalReference, walletAddress, outputCurrency, from, to]
+    max_page: 50 orders (documented on the Orders page)
+    response_envelope: array
+  - api: Blockchain.com Exchange REST API
+    style: time-window + limit filter (no cursor, no offset)
+    params: [from, to, limit, symbol, status]
+    applies_to: [getOrders, getFills, getDeposits, getWithdrawals]
+    response_envelope: array
+  - api: Blockchain Data API
+    style: limit/offset (with `n` as the limit alias on /multiaddr)
+    params: [limit, offset, n]
+    defaults: >-
+      limit default 50 / max 50 on most endpoints; /unspent default 250 / max
+      1000; /multiaddr n default 50 / max 100
+    docs: https://www.blockchain.com/explorer/api/blockchain_api
+
+versioning:
+  scheme: uri-path
+  current:
+  - api: Blockchain.com Exchange REST API
+    version: v3
+    base: https://api.blockchain.com/v3/exchange
+  - api: Blockchain.com Exchange WebSocket API
+    version: v1
+    base: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  - api: Blockchain.com Pay Partner API
+    version: v1
+    base: https://api.blockchain.info/partner-gateway/partner-api/v1
+  - api: Blockchain.com Wallet API
+    version: v2
+    base: https://api.blockchain.info/v2
+  deprecation_policy: none published
+  see: lifecycle/blockchain.com-lifecycle.yml
+
+errors:
+  artifact: errors/blockchain.com-problem-types.yml
+  rfc9457: false
+  envelopes:
+  - api: Blockchain.com Exchange REST API
+    shape: '{"error": "<message>"}'
+  - api: Blockchain.com Pay Partner API
+    shape: '{"type": "<Dotted.Machine.Type>", "message": "<human readable>"}'
+
+rate_limiting:
+  artifact: rate-limits/blockchain.com-rate-limits.yml
+  signalling:
+    status: 429
+    headers: [Retry-After]
+    note: >-
+      No X-RateLimit-Limit / X-RateLimit-Remaining budget headers are documented
+      on any surface — only the 429 status and Retry-After on Pay.
+
+request_tracing:
+  request_id_header: none documented
+  note: >-
+    No correlation/request-id header is published on any Blockchain.com surface.
+    Order-level correlation is done with clOrdId (Exchange) or externalReference
+    (Pay), and webhook events carry a unique `eventId`.
+
+metadata_and_expansion:
+  metadata_fields: >-
+    Pay orders carry partner-set `externalReference` (100 chars) and
+    `subPartnerId` (50 chars); there is no general key/value metadata bag.
+  field_expansion: not supported
+  sparse_fieldsets: not supported
+
+events:
+  artifact: asyncapi/blockchain.com-event-surface.yml
+  webhooks: Blockchain.com Pay order state changes (POST JSON, IP allow-list, no signature)
+  streaming: Exchange WebSocket (FIX 4.2 field names) and Explorer WebSocket (wss://ws.blockchain.info/inv)
+
+data_conventions:
+  timestamps: RFC 3339 / ISO 8601 UTC on Pay; epoch milliseconds (TimestampEpoch) on Exchange
+  amounts: decimal numbers with per-symbol scale (base_currency_scale / counter_currency_scale on /symbols)
+  symbols: '<BASE>-<COUNTER>, e.g. BTC-USD'
+  order_field_naming: FIX 4.2 field names (clOrdId, ordType, timeInForce, side, orderQty, price, stopPx, execInst)

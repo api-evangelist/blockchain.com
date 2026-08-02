@@ -1,0 +1,67 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Blockchain.com Exchange REST API
+  version: 1.0.0
+extends: openapi/blockchain.com-exchange-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: >-
+  Derived from the harvested spec plus the harvested docs at
+  https://api.blockchain.com/v3/, https://exchange.blockchain.com/api/ and
+  https://status.blockchain.com/
+actions:
+- target: $.info
+  update:
+    contact:
+      name: Blockchain.com Support
+      url: https://support.blockchain.com/
+    x-apievangelist-provider: blockchain.com
+    x-apievangelist-artifacts:
+      authentication: authentication/blockchain.com-authentication.yml
+      conventions: conventions/blockchain.com-conventions.yml
+      errors: errors/blockchain.com-problem-types.yml
+      lifecycle: lifecycle/blockchain.com-lifecycle.yml
+      data_model: data-model/blockchain.com-data-model.yml
+      events: asyncapi/blockchain.com-event-surface.yml
+      packages: packages/blockchain.com-packages.yml
+    x-status-page: https://status.blockchain.com/
+- target: $
+  update:
+    externalDocs:
+      description: Blockchain.com Exchange API documentation
+      url: https://exchange.blockchain.com/api/
+- target: $.tags
+  update:
+  - name: unauthenticated
+    description: Public market data — order books, tickers and symbol reference data.
+  - name: trading
+    description: Order entry, cancellation, fills and fee levels. Requires an API key with trading access.
+  - name: payments
+    description: Account balances, deposits, withdrawals and the withdrawal whitelist.
+- target: $.paths['/orders'].post
+  update:
+    x-idempotency:
+      supported: false
+      client_reference_field: clOrdId
+      note: >-
+        clOrdId (FIX tag 11, max 20 characters) is a client order reference used
+        for correlation and cancel-by-reference. Blockchain.com does not document
+        it as a retry-safe idempotency key; a retried POST /orders may place a
+        second order.
+    x-agentic-access:
+      action-class: acting
+      consequence: physical
+      audit: required
+- target: $.paths['/withdrawals'].post
+  update:
+    x-agentic-access:
+      action-class: acting
+      consequence: physical
+      audit: required
+    x-constraint: >-
+      The beneficiary must already exist on the withdrawal whitelist
+      (GET /whitelist).
+- target: $.components.schemas.UnauthorizedError
+  update:
+    x-error-envelope: '{"error": "<message>"}'
+    x-rfc9457: false

@@ -1,0 +1,95 @@
+generated: '2026-08-02'
+method: derived
+source: >-
+  openapi/blockchain.com-exchange-openapi.yml,
+  openapi/blockchain.com-pay-partner-api-openapi.yml,
+  https://docs.blockchain.com/pay/api/partner-api/rate-limits
+format: vendor-json
+note: >-
+  Blockchain.com does not use RFC 9457 application/problem+json. Two distinct
+  error envelopes are published. The Exchange REST API returns a bare object with
+  a single `error` string. The Pay Partner API returns a typed envelope with a
+  machine-readable dotted `type` plus a human-readable `message`. Both are
+  recorded verbatim from the specs; no error codes are invented.
+
+envelopes:
+- api: Blockchain.com Exchange REST API
+  media_type: application/json
+  schema: UnauthorizedError
+  shape:
+    error: string
+  source: openapi/blockchain.com-exchange-openapi.yml
+- api: Blockchain.com Pay Partner API
+  media_type: application/json
+  schema: Error
+  shape:
+    type: string  # machine-readable error type, e.g. RequestValidation.BadRequest.MissingParam
+    message: string  # human-readable description
+  source: openapi/blockchain.com-pay-partner-api-openapi.yml
+
+problems:
+- status: 401
+  title: API key is missing or invalid
+  api: Blockchain.com Exchange REST API
+  envelope: '{"error": "..."}'
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#UnauthorizedError
+  remediation: >-
+    Set the X-API-Token header. Keys are created under Settings > API on the
+    Blockchain.com Exchange and must be email-verified before first use.
+- status: 404
+  title: Not found
+  api: Blockchain.com Exchange REST API
+  source_operation: openapi/blockchain.com-exchange-openapi.yml#getOrderById
+  also:
+  - openapi/blockchain.com-exchange-openapi.yml#getDepositById
+  - openapi/blockchain.com-exchange-openapi.yml#getWithdrawalById
+  remediation: The referenced orderId, depositId or withdrawalId does not exist for this account.
+- status: 401
+  title: Missing or invalid API key
+  api: Blockchain.com Pay Partner API
+  type_field_example: null
+  envelope: '{"type": "...", "message": "..."}'
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#components/responses/UnauthorizedError
+  applies_to:
+  - GetCurrencies
+  - GetRegions
+  - GetPaymentMethods
+  - ListOrders
+  - GetOrderById
+  remediation: >-
+    Send X-Public-API-Key on every request; order endpoints additionally require
+    X-Private-API-Key (server-to-server only).
+- status: 404
+  title: Order not found
+  api: Blockchain.com Pay Partner API
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#GetOrderById
+  remediation: The order id or partner external reference does not resolve to an order.
+- status: 400
+  title: Request validation error
+  api: Blockchain.com Pay Partner API
+  type_field_example: RequestValidation.BadRequest.MissingParam
+  message_example: >-
+    Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode,
+    baseCurrencyCode, ...]
+  source_operation: openapi/blockchain.com-pay-partner-api-openapi.yml#components/schemas/Error
+  remediation: Supply every required query parameter named in the message.
+- status: 429
+  title: Rate limit exceeded
+  api: Blockchain.com Pay Partner API
+  headers:
+    Retry-After: seconds until the client may resume
+  source: https://docs.blockchain.com/pay/api/partner-api/rate-limits
+  remediation: >-
+    Back off using the Retry-After header and retry on an exponential backoff
+    schedule. Public-key requests are limited to 10 rps per IP; private-key
+    requests to 100 rps per organization.
+
+gaps:
+- >-
+  The Exchange REST API spec declares no 400/429/5xx responses; only 401 and 404
+  are documented. Error semantics for rejected orders are carried on the
+  WebSocket trading channel using FIX-style rejection messages, not in the REST
+  spec.
+- >-
+  No published decline-code reference exists for Blockchain.com Pay; failed
+  orders surface only as the FAILED order state on the webhook event.

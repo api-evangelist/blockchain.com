@@ -1,0 +1,132 @@
+generated: '2026-08-02'
+method: searched
+source: >-
+  https://docs.blockchain.com/pay/api/webhooks,
+  https://exchange.blockchain.com/api/ (github.com/blockchain/docs-exchange-api),
+  https://www.blockchain.com/explorer/api/api_websocket
+spec_type: none
+note: >-
+  Blockchain.com publishes no AsyncAPI document. It does publish three distinct,
+  documented event surfaces: HTTP webhooks for Blockchain.com Pay order state
+  changes (with a first-party JSON Schema for the event payload), a FIX-named
+  WebSocket gateway for the Exchange, and a WebSocket notification stream on the
+  Explorer. This artifact is the harvested webhook/event catalog for those three
+  surfaces. Nothing here is generated — every channel, event and field below is
+  taken from the provider's own documentation.
+
+webhooks:
+  transport: https
+  method: POST
+  content_type: application/json
+  docs: https://docs.blockchain.com/pay/api/webhooks
+  api: Blockchain.com Pay Partner API
+  setup: >-
+    Webhook endpoints are registered manually by the Blockchain.com Pay account
+    manager (pay@blockchain.com); self-service registration via the Partner
+    Dashboard is documented as planned.
+  payload_schema: json-schema/blockchain.com-pay-webhook-event.json
+  events:
+  - name: order.state_changed
+    described_as: Order state change event
+    envelope_field: orderState
+    states:
+    - state: PENDING
+      description: Order has been created and the payment is being processed.
+    - state: WITHDRAWING
+      description: >-
+        Order is in progress. Payment has completed and the crypto transaction is
+        in progress.
+    - state: COMPLETED
+      description: >-
+        Order successfully executed. Payment processed and the crypto transaction
+        confirmed with at least 1 confirmation.
+    - state: FAILED
+      description: Order failed. The payment was rejected or never completed by the user.
+  delivery:
+    ack: 2xx required before any long-running logic
+    timeout_seconds: 5
+    retries: exponential backoff for up to 3 days
+    ordering: not guaranteed; consumers must tolerate out-of-order state changes
+    duplicates: >-
+      at-least-once; the provider instructs consumers to make event processing
+      idempotent by logging processed eventId values
+  verification:
+    method: source IP allow-list
+    source_ips:
+    - 34.76.54.194
+    - 34.77.167.89
+    - 35.187.43.203
+    - 35.241.153.74
+    - 35.241.224.80
+    signature: none documented
+    tls: >-
+      Blockchain.com validates that the partner endpoint presents a valid
+      certificate before delivering over HTTPS.
+
+streaming:
+- name: Blockchain.com Exchange WebSocket
+  url: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  docs: https://exchange.blockchain.com/api/
+  source: https://github.com/blockchain/docs-exchange-api
+  required_headers:
+  - 'Origin: https://exchange.blockchain.com'
+  subscribe_action: '{"action":"subscribe","channel":"<channel>"}'
+  message_naming: FIX 4.2 field names for trading messages
+  channels:
+  - channel: heartbeat
+    auth: anonymous
+    description: Server heartbeat, emitted every 5 seconds.
+  - channel: l2
+    auth: anonymous
+    description: Level 2 order book snapshots and updates for a symbol.
+  - channel: l3
+    auth: anonymous
+    description: Level 3 (per-order) order book snapshots and updates for a symbol.
+  - channel: prices
+    auth: anonymous
+    description: OHLC candle price events for a symbol and granularity.
+  - channel: symbols
+    auth: anonymous
+    description: Symbol reference data and status changes.
+  - channel: ticker
+    auth: anonymous
+    description: Ticker updates for a symbol.
+  - channel: trades
+    auth: anonymous
+    description: Executed trades for a symbol.
+  - channel: auth
+    auth: authenticated
+    description: >-
+      Authenticate the socket with an API secret token, or with an auth_token
+      cookie header on connect.
+  - channel: balances
+    auth: authenticated
+    description: Account balance snapshots and updates.
+  - channel: trading
+    auth: authenticated
+    description: >-
+      Submit and cancel orders and receive executions. Messages use FIX 4.2 field
+      names — NewOrderSingle, CancelOrderRequest, OrderMassCancelRequest,
+      OrderMassStatusRequest.
+- name: Blockchain.com Explorer WebSocket
+  url: wss://ws.blockchain.info/inv
+  docs: https://www.blockchain.com/explorer/api/api_websocket
+  operations:
+  - op: ping
+    description: Connection health check.
+  - op: unconfirmed_sub
+    description: Subscribe to notifications for all new bitcoin transactions.
+  - op: unconfirmed_unsub
+    description: Unsubscribe from all new bitcoin transactions.
+  - op: addr_sub
+    description: Subscribe to notifications for a specific bitcoin address.
+  - op: addr_unsub
+    description: Unsubscribe from a specific bitcoin address.
+  - op: blocks_sub
+    description: Subscribe to notifications for new blocks.
+  - op: blocks_unsub
+    description: Unsubscribe from new block notifications.
+  - op: ping_block
+    description: Request the latest block.
+  - op: ping_tx
+    description: Request the latest transaction.

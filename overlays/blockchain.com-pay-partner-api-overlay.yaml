@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Blockchain.com Pay Partner API
+  version: 1.0.0
+extends: openapi/blockchain.com-pay-partner-api-openapi.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: >-
+  Derived from the harvested spec plus the harvested docs at
+  https://docs.blockchain.com/pay/api
+actions:
+- target: $.info
+  update:
+    contact:
+      name: Blockchain.com Pay
+      email: pay@blockchain.com
+      url: https://docs.blockchain.com/pay/
+    termsOfService: https://www.blockchain.com/legal/terms
+    x-apievangelist-provider: blockchain.com
+    x-apievangelist-artifacts:
+      authentication: authentication/blockchain.com-authentication.yml
+      conventions: conventions/blockchain.com-conventions.yml
+      errors: errors/blockchain.com-problem-types.yml
+      rate_limits: rate-limits/blockchain.com-rate-limits.yml
+      events: asyncapi/blockchain.com-event-surface.yml
+      components: components/blockchain.com-components.yml
+      data_model: data-model/blockchain.com-data-model.yml
+- target: $
+  update:
+    externalDocs:
+      description: Blockchain.com Pay Partner API documentation
+      url: https://docs.blockchain.com/pay/api
+- target: $.paths['/v1/orders'].get
+  update:
+    x-pagination:
+      style: limit-offset
+      params: [limit, offset]
+      max_results: 50
+    x-rate-limit:
+      tier: private
+      limit: 100 requests per second per organization
+- target: $.paths['/v1/quote/buy'].get
+  update:
+    x-rate-limit:
+      tier: public
+      limit: 10 requests per second per IP
+    x-volatility: >-
+      Quotes expire; the user may be shown a different quote if the quote lapses
+      before they reach the Pay widget.
+- target: $.components.schemas.Error
+  update:
+    x-error-envelope: '{"type": "<Dotted.Machine.Type>", "message": "<human readable>"}'
+    x-rfc9457: false
+- target: $.components.securitySchemes.PrivateApiKeyAuth
+  update:
+    x-server-side-only: true
+    x-warning: >-
+      Never ship the private key to a browser or mobile client; it raises the rate
+      limit to 100 rps for the whole organization and unlocks order data.

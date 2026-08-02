@@ -1,0 +1,122 @@
+generated: '2026-08-02'
+method: searched
+source: live GET probes of every apis.yml host and OpenAPI servers[] host
+note: >-
+  api.blockchain.com and api.blockchain.info answer HTTP 200 with an HTML
+  single-page-app shell for every /.well-known/* path, so a 200 from those hosts
+  is NOT a document. Only text/plain or application/json bodies are recorded as
+  hits below.
+hosts:
+- host: https://www.blockchain.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    file: blockchain.com-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://blockchain.info
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain
+    note: identical body to www.blockchain.com; canonical points at www.blockchain.com
+    file: blockchain.com-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://api.blockchain.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not a document
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not a document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not a document
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not a document
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not an AgentCard
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not an AgentCard
+- host: https://api.blockchain.info
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not a document
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not an AgentCard
+  - path: /.well-known/agent.json
+    status: 200
+    content_type: text/html
+    hit: false
+    note: HTML SPA catch-all, not an AgentCard
+- host: https://docs.blockchain.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+summary:
+  security_txt: true
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
