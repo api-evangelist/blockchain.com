@@ -1,0 +1,310 @@
+openapi: 3.2.0
+info:
+  title: Blockchain.com Pay Partner Orders API
+  description: 'The Partner API enables Blockchain.com Pay partners to integrate crypto purchase flows
+
+    into their backends. It provides eligibility data (currencies, regions, payment methods),
+
+    real-time buy quotes, and order management.
+
+
+    All endpoints require the `X-Public-API-Key` header to identify the partner.
+
+    Order endpoints additionally require the `X-Private-API-Key` header.
+
+    '
+  termsOfService: ''
+  license:
+    name: ''
+    url: ''
+  version: '1.0'
+servers:
+- url: https://api.blockchain.info/partner-gateway/partner-api
+  description: Production
+tags:
+- name: Orders
+  description: Order listing and lookup.
+paths:
+  /v1/orders:
+    get:
+      summary: Get orders
+      description: 'Returns either:
+
+        - A list of recent orders, limited to a maximum of 50 orders, sorted by descending creation date.
+
+        - If `externalReference` is provided, returns all orders matching that reference.
+
+        - If `walletAddress` is provided, returns all orders for that wallet address.
+
+        '
+      operationId: ListOrders
+      tags:
+      - Orders
+      security:
+      - PrivateApiKeyAuth: []
+      parameters:
+      - name: limit
+        in: query
+        description: The number of orders to return. Default and maximum is 50. Ignored when `externalReference` is provided.
+        schema:
+          type: integer
+          default: 50
+          maximum: 50
+        required: false
+        example: 10
+      - name: offset
+        in: query
+        description: The number of orders to skip. Use together with `limit` for pagination.
+        schema:
+          type: integer
+        required: false
+        example: 20
+      - name: externalReference
+        in: query
+        description: External reference of the order(s) set by the partner.
+        schema:
+          type: string
+        required: false
+        example: external_order_id
+      - name: walletAddress
+        in: query
+        description: User wallet address.
+        schema:
+          type: string
+        required: false
+        example: bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu
+      - name: outputCurrency
+        in: query
+        description: Filter by output (crypto) currency code.
+        required: false
+        schema:
+          type: string
+        example: BTC
+      - name: from
+        in: query
+        description: 'Start of the date range, inclusive. Format: `YYYY-MM-DD`.'
+        schema:
+          type: string
+          format: date
+        required: false
+        example: '2024-10-01'
+      - name: to
+        in: query
+        description: 'End of the date range, exclusive. Format: `YYYY-MM-DD`.'
+        schema:
+          type: string
+          format: date
+        required: false
+        example: '2024-10-02'
+      responses:
+        '200':
+          description: List of orders.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerOrderResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /v1/orders/{id}:
+    get:
+      summary: Get order by id
+      description: Returns order details for the given order id.
+      operationId: GetOrderById
+      tags:
+      - Orders
+      security:
+      - PrivateApiKeyAuth: []
+      parameters:
+      - in: path
+        name: id
+        description: Unique identifier of the order.
+        required: true
+        schema:
+          type: string
+          format: uuid
+        example: f41a3e45-6392-457c-8566-a282b5f3e177
+      responses:
+        '200':
+          description: Order details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PartnerOrderResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Order not found.
+components:
+  schemas:
+    PartnerOrderResponse:
+      type: object
+      required:
+      - orderId
+      - orderType
+      - createdAt
+      - orderState
+      - orderStateUpdatedAt
+      - paymentMethod
+      - inputCurrency
+      - inputAmount
+      - outputCurrency
+      - outputAmount
+      - amountUsd
+      - processingFee
+      - processingFeeUsd
+      - partnerFee
+      - partnerFeeUsd
+      - networkFee
+      - networkFeeUsd
+      - userId
+      - targetWalletAddress
+      properties:
+        orderId:
+          type: string
+          format: uuid
+          description: Unique identifier of the order.
+          example: f41a3e45-6392-457c-8566-a282b5f3e177
+        externalReference:
+          type: string
+          description: External order reference set by the partner. Limited to 100 characters.
+          example: your_order_id
+        subPartnerId:
+          type: string
+          description: Optional third-party reference set by the partner. Limited to 50 characters.
+          example: your_sub_partner_id
+        orderType:
+          type: string
+          enum:
+          - BUY
+          - SELL
+          description: Order direction. BUY for on-ramp, SELL for off-ramp.
+          example: BUY
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the order was created.
+          example: '2024-10-01T12:00:00Z'
+        orderState:
+          type: string
+          enum:
+          - PENDING
+          - WITHDRAWING
+          - COMPLETED
+          - FAILED
+          description: Current state of the order.
+          example: COMPLETED
+        orderStateUpdatedAt:
+          type: string
+          format: date-time
+          description: Timestamp of the last order state change.
+          example: '2024-10-01T13:00:00Z'
+        paymentMethod:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+          description: Payment method used for the order.
+          example: CARD
+        inputCurrency:
+          type: string
+          description: Fiat currency used to fund the order.
+          example: USD
+        inputAmount:
+          type: string
+          description: Fiat amount used to fund the order.
+          example: '100.00'
+        outputCurrency:
+          type: string
+          description: Crypto currency purchased.
+          example: BTC
+        outputAmount:
+          type: string
+          description: Amount of crypto received.
+          example: '0.001'
+        amountUsd:
+          type: string
+          description: Transaction value in USD. Approximate when `inputCurrency` is not USD.
+          example: '100.00'
+        processingFee:
+          type: string
+          description: Blockchain.com Pay processing fee denominated in `inputCurrency`.
+          example: '1.00'
+        processingFeeUsd:
+          type: string
+          description: Blockchain.com Pay processing fee in USD. Approximate when `inputCurrency` is not USD.
+          example: '1.00'
+        partnerFee:
+          type: string
+          description: Partner fee denominated in `inputCurrency`.
+          example: '0.50'
+        partnerFeeUsd:
+          type: string
+          description: Partner fee in USD. Approximate when `inputCurrency` is not USD.
+          example: '0.50'
+        networkFee:
+          type: string
+          description: Blockchain network fee denominated in `inputCurrency`.
+          example: '1.50'
+        networkFeeUsd:
+          type: string
+          description: Blockchain network fee in USD. Approximate when `inputCurrency` is not USD.
+          example: '1.50'
+        userId:
+          type: string
+          format: uuid
+          description: Unique identifier of the user who placed the order.
+          example: 2b6f0cc9-7b0c-4f3b-8f3b-6f0cc97b0c4f
+        targetWalletAddress:
+          type: string
+          description: Crypto wallet address that received the output currency.
+          example: bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu
+        transactionHash:
+          type: string
+          description: Blockchain transaction hash. Only present for COMPLETED orders.
+          example: 4b1549abe58cface17d400bf50ff0fe0c2e2ca8121f4e3764d807dc841a2ab80
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
+    Error:
+      type: object
+      required:
+      - type
+      - message
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type.
+          example: RequestValidation.BadRequest.MissingParam
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
+  responses:
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  securitySchemes:
+    PublicApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Public-API-Key
+      description: Partner's public API key. Required on all endpoints to identify the partner.
+    PrivateApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Private-API-Key
+      description: Partner's private API key. Required on order endpoints; indicates a server-to-server call.

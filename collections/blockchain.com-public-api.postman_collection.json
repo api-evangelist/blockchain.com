@@ -1,0 +1,229 @@
+{
+  "item": [
+    {
+      "id": "062ec423-7df5-49d2-a163-8ca5fdcfa572",
+      "name": "Public",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50e3c0fa-d9fc-429d-9c51-074b06d7e2ee",
+          "name": "/public/nft/account_assets/:owner_address/",
+          "request": {
+            "name": "/public/nft/account_assets/:owner_address/",
+            "description": {},
+            "url": {
+              "path": [
+                "public",
+                "nft",
+                "account_assets",
+                ":owner_address",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ceb592c6-dac3-4da7-947f-755ec5d43b36",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "nft",
+                    "account_assets",
+                    ":owner_address",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3dc4145-d384-43ce-a694-b4afb31d87d3",
+          "name": "/public/nft/v2/account_assets/:owner_address/",
+          "request": {
+            "name": "/public/nft/v2/account_assets/:owner_address/",
+            "description": {},
+            "url": {
+              "path": [
+                "public",
+                "nft",
+                "v2",
+                "account_assets",
+                ":owner_address",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "395fae3e-c003-4049-8884-dec0c160457e",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "nft",
+                    "v2",
+                    "account_assets",
+                    ":owner_address",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19dee8ec-b0b1-49bd-90a5-dc1ce8aae035",
+          "name": "/public/nft/v2/asset/:network/:contract_address/:token_id/",
+          "request": {
+            "name": "/public/nft/v2/asset/:network/:contract_address/:token_id/",
+            "description": {},
+            "url": {
+              "path": [
+                "public",
+                "nft",
+                "v2",
+                "asset",
+                ":network",
+                ":contract_address",
+                ":token_id",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc920272-1421-475f-bb55-8dff98d12c58",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "nft",
+                    "v2",
+                    "asset",
+                    ":network",
+                    ":contract_address",
+                    ":token_id",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.info/nft-market-api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1c832145-8efc-4a55-a94f-f56f17afb4e1",
+    "name": "NFT Market Public API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Backend service for NFT market data.",
+      "type": "text/plain"
+    }
+  }
+}

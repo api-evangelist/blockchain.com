@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NFT Market Nft V2 API",
+    "version": "1.0.12"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "nft_v2",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an NFT asset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/v2/asset/:network/:contract_address/:token_id",
+            "params": [
+              {
+                "name": "contract_address",
+                "value": "",
+                "type": "path",
+                "description": "The contract address of the asset."
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "path",
+                "description": "The blockchain network used."
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "path",
+                "description": "The token ID of the asset."
+              }
+            ]
+          },
+          "docs": "Used to fetch the details of an individual asset."
+        },
+        {
+          "info": {
+            "name": "Get NFT assets owned by an address.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/v2/account_assets/:owner_address",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "For pagination"
+              },
+              {
+                "name": "network",
+                "value": "",
+                "type": "query",
+                "description": "The blockchain network symbol (eg ETH). Comma-separated for multiple. Omission defaults to all networks."
+              },
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "The data provider to query."
+              },
+              {
+                "name": "owner_address",
+                "value": "",
+                "type": "path",
+                "description": "The address to get assets from"
+              }
+            ]
+          },
+          "docs": "Used to fetch assets owned by a particular address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

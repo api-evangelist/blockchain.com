@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blockchain.com Exchange REST Unauthenticated API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "unauthenticated",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "L2 Order Book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/l2/:symbol",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Symbol"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Level 2 Order Book data is available through the l2 channel. Each entry in bids and asks arrays is a price level, along with its price (px), quantity (qty) and number of orders (num) attributes."
+        },
+        {
+          "info": {
+            "name": "L3 Order Book",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/l3/:symbol",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Symbol"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Level 3 Order Book data is available through the l3 channel. Each entry in bids and asks arrays is an order, along with its id (id), price (px) and quantity (qty) attributes. In contrast to the L2 order book, the L3 order book contains all individual orders without aggregation."
+        },
+        {
+          "info": {
+            "name": "Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/tickers",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Price"
+        },
+        {
+          "info": {
+            "name": "Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/tickers/:symbol",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Symbol"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Price"
+        },
+        {
+          "info": {
+            "name": "Symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/symbols",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "When the symbol is not halted the auction data in the message may be blank.\nWhen a symbol is in a halt state the auction data will populate as the book builds. When an opening time has been chosen, the auction-time field will show the opening time. Subsequent updates will be sent only if the symbol status changes in any way."
+        },
+        {
+          "info": {
+            "name": "Symbols",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/symbols/:symbol",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "path",
+                "description": "Symbol"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Token",
+              "value": "{{X-API-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "When the symbol is not halted the auction data in the message may be blank.\nWhen a symbol is in a halt state the auction data will populate as the book builds. When an opening time has been chosen, the auction-time field will show the opening time. Subsequent updates will be sent only if the symbol status changes in any way."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

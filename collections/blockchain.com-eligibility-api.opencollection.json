@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blockchain.com Pay Partner Eligibility API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Eligibility",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/currencies",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Public-API-Key",
+              "value": "{{X-Public-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns an array of all currencies enabled on your account. Contact your account executive to customise your account settings."
+        },
+        {
+          "info": {
+            "name": "Get countries and states",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/regions",
+            "params": [
+              {
+                "name": "onlyBuyAllowed",
+                "value": "",
+                "type": "query",
+                "description": "If true, only returns countries and states where buying is permitted."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Public-API-Key",
+              "value": "{{X-Public-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns an array of all countries and states supported by BcPay."
+        },
+        {
+          "info": {
+            "name": "Get payment methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/payment-methods",
+            "auth": {
+              "type": "apikey",
+              "key": "X-Public-API-Key",
+              "value": "{{X-Public-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns an array of all payment methods enabled on your account. Contact your account executive to customise your account settings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

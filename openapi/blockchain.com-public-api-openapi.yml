@@ -1,0 +1,31 @@
+openapi: 3.2.0
+info:
+  title: NFT Market Public API
+  description: Backend service for NFT market data.
+  version: 1.0.12
+servers:
+- url: https://api.blockchain.info/nft-market-api
+tags:
+- name: Public
+paths:
+  /public/nft/account_assets/{owner_address}/:
+    get:
+      responses:
+        '200':
+          description: Default Response
+      tags:
+      - Public
+  /public/nft/v2/account_assets/{owner_address}/:
+    get:
+      responses:
+        '200':
+          description: Default Response
+      tags:
+      - Public
+  /public/nft/v2/asset/{network}/{contract_address}/{token_id}/:
+    get:
+      responses:
+        '200':
+          description: Default Response
+      tags:
+      - Public

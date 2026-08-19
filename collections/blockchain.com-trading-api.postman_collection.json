@@ -1,0 +1,785 @@
+{
+  "item": [
+    {
+      "id": "9fcb7d42-865a-482e-aca6-062e78933ef5",
+      "name": "trading",
+      "description": {
+        "content": "Post orders and get information about historical trades",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d648259e-6628-4f3f-b303-9e04b8de06ac",
+          "name": "Get current fee level",
+          "request": {
+            "name": "Get current fee level",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fees"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1044ff62-1979-440d-8060-2c8ec40f16d5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fees"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"makerRate\": 3635.806468918078,\n  \"takerRate\": 4352.108327751697,\n  \"volumeInUSD\": 1860.196770517797\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9b0ee9d8-c0d4-4a50-b732-73af0b1787c1",
+          "name": "Get a list orders",
+          "request": {
+            "name": "Get a list orders",
+            "description": {
+              "content": "Returns live and historic orders, defaulting to live orders. Returns at most 100 results, use timestamp to paginate for further results",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Only return results for this symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Order Status"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9df7760-aa57-4d01-9040-0ff4f317914e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTC-USD"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "FILLED"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"clOrdId\": \"ABC\",\n    \"ordType\": \"STOPLIMIT\",\n    \"ordStatus\": \"FILLED\",\n    \"side\": \"BUY\",\n    \"symbol\": \"BTC-USD\",\n    \"exOrdId\": 6702,\n    \"price\": 0.12345,\n    \"text\": \"string\",\n    \"lastShares\": 8052.945829808424,\n    \"lastPx\": 3563.105728999489,\n    \"leavesQty\": 317.10866388654614,\n    \"cumQty\": 4622.422825708905,\n    \"avgPx\": 9185.173682268636,\n    \"timestamp\": \"<long>\"\n  },\n  {\n    \"clOrdId\": \"ABC\",\n    \"ordType\": \"STOP\",\n    \"ordStatus\": \"FILLED\",\n    \"side\": \"BUY\",\n    \"symbol\": \"BTC-USD\",\n    \"exOrdId\": 4843,\n    \"price\": 0.12345,\n    \"text\": \"string\",\n    \"lastShares\": 3655.725618734702,\n    \"lastPx\": 2479.9491062073553,\n    \"leavesQty\": 2804.7874602390243,\n    \"cumQty\": 7819.353152091179,\n    \"avgPx\": 3189.221648649031,\n    \"timestamp\": \"<long>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afc6b5f5-a082-415b-8147-b10206650cf8",
+          "name": "Add an order",
+          "request": {
+            "name": "Add an order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clOrdId\": \"<string>\",\n  \"ordType\": \"<string>\",\n  \"symbol\": \"<string>\",\n  \"side\": \"<string>\",\n  \"orderQty\": \"<double>\",\n  \"timeInForce\": \"<string>\",\n  \"price\": \"<double>\",\n  \"expireDate\": \"<integer>\",\n  \"minQty\": \"<double>\",\n  \"stopPx\": \"<double>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "93c585b5-46e0-49d1-a82d-cda3e4f3fd6a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"clOrdId\": \"ABC\",\n  \"ordType\": \"<string>\",\n  \"symbol\": \"BTC-USD\",\n  \"side\": \"BUY\",\n  \"orderQty\": \"<double>\",\n  \"timeInForce\": \"GTC\",\n  \"price\": 0.12345,\n  \"expireDate\": \"<integer>\",\n  \"minQty\": \"<double>\",\n  \"stopPx\": 0.12345\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"clOrdId\": \"ABC\",\n  \"ordType\": \"<string>\",\n  \"ordStatus\": \"FILLED\",\n  \"side\": \"BUY\",\n  \"symbol\": \"BTC-USD\",\n  \"exOrdId\": 8629,\n  \"price\": 0.12345,\n  \"text\": \"string\",\n  \"lastShares\": 3375.641287416188,\n  \"lastPx\": 8526.677059546273,\n  \"leavesQty\": 3590.222769648147,\n  \"cumQty\": 4696.529029235652,\n  \"avgPx\": 4874.596472965336,\n  \"timestamp\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f34fe5d4-5aaf-4f65-89c0-6deea397ff40",
+          "name": "Delete all open orders (of a symbol, if specified)",
+          "request": {
+            "name": "Delete all open orders (of a symbol, if specified)",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81c9ae7f-0d87-40a1-b333-a7e575b909d8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTC-USD"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09c2a829-7876-4f57-8bdc-56fd593bfca9",
+          "name": "Get a specific order",
+          "request": {
+            "name": "Get a specific order",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "orderId",
+                  "description": "(Required) Order ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "83b13f90-be97-4224-82b9-a54d27d51573",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "orderId",
+                      "description": "(Required) Order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"clOrdId\": \"ABC\",\n  \"ordType\": \"<string>\",\n  \"ordStatus\": \"FILLED\",\n  \"side\": \"BUY\",\n  \"symbol\": \"BTC-USD\",\n  \"exOrdId\": \"<long>\",\n  \"price\": 0.12345,\n  \"text\": \"string\",\n  \"lastShares\": 8672.821061410079,\n  \"lastPx\": 9839.949763209666,\n  \"leavesQty\": 8698.45655503895,\n  \"cumQty\": 581.9775370009361,\n  \"avgPx\": 8225.200307179637,\n  \"timestamp\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d411b911-c955-4dad-be42-9defe664e920",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "orderId",
+                      "description": "(Required) Order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f9ef49a-5b23-40c2-8977-03135d5e7d5b",
+          "name": "Cancel a trade",
+          "request": {
+            "name": "Cancel a trade",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "orderId",
+                  "description": "(Required) Order ID"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f4e9b0b-d4c9-4df0-b6fc-880f5999ca5e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "orderId",
+                      "description": "(Required) Order ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbdc1bb8-eb42-4912-bb47-92b40485ffb4",
+          "name": "Get a list of filled orders",
+          "request": {
+            "name": "Get a list of filled orders",
+            "description": {
+              "content": "Returns filled orders, including partial fills. Returns at most 100 results, use timestamp to paginate for further results",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trades"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "symbol",
+                  "value": "<string>",
+                  "description": "Only return results for this symbol"
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "af8982de-0848-4eeb-be29-3b3aefa4f66a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trades"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "symbol",
+                      "value": "BTC-USD"
+                    },
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"clOrdId\": \"ABC\",\n    \"ordType\": \"<string>\",\n    \"ordStatus\": \"FILLED\",\n    \"side\": \"BUY\",\n    \"symbol\": \"BTC-USD\",\n    \"exOrdId\": \"<long>\",\n    \"price\": 0.12345,\n    \"text\": \"string\",\n    \"lastShares\": 3696.1206277744373,\n    \"lastPx\": 7294.156157688108,\n    \"leavesQty\": 5974.881802880391,\n    \"cumQty\": 9075.41252580717,\n    \"avgPx\": 4533.033524004416,\n    \"timestamp\": \"<long>\"\n  },\n  {\n    \"clOrdId\": \"ABC\",\n    \"ordType\": \"<string>\",\n    \"ordStatus\": \"FILLED\",\n    \"side\": \"BUY\",\n    \"symbol\": \"BTC-USD\",\n    \"exOrdId\": \"<long>\",\n    \"price\": 0.12345,\n    \"text\": \"string\",\n    \"lastShares\": 7350.299284629988,\n    \"lastPx\": 9043.85805034301,\n    \"leavesQty\": 5944.77828083675,\n    \"cumQty\": 5039.736685840771,\n    \"avgPx\": 6753.035542190501,\n    \"timestamp\": \"<long>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.com/v3/exchange",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c8faec7e-6b86-499a-854b-6f66c65260b8",
+    "name": "Blockchain.com Exchange REST Trading API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\nWelcome to Blockchain.com's Exchange API and developer documentation. \\\nThese documents detail and give examples of various functionality offered by the API such as receiving real time market data, requesting balance information and performing trades.\n## To Get Started\nCreate or log into your existing Blockchain.com Exchange account \\\nSelect API from the drop down menu \\\nFill out form and click “Create New API Key Now” \\\nOnce generated you can view your keys under API Settings. \\\nPlease be aware that the API key can only be used once it was verified via email.\n\nThe API key must be set via the \\\n`X-API-Token`\\\nheader.\n\nThe base URL to be used for all calls is \\\n`https://api.blockchain.com/v3/exchange`\n\nAutogenerated clients for this API can be found [here](https://github.com/blockchain/lib-exchange-client).\n",
+      "type": "text/plain"
+    }
+  }
+}

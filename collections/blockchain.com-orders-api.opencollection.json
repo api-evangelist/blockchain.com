@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blockchain.com Pay Partner Orders API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/orders",
+            "params": [
+              {
+                "name": "limit",
+                "value": "10",
+                "type": "query",
+                "description": "The number of orders to return. Default and maximum is 50. Ignored when `externalReference` is provided."
+              },
+              {
+                "name": "offset",
+                "value": "20",
+                "type": "query",
+                "description": "The number of orders to skip. Use together with `limit` for pagination."
+              },
+              {
+                "name": "externalReference",
+                "value": "external_order_id",
+                "type": "query",
+                "description": "External reference of the order(s) set by the partner."
+              },
+              {
+                "name": "walletAddress",
+                "value": "bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu",
+                "type": "query",
+                "description": "User wallet address."
+              },
+              {
+                "name": "outputCurrency",
+                "value": "BTC",
+                "type": "query",
+                "description": "Filter by output (crypto) currency code."
+              },
+              {
+                "name": "from",
+                "value": "2024-10-01",
+                "type": "query",
+                "description": "Start of the date range, inclusive. Format: `YYYY-MM-DD`."
+              },
+              {
+                "name": "to",
+                "value": "2024-10-02",
+                "type": "query",
+                "description": "End of the date range, exclusive. Format: `YYYY-MM-DD`."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Private-API-Key",
+              "value": "{{X-Private-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns either:\n- A list of recent orders, limited to a maximum of 50 orders, sorted by descending creation date.\n- If `externalReference` is provided, returns all orders matching that reference.\n- If `walletAddress` is provided, returns all orders for that wallet address.\n"
+        },
+        {
+          "info": {
+            "name": "Get order by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/orders/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "f41a3e45-6392-457c-8566-a282b5f3e177",
+                "type": "path",
+                "description": "Unique identifier of the order."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Private-API-Key",
+              "value": "{{X-Private-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns order details for the given order id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

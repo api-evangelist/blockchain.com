@@ -1,0 +1,276 @@
+{
+  "item": [
+    {
+      "id": "dcae75ab-1b6c-4fb5-badd-213ef4cedfeb",
+      "name": "Quote",
+      "description": {
+        "content": "Real-time buy quotes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0b966bbe-c355-4c88-932b-18dc5282f161",
+          "name": "Get buy quote",
+          "request": {
+            "name": "Get buy quote",
+            "description": {
+              "content": "Returns a real-time buy quote for a currency pair.\nSupply `quoteCurrencyCode`, `baseCurrencyCode`, and `quoteCurrencyAmount` (fiat amount) to get a\ndetailed buy quote including fees and the amount of crypto the user will receive.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quote",
+                "buy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "quoteCurrencyCode",
+                  "value": "<string>",
+                  "description": "(Required) The fiat currency to buy with."
+                },
+                {
+                  "disabled": false,
+                  "key": "baseCurrencyCode",
+                  "value": "<string>",
+                  "description": "(Required) The crypto currency to buy."
+                },
+                {
+                  "disabled": false,
+                  "key": "quoteCurrencyAmount",
+                  "value": "<number>",
+                  "description": "(Required) The fiat amount the customer wants to spend. Must be a positive decimal with precision no higher than the currency precision."
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentMethod",
+                  "value": "<string>",
+                  "description": "Payment method to be used for the order. If omitted, the quote will not factor in payment method fees."
+                },
+                {
+                  "disabled": false,
+                  "key": "countryCode",
+                  "value": "<string>",
+                  "description": "ISO 3166-1 alpha-2 country code, e.g. `US`."
+                },
+                {
+                  "disabled": false,
+                  "key": "usStateCode",
+                  "value": "<string>",
+                  "description": "US state code, e.g. `AL`. Ignored if `countryCode` is not `US`."
+                },
+                {
+                  "disabled": false,
+                  "key": "walletAddress",
+                  "value": "<string>",
+                  "description": "The wallet address where the user wants to receive the crypto."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Public-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "63be1abc-2078-4ee3-91f7-b0042034ef8e",
+              "name": "Buy quote with price, fees, and resulting crypto amount.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "quoteCurrencyCode",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "baseCurrencyCode",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "quoteCurrencyAmount",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "paymentMethod",
+                      "value": "CARD"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "usStateCode",
+                      "value": "AL"
+                    },
+                    {
+                      "key": "walletAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"quoteCurrencyAmount\": \"63.00\",\n  \"quoteCurrencyCode\": \"USD\",\n  \"quoteCurrency\": {\n    \"type\": \"FIAT\",\n    \"name\": \"US Dollar\",\n    \"code\": \"USD\",\n    \"precision\": 2,\n    \"minBuyAmount\": \"20.00\",\n    \"maxBuyAmount\": \"1200.00\",\n    \"network\": \"BTC\",\n    \"supportsDestinationTag\": true,\n    \"isSupportedInUS\": false,\n    \"allowedUSStates\": [\n      \"AL\",\n      \"CT\"\n    ]\n  },\n  \"baseCurrencyAmount\": \"0.001\",\n  \"baseCurrencyCode\": \"BTC\",\n  \"baseCurrency\": {\n    \"type\": \"CRYPTO\",\n    \"name\": \"Bitcoin\",\n    \"code\": \"BTC\",\n    \"precision\": 8,\n    \"network\": \"BTC\",\n    \"supportsDestinationTag\": false,\n    \"isSupportedInUS\": true,\n    \"allowedUSStates\": [\n      \"AL\",\n      \"CT\"\n    ]\n  },\n  \"price\": \"62451.29\",\n  \"processingFeeAmount\": \"1.00\",\n  \"partnerFeeAmount\": \"1.00\",\n  \"networkFeeAmount\": \"1.00\",\n  \"totalAmount\": \"0.0009\",\n  \"paymentMethod\": \"CARD\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3865430-bb38-43c1-8535-6ba042bb354e",
+              "name": "Returns 400 when:\n1. Any required query parameter is missing.\n2. `baseCurrencyCode` or `quoteCurrencyCode` is not supported.\n3. `baseCurrencyCode` is not of type CRYPTO.\n4. `quoteCurrencyCode` is not of type FIAT.\n5. `baseCurrencyCode` is not allowed for trading in the given `countryCode`.\n6. `baseCurrencyCode` is not allowed for trading in the given `usStateCode`.\n7. `quoteCurrencyCode` is not allowed for any region.\n8. `baseCurrencyCode` is not allowed for any region.\n\nReturns 422 when:\n1. Fee profile for partner not found.\n2. Quote not available for the requested parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quote",
+                    "buy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "quoteCurrencyCode",
+                      "value": "USD"
+                    },
+                    {
+                      "key": "baseCurrencyCode",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "quoteCurrencyAmount",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "paymentMethod",
+                      "value": "CARD"
+                    },
+                    {
+                      "key": "countryCode",
+                      "value": "US"
+                    },
+                    {
+                      "key": "usStateCode",
+                      "value": "AL"
+                    },
+                    {
+                      "key": "walletAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.info/partner-gateway/partner-api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "06798645-8125-48fd-b057-8304cfa62149",
+    "name": "Blockchain.com Pay Partner Quote API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Partner API enables Blockchain.com Pay partners to integrate crypto purchase flows\ninto their backends. It provides eligibility data (currencies, regions, payment methods),\nreal-time buy quotes, and order management.\n\nAll endpoints require the `X-Public-API-Key` header to identify the partner.\nOrder endpoints additionally require the `X-Private-API-Key` header.\n",
+      "type": "text/plain"
+    }
+  }
+}

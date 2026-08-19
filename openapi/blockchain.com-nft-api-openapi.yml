@@ -1,0 +1,32 @@
+openapi: 3.2.0
+info:
+  title: Market Nft API
+  description: Backend service for NFT market data.
+  version: 1.0.12
+servers:
+- url: https://api.blockchain.info/nft-market-api
+tags:
+- name: nft
+paths:
+  /public/nft/account_assets/{owner_address}:
+    get:
+      summary: Get an NFT assets owned by an address.
+      description: Used to fetch assets owned by a particular address.
+      tags:
+      - nft
+      parameters:
+      - description: The page of assets to get. Default to 0
+        required: false
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - description: The address to get assets from
+        required: true
+        in: path
+        name: owner_address
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Default Response

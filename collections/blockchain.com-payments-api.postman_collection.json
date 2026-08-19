@@ -1,0 +1,1096 @@
+{
+  "item": [
+    {
+      "id": "3a65076e-9ce8-42c4-8014-3b738be83565",
+      "name": "payments",
+      "description": {
+        "content": "Get account status and initiate deposits and withdrawals",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "da3473ea-a8e1-473c-b6d5-c7bea7fe0a5e",
+          "name": "Receive current account balances",
+          "request": {
+            "name": "Receive current account balances",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1d97fac-f4b6-4a71-9aa0-356355141359",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"primary\": [\n    {\n      \"currency\": \"BTC\",\n      \"balance\": 6917.448227264435,\n      \"available\": 6116.942718921974,\n      \"balance_local\": 3208.780513091638,\n      \"available_local\": 1709.7552075560118,\n      \"rate\": 9715.034811290088\n    },\n    {\n      \"currency\": \"BTC\",\n      \"balance\": 9046.518112583923,\n      \"available\": 3542.3520181585586,\n      \"balance_local\": 5866.433004281657,\n      \"available_local\": 1971.6557327283012,\n      \"rate\": 9402.760380445221\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1113848f-ab15-4a1e-a883-479f6e6217e7",
+          "name": "Receive current account balances",
+          "request": {
+            "name": "Receive current account balances",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "accounts",
+                ":account",
+                ":currency"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "account",
+                  "description": "(Required) Account"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currency",
+                  "description": "(Required) Currency"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ca047673-5da3-4f0e-ad08-8f2a41274bd5",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "accounts",
+                    ":account",
+                    ":currency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "account",
+                      "description": "(Required) Account"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currency",
+                      "description": "(Required) Currency"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"currency\": \"BTC\",\n  \"balance\": 224.42937433331034,\n  \"available\": 3068.832848990335,\n  \"balance_local\": 325.2681034006055,\n  \"available_local\": 4023.9570329590533,\n  \"rate\": 7463.018749809601\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0078c966-03ca-466b-9947-a58ec6c3fe98",
+          "name": "Get a deposit address. Currently only crypto currencies are supported",
+          "request": {
+            "name": "Get a deposit address. Currently only crypto currencies are supported",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deposits",
+                ":currency"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currency",
+                  "description": "(Required) Currency"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "972d2d26-248f-4e06-9391-5f51a9fcd4b8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deposits",
+                    ":currency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currency",
+                      "description": "(Required) Currency"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"string\",\n  \"address\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32a3cc1b-d23a-4c33-93f7-27879cb3fcd8",
+          "name": "Get a list of deposits",
+          "request": {
+            "name": "Get a list of deposits",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deposits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fffc16fe-2529-4513-9159-4be8be333bde",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deposits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"depositId\": \"string\",\n    \"amount\": 4643.641828252234,\n    \"currency\": \"BTC\",\n    \"address\": \"string\",\n    \"state\": \"COMPLETED\",\n    \"txHash\": \"string\",\n    \"timestamp\": \"<long>\"\n  },\n  {\n    \"depositId\": \"string\",\n    \"amount\": 1605.2978791664862,\n    \"currency\": \"BTC\",\n    \"address\": \"string\",\n    \"state\": \"REJECTED\",\n    \"txHash\": \"string\",\n    \"timestamp\": \"<long>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0f93142e-ef7f-4c2f-8051-494d85a8c8d1",
+          "name": "Get status about a deposit",
+          "request": {
+            "name": "Get status about a deposit",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deposits",
+                ":depositId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "depositId",
+                  "description": "(Required) Deposit ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2bd0f106-85a0-42b9-8443-40d9f9556c73",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deposits",
+                    ":depositId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositId",
+                      "description": "(Required) Deposit ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"depositId\": \"string\",\n  \"amount\": 4630.751109358087,\n  \"currency\": \"BTC\",\n  \"address\": \"string\",\n  \"state\": \"REJECTED\",\n  \"txHash\": \"string\",\n  \"timestamp\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0497c24-97d9-43a2-9087-10d2ab594d87",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deposits",
+                    ":depositId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "depositId",
+                      "description": "(Required) Deposit ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1069fe3a-d084-43fb-9623-07d9abea45ef",
+          "name": "Get a list of all whitelisted withdrawal accounts",
+          "request": {
+            "name": "Get a list of all whitelisted withdrawal accounts",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "whitelist"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbccef24-55f9-4948-ab30-561aca73d303",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whitelist"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"whitelistId\": \"string\",\n    \"name\": \"string\",\n    \"currency\": \"BTC\"\n  },\n  {\n    \"whitelistId\": \"string\",\n    \"name\": \"string\",\n    \"currency\": \"BTC\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "473846c7-8f23-46f2-b4e6-c911a186cd76",
+          "name": "Get a list of all whitelisted withdrawal accounts",
+          "request": {
+            "name": "Get a list of all whitelisted withdrawal accounts",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "whitelist",
+                ":currency"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "currency",
+                  "description": "(Required) Currency"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbc6c233-5a32-4d4b-948e-84db612a1662",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "whitelist",
+                    ":currency"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "currency",
+                      "description": "(Required) Currency"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"whitelistId\": \"string\",\n    \"name\": \"string\",\n    \"currency\": \"BTC\"\n  },\n  {\n    \"whitelistId\": \"string\",\n    \"name\": \"string\",\n    \"currency\": \"BTC\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3b06df7-02bf-4f80-93e2-abf22ecafeab",
+          "name": "Get a list of withdrawals",
+          "request": {
+            "name": "Get a list of withdrawals",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "withdrawals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<long>",
+                  "description": "Epoch timestamp in ms"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c662160a-6e66-45ac-92c4-4bb0e3847bce",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "withdrawals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "<long>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<long>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"amount\": 5557.458560145726,\n    \"currency\": \"BTC\",\n    \"beneficiary\": \"string\",\n    \"withdrawalId\": \"string\",\n    \"fee\": 1809.8841597590897,\n    \"state\": \"PENDING\",\n    \"timestamp\": \"<long>\"\n  },\n  {\n    \"amount\": 2857.2948317330206,\n    \"currency\": \"BTC\",\n    \"beneficiary\": \"string\",\n    \"withdrawalId\": \"string\",\n    \"fee\": 27.542232204114114,\n    \"state\": \"COMPLETED\",\n    \"timestamp\": \"<long>\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd2988b0-5646-4e22-8eeb-4ac5fe48e3ce",
+          "name": "Request a withdrawal",
+          "request": {
+            "name": "Request a withdrawal",
+            "description": {
+              "content": "Call `GET /whitelist` first to retrieve the ID of the beneficiary. To add a beneficiary to the whitelist, please visit the profile page in the Exchange. This call only works if 2FA is enabled on the account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "withdrawals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currency\": \"<string>\",\n  \"beneficiary\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"sendMax\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb70e37e-9414-418e-b430-4134a0561a85",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "withdrawals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currency\": \"BTC\",\n  \"beneficiary\": \"<string>\",\n  \"amount\": \"<double>\",\n  \"sendMax\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<double>\",\n  \"currency\": \"BTC\",\n  \"beneficiary\": \"<string>\",\n  \"withdrawalId\": \"string\",\n  \"fee\": 4126.356838251814,\n  \"state\": \"PENDING\",\n  \"timestamp\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8f05591b-8444-4668-affc-687fb3ade48b",
+          "name": "Get status about a withdrawal",
+          "request": {
+            "name": "Get status about a withdrawal",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "withdrawals",
+                ":withdrawalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "withdrawalId",
+                  "description": "(Required) Withdrawal ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c331c9ab-4d79-4607-bbf7-60d6c132b94b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "withdrawals",
+                    ":withdrawalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "withdrawalId",
+                      "description": "(Required) Withdrawal ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"amount\": \"<double>\",\n  \"currency\": \"BTC\",\n  \"beneficiary\": \"<string>\",\n  \"withdrawalId\": \"string\",\n  \"fee\": 4126.356838251814,\n  \"state\": \"PENDING\",\n  \"timestamp\": \"<long>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "50a24ed8-072e-432e-afae-f19382d5beff",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "withdrawals",
+                    ":withdrawalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "withdrawalId",
+                      "description": "(Required) Withdrawal ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.com/v3/exchange",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95171ad4-721c-4d0d-92ac-2eccbd3706d6",
+    "name": "Blockchain.com Exchange REST Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\nWelcome to Blockchain.com's Exchange API and developer documentation. \\\nThese documents detail and give examples of various functionality offered by the API such as receiving real time market data, requesting balance information and performing trades.\n## To Get Started\nCreate or log into your existing Blockchain.com Exchange account \\\nSelect API from the drop down menu \\\nFill out form and click “Create New API Key Now” \\\nOnce generated you can view your keys under API Settings. \\\nPlease be aware that the API key can only be used once it was verified via email.\n\nThe API key must be set via the \\\n`X-API-Token`\\\nheader.\n\nThe base URL to be used for all calls is \\\n`https://api.blockchain.com/v3/exchange`\n\nAutogenerated clients for this API can be found [here](https://github.com/blockchain/lib-exchange-client).\n",
+      "type": "text/plain"
+    }
+  }
+}

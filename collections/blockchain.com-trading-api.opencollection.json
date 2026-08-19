@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blockchain.com Exchange REST Trading API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-Token",
+      "value": "{{X-API-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "trading",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current fee level",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/fees"
+          },
+          "docs": "Get current fee level"
+        },
+        {
+          "info": {
+            "name": "Get a list orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/orders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Only return results for this symbol"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Epoch timestamp in ms"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Epoch timestamp in ms"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Order Status"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. "
+              }
+            ]
+          },
+          "docs": "Returns live and historic orders, defaulting to live orders. Returns at most 100 results, use timestamp to paginate for further results"
+        },
+        {
+          "info": {
+            "name": "Add an order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.blockchain.com/v3/exchange/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add an order"
+        },
+        {
+          "info": {
+            "name": "Delete all open orders (of a symbol, if specified)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.blockchain.com/v3/exchange/orders",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete all open orders (of a symbol, if specified)"
+        },
+        {
+          "info": {
+            "name": "Get a specific order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order ID"
+              }
+            ]
+          },
+          "docs": "Get a specific order"
+        },
+        {
+          "info": {
+            "name": "Cancel a trade",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.blockchain.com/v3/exchange/orders/:orderId",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Order ID"
+              }
+            ]
+          },
+          "docs": "Cancel a trade"
+        },
+        {
+          "info": {
+            "name": "Get a list of filled orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.com/v3/exchange/trades",
+            "params": [
+              {
+                "name": "symbol",
+                "value": "",
+                "type": "query",
+                "description": "Only return results for this symbol"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Epoch timestamp in ms"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "Epoch timestamp in ms"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. "
+              }
+            ]
+          },
+          "docs": "Returns filled orders, including partial fills. Returns at most 100 results, use timestamp to paginate for further results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

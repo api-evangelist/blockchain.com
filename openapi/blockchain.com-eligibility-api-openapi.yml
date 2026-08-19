@@ -1,0 +1,280 @@
+openapi: 3.2.0
+info:
+  title: Blockchain.com Pay Partner Eligibility API
+  description: 'The Partner API enables Blockchain.com Pay partners to integrate crypto purchase flows
+
+    into their backends. It provides eligibility data (currencies, regions, payment methods),
+
+    real-time buy quotes, and order management.
+
+
+    All endpoints require the `X-Public-API-Key` header to identify the partner.
+
+    Order endpoints additionally require the `X-Private-API-Key` header.
+
+    '
+  termsOfService: ''
+  license:
+    name: ''
+    url: ''
+  version: '1.0'
+servers:
+- url: https://api.blockchain.info/partner-gateway/partner-api
+  description: Production
+tags:
+- name: Eligibility
+  description: Available currencies, regions, and payment methods for the partner account.
+paths:
+  /v1/currencies:
+    get:
+      summary: Get currencies
+      description: Returns an array of all currencies enabled on your account. Contact your account executive to customise your account settings.
+      operationId: GetCurrencies
+      tags:
+      - Eligibility
+      security:
+      - PublicApiKeyAuth: []
+      - PrivateApiKeyAuth: []
+      responses:
+        '200':
+          description: List of fiat and crypto currencies available for trading.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Currency'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /v1/regions:
+    get:
+      summary: Get countries and states
+      description: Returns an array of all countries and states supported by BcPay.
+      operationId: GetRegions
+      tags:
+      - Eligibility
+      security:
+      - PublicApiKeyAuth: []
+      - PrivateApiKeyAuth: []
+      parameters:
+      - name: onlyBuyAllowed
+        in: query
+        description: If true, only returns countries and states where buying is permitted.
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: Eligible regions.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - countries
+                - usStates
+                properties:
+                  countries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Country'
+                  usStates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UsState'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /v1/payment-methods:
+    get:
+      summary: Get payment methods
+      description: Returns an array of all payment methods enabled on your account. Contact your account executive to customise your account settings.
+      operationId: GetPaymentMethods
+      tags:
+      - Eligibility
+      security:
+      - PublicApiKeyAuth: []
+      - PrivateApiKeyAuth: []
+      responses:
+        '200':
+          description: List of eligible payment methods and their supported currencies.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PartnerPaymentMethodResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+components:
+  schemas:
+    PartnerPaymentMethodResponse:
+      type: object
+      required:
+      - type
+      - supportedCurrencies
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+          description: Payment method type.
+        supportedCurrencies:
+          type: array
+          description: Fiat currency codes supported for this payment method.
+          items:
+            type: string
+      example:
+      - type: CARD
+        supportedCurrencies:
+        - USD
+        - GBP
+        - EUR
+    Currency:
+      type: object
+      required:
+      - type
+      - name
+      - code
+      - precision
+      properties:
+        type:
+          type: string
+          description: Whether this is a fiat or crypto currency.
+          enum:
+          - FIAT
+          - CRYPTO
+          example: FIAT
+        name:
+          type: string
+          description: Full name of the currency.
+          example: US Dollar
+        code:
+          type: string
+          description: Alphabetical ticker code for the currency. Case sensitive.
+          example: USD
+        precision:
+          type: integer
+          description: Number of decimal places supported. For example, BTC has precision 8 (smallest unit 0.00000001 BTC).
+          example: 2
+        minBuyAmount:
+          type: string
+          description: Minimum fiat amount allowed per order. Only present for fiat currencies.
+          example: '20.00'
+        maxBuyAmount:
+          type: string
+          description: Maximum fiat amount allowed per order. Only present for fiat currencies.
+          example: '1200.00'
+        network:
+          type: string
+          description: The blockchain network the currency runs on (e.g. BTC, ETH). Always null for fiat.
+          example: BTC
+        supportsDestinationTag:
+          type: boolean
+          description: Whether the currency supports destination tags or memo fields (e.g. XLM, XRP). Always null for fiat.
+        isSupportedInUS:
+          type: boolean
+          description: Whether purchases of this currency are supported in the US. Always null for fiat.
+        allowedUSStates:
+          type: array
+          description: US states where this currency can be purchased, using the last 2 characters of ISO 3166-2:US codes. Always null for fiat.
+          items:
+            type: string
+            minLength: 2
+            maxLength: 2
+          example:
+          - AL
+          - CT
+    UsState:
+      type: object
+      required:
+      - alpha2
+      - isBuyAllowed
+      - name
+      properties:
+        alpha2:
+          type: string
+          description: ISO 3166-2:US state code (last 2 characters), e.g. `CA`.
+          minLength: 2
+          maxLength: 2
+          example: CA
+        isBuyAllowed:
+          type: boolean
+          description: Whether residents of this state can buy crypto.
+          example: true
+        name:
+          type: string
+          description: State name in English.
+          example: California
+    Country:
+      type: object
+      required:
+      - alpha2
+      - alpha3
+      - isBuyAllowed
+      - name
+      properties:
+        alpha2:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          minLength: 2
+          maxLength: 2
+          example: US
+        alpha3:
+          type: string
+          description: ISO 3166-1 alpha-3 country code.
+          minLength: 3
+          maxLength: 3
+          example: USA
+        isBuyAllowed:
+          type: boolean
+          description: Whether residents of this country can buy cryptocurrencies.
+          example: true
+        name:
+          type: string
+          description: Country name in English.
+          example: United States
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
+    Error:
+      type: object
+      required:
+      - type
+      - message
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type.
+          example: RequestValidation.BadRequest.MissingParam
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
+  responses:
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  securitySchemes:
+    PublicApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Public-API-Key
+      description: Partner's public API key. Required on all endpoints to identify the partner.
+    PrivateApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Private-API-Key
+      description: Partner's private API key. Required on order endpoints; indicates a server-to-server call.

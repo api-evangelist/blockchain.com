@@ -1,0 +1,260 @@
+{
+  "item": [
+    {
+      "id": "0768085d-c900-448e-a6e7-4874b9517dff",
+      "name": "nft_v2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1fb2c354-01dd-485a-8882-53ad42725a19",
+          "name": "Get an NFT asset.",
+          "request": {
+            "name": "Get an NFT asset.",
+            "description": {
+              "content": "Used to fetch the details of an individual asset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "nft",
+                "v2",
+                "asset",
+                ":network",
+                ":contract_address",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "contract_address",
+                  "description": "(Required) The contract address of the asset."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "network",
+                  "description": "(Required) The blockchain network used."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "token_id",
+                  "description": "(Required) The token ID of the asset."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3bf267a8-968d-4ad6-b29e-a3a7025f1c57",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "nft",
+                    "v2",
+                    "asset",
+                    ":network",
+                    ":contract_address",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "contract_address",
+                      "description": "(Required) The contract address of the asset."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "network",
+                      "description": "(Required) The blockchain network used."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "token_id",
+                      "description": "(Required) The token ID of the asset."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a70c6e07-9b18-44db-9892-c1ef5a2824e6",
+          "name": "Get NFT assets owned by an address.",
+          "request": {
+            "name": "Get NFT assets owned by an address.",
+            "description": {
+              "content": "Used to fetch assets owned by a particular address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "public",
+                "nft",
+                "v2",
+                "account_assets",
+                ":owner_address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "For pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "network",
+                  "value": "<string>",
+                  "description": "The blockchain network symbol (eg ETH). Comma-separated for multiple. Omission defaults to all networks."
+                },
+                {
+                  "disabled": false,
+                  "key": "provider",
+                  "value": "<string>",
+                  "description": "The data provider to query."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_address",
+                  "description": "(Required) The address to get assets from"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3de63f71-0594-4fdf-9f10-ce8893609911",
+              "name": "Default Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "public",
+                    "nft",
+                    "v2",
+                    "account_assets",
+                    ":owner_address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "network",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "provider",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_address",
+                      "description": "(Required) The address to get assets from"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.info/nft-market-api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a4c179f9-6527-4c92-9fdf-646612bf6c20",
+    "name": "NFT Market Nft V2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Backend service for NFT market data.",
+      "type": "text/plain"
+    }
+  }
+}

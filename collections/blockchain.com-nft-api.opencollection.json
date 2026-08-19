@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Market Nft API",
+    "version": "1.0.12"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "nft",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an NFT assets owned by an address.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/account_assets/:owner_address",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The page of assets to get. Default to 0"
+              },
+              {
+                "name": "owner_address",
+                "value": "",
+                "type": "path",
+                "description": "The address to get assets from"
+              }
+            ]
+          },
+          "docs": "Used to fetch assets owned by a particular address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

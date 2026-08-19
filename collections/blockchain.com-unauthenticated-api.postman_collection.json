@@ -1,0 +1,685 @@
+{
+  "item": [
+    {
+      "id": "b5d6e0a6-f931-472e-ab54-69d9ef47a390",
+      "name": "unauthenticated",
+      "description": {
+        "content": "Retrieve current prices and markets",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55c64bf8-ceca-45ad-91e9-29173a5eefe1",
+          "name": "L2 Order Book",
+          "request": {
+            "name": "L2 Order Book",
+            "description": {
+              "content": "Level 2 Order Book data is available through the l2 channel. Each entry in bids and asks arrays is a price level, along with its price (px), quantity (qty) and number of orders (num) attributes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "l2",
+                ":symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b81c5be4-06cb-4619-bb3e-f4ad732ca8a4",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "l2",
+                    ":symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"BTC-USD\",\n  \"bids\": [\n    {\n      \"px\": 4027.319648571219,\n      \"qty\": 7800.300533002246,\n      \"num\": 1501\n    },\n    {\n      \"px\": 5831.269807506755,\n      \"qty\": 241.78694061565585,\n      \"num\": 356\n    }\n  ],\n  \"asks\": [\n    {\n      \"px\": 863.9064925972584,\n      \"qty\": 9798.324464249208,\n      \"num\": 1291\n    },\n    {\n      \"px\": 8374.822416227613,\n      \"qty\": 5473.39515969677,\n      \"num\": 8354\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a75ee314-c19f-4e8a-a3e2-30afe5475042",
+          "name": "L3 Order Book",
+          "request": {
+            "name": "L3 Order Book",
+            "description": {
+              "content": "Level 3 Order Book data is available through the l3 channel. Each entry in bids and asks arrays is an order, along with its id (id), price (px) and quantity (qty) attributes. In contrast to the L2 order book, the L3 order book contains all individual orders without aggregation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "l3",
+                ":symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5164369e-65c0-4203-95db-4d5f0ec3a50e",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "l3",
+                    ":symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"BTC-USD\",\n  \"bids\": [\n    {\n      \"px\": 3157.4534002364317,\n      \"qty\": 9008.67311901196,\n      \"num\": 1113\n    },\n    {\n      \"px\": 8443.541213867444,\n      \"qty\": 9191.973598195058,\n      \"num\": 5499\n    }\n  ],\n  \"asks\": [\n    {\n      \"px\": 3784.3436788410713,\n      \"qty\": 7519.136316087203,\n      \"num\": 1207\n    },\n    {\n      \"px\": 8508.502673567295,\n      \"qty\": 830.1686373572148,\n      \"num\": 3128\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "82593802-385f-48c7-8746-7b812fe54ff9",
+          "name": "Price",
+          "request": {
+            "name": "Price",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tickers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a2d22da2-93f7-4fa2-b395-7a2f94821ef2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tickers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"symbol\": \"BTC-USD\",\n    \"price_24h\": 3371.287273809048,\n    \"volume_24h\": 4639.40563334282,\n    \"last_trade_price\": 5706.276701808336\n  },\n  {\n    \"symbol\": \"BTC-USD\",\n    \"price_24h\": 8644.959015297187,\n    \"volume_24h\": 5790.382441002275,\n    \"last_trade_price\": 6204.427578590686\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "167b1c0a-4244-452a-a947-c79843aeb7fe",
+          "name": "Price",
+          "request": {
+            "name": "Price",
+            "description": {
+              "content": "",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tickers",
+                ":symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4868bb52-e74f-4388-8d5b-4132c88c445c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tickers",
+                    ":symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"symbol\": \"BTC-USD\",\n  \"price_24h\": 6714.202378281968,\n  \"volume_24h\": 4729.765701497775,\n  \"last_trade_price\": 8499.735456617795\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed23903b-0ca0-42b3-8003-53eec392689a",
+          "name": "Symbols",
+          "request": {
+            "name": "Symbols",
+            "description": {
+              "content": "When the symbol is not halted the auction data in the message may be blank.\nWhen a symbol is in a halt state the auction data will populate as the book builds. When an opening time has been chosen, the auction-time field will show the opening time. Subsequent updates will be sent only if the symbol status changes in any way.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "symbols"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "534ef3a4-ed85-415c-9a81-ce50ba134b4f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "symbols"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"base_currency\": \"BTC-USD\",\n    \"base_currency_scale\": 8,\n    \"counter_currency\": \"BTC-USD\",\n    \"counter_currency_scale\": 2,\n    \"min_price_increment\": 10,\n    \"min_price_increment_scale\": 0,\n    \"min_order_size\": 10,\n    \"min_order_size_scale\": 2,\n    \"max_order_size\": 0,\n    \"max_order_size_scale\": 8,\n    \"lot_size\": 5,\n    \"lot_size_scale\": 2,\n    \"status\": \"open\",\n    \"id\": 1,\n    \"auction_price\": 0,\n    \"auction_size\": 0,\n    \"auction_time\": \"1530\",\n    \"imbalance\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "000affe3-da76-43a1-9f06-67b08bbd5729",
+          "name": "Symbols",
+          "request": {
+            "name": "Symbols",
+            "description": {
+              "content": "When the symbol is not halted the auction data in the message may be blank.\nWhen a symbol is in a halt state the auction data will populate as the book builds. When an opening time has been chosen, the auction-time field will show the opening time. Subsequent updates will be sent only if the symbol status changes in any way.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "symbols",
+                ":symbol"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "symbol",
+                  "description": "(Required) Symbol"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5161bbc5-77b8-42ec-8f95-ee781e33e80a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "symbols",
+                    ":symbol"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "symbol",
+                      "description": "(Required) Symbol"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"base_currency\": \"BTC-USD\",\n  \"base_currency_scale\": 8,\n  \"counter_currency\": \"BTC-USD\",\n  \"counter_currency_scale\": 2,\n  \"min_price_increment\": 10,\n  \"min_price_increment_scale\": 0,\n  \"min_order_size\": 10,\n  \"min_order_size_scale\": 2,\n  \"max_order_size\": 0,\n  \"max_order_size_scale\": 8,\n  \"lot_size\": 5,\n  \"lot_size_scale\": 2,\n  \"status\": \"suspend\",\n  \"id\": 1,\n  \"auction_price\": 0,\n  \"auction_size\": 0,\n  \"auction_time\": \"1530\",\n  \"imbalance\": 0\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.com/v3/exchange",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2e270887-72a2-4380-b225-97c814990ecf",
+    "name": "Blockchain.com Exchange REST Unauthenticated API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Introduction\nWelcome to Blockchain.com's Exchange API and developer documentation. \\\nThese documents detail and give examples of various functionality offered by the API such as receiving real time market data, requesting balance information and performing trades.\n## To Get Started\nCreate or log into your existing Blockchain.com Exchange account \\\nSelect API from the drop down menu \\\nFill out form and click “Create New API Key Now” \\\nOnce generated you can view your keys under API Settings. \\\nPlease be aware that the API key can only be used once it was verified via email.\n\nThe API key must be set via the \\\n`X-API-Token`\\\nheader.\n\nThe base URL to be used for all calls is \\\n`https://api.blockchain.com/v3/exchange`\n\nAutogenerated clients for this API can be found [here](https://github.com/blockchain/lib-exchange-client).\n",
+      "type": "text/plain"
+    }
+  }
+}

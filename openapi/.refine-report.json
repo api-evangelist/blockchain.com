@@ -1,0 +1,41 @@
+{
+  "provider": "blockchain.com",
+  "sources": [
+    "blockchain.com-eligibility-api-openapi.yml",
+    "blockchain.com-nft-api-openapi.yml",
+    "blockchain.com-nft-v2-api-openapi.yml",
+    "blockchain.com-orders-api-openapi.yml",
+    "blockchain.com-payments-api-openapi.yml",
+    "blockchain.com-public-api-openapi.yml",
+    "blockchain.com-quote-api-openapi.yml",
+    "blockchain.com-trading-api-openapi.yml",
+    "blockchain.com-unauthenticated-api-openapi.yml"
+  ],
+  "outputs": [
+    "blockchain.com-eligibility-api-openapi.yml",
+    "blockchain.com-nft-api-openapi.yml",
+    "blockchain.com-nft-v2-api-openapi.yml",
+    "blockchain.com-orders-api-openapi.yml",
+    "blockchain.com-payments-api-openapi.yml",
+    "blockchain.com-public-api-openapi.yml",
+    "blockchain.com-quote-api-openapi.yml",
+    "blockchain.com-trading-api-openapi.yml",
+    "blockchain.com-unauthenticated-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "blockchain.com-eligibility-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "blockchain.com-nft-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "blockchain.com-nft-v2-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "blockchain.com-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "blockchain.com-payments-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "blockchain.com-public-api-openapi.yml: upgraded swagger 2.0 -> OpenAPI 3.2.0",
+    "blockchain.com-quote-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "blockchain.com-trading-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "blockchain.com-unauthenticated-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

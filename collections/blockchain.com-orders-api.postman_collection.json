@@ -1,0 +1,489 @@
+{
+  "item": [
+    {
+      "id": "b3ecefa2-6124-4508-819d-53e40da89606",
+      "name": "Orders",
+      "description": {
+        "content": "Order listing and lookup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "36e31cbc-6b76-44d6-970c-cb726833a0da",
+          "name": "Get orders",
+          "request": {
+            "name": "Get orders",
+            "description": {
+              "content": "Returns either:\n- A list of recent orders, limited to a maximum of 50 orders, sorted by descending creation date.\n- If `externalReference` is provided, returns all orders matching that reference.\n- If `walletAddress` is provided, returns all orders for that wallet address.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "The number of orders to return. Default and maximum is 50. Ignored when `externalReference` is provided."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "The number of orders to skip. Use together with `limit` for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "externalReference",
+                  "value": "<string>",
+                  "description": "External reference of the order(s) set by the partner."
+                },
+                {
+                  "disabled": false,
+                  "key": "walletAddress",
+                  "value": "<string>",
+                  "description": "User wallet address."
+                },
+                {
+                  "disabled": false,
+                  "key": "outputCurrency",
+                  "value": "<string>",
+                  "description": "Filter by output (crypto) currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "from",
+                  "value": "<date>",
+                  "description": "Start of the date range, inclusive. Format: `YYYY-MM-DD`."
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<date>",
+                  "description": "End of the date range, exclusive. Format: `YYYY-MM-DD`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Private-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "730a0103-64bc-42c6-a3bd-4b38a105c7b5",
+              "name": "List of orders.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "20"
+                    },
+                    {
+                      "key": "externalReference",
+                      "value": "external_order_id"
+                    },
+                    {
+                      "key": "walletAddress",
+                      "value": "bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu"
+                    },
+                    {
+                      "key": "outputCurrency",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2024-10-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2024-10-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Private-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"orderId\": \"f41a3e45-6392-457c-8566-a282b5f3e177\",\n    \"orderType\": \"BUY\",\n    \"createdAt\": \"2024-10-01T12:00:00Z\",\n    \"orderState\": \"COMPLETED\",\n    \"orderStateUpdatedAt\": \"2024-10-01T13:00:00Z\",\n    \"paymentMethod\": \"CARD\",\n    \"inputCurrency\": \"USD\",\n    \"inputAmount\": \"100.00\",\n    \"outputCurrency\": \"BTC\",\n    \"outputAmount\": \"0.001\",\n    \"amountUsd\": \"100.00\",\n    \"processingFee\": \"1.00\",\n    \"processingFeeUsd\": \"1.00\",\n    \"partnerFee\": \"0.50\",\n    \"partnerFeeUsd\": \"0.50\",\n    \"networkFee\": \"1.50\",\n    \"networkFeeUsd\": \"1.50\",\n    \"userId\": \"2b6f0cc9-7b0c-4f3b-8f3b-6f0cc97b0c4f\",\n    \"targetWalletAddress\": \"bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu\",\n    \"externalReference\": \"your_order_id\",\n    \"subPartnerId\": \"your_sub_partner_id\",\n    \"transactionHash\": \"4b1549abe58cface17d400bf50ff0fe0c2e2ca8121f4e3764d807dc841a2ab80\"\n  },\n  {\n    \"orderId\": \"f41a3e45-6392-457c-8566-a282b5f3e177\",\n    \"orderType\": \"BUY\",\n    \"createdAt\": \"2024-10-01T12:00:00Z\",\n    \"orderState\": \"COMPLETED\",\n    \"orderStateUpdatedAt\": \"2024-10-01T13:00:00Z\",\n    \"paymentMethod\": \"CARD\",\n    \"inputCurrency\": \"USD\",\n    \"inputAmount\": \"100.00\",\n    \"outputCurrency\": \"BTC\",\n    \"outputAmount\": \"0.001\",\n    \"amountUsd\": \"100.00\",\n    \"processingFee\": \"1.00\",\n    \"processingFeeUsd\": \"1.00\",\n    \"partnerFee\": \"0.50\",\n    \"partnerFeeUsd\": \"0.50\",\n    \"networkFee\": \"1.50\",\n    \"networkFeeUsd\": \"1.50\",\n    \"userId\": \"2b6f0cc9-7b0c-4f3b-8f3b-6f0cc97b0c4f\",\n    \"targetWalletAddress\": \"bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu\",\n    \"externalReference\": \"your_order_id\",\n    \"subPartnerId\": \"your_sub_partner_id\",\n    \"transactionHash\": \"4b1549abe58cface17d400bf50ff0fe0c2e2ca8121f4e3764d807dc841a2ab80\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "865b772e-63bb-48ac-8ae4-da5109c03c04",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "20"
+                    },
+                    {
+                      "key": "externalReference",
+                      "value": "external_order_id"
+                    },
+                    {
+                      "key": "walletAddress",
+                      "value": "bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu"
+                    },
+                    {
+                      "key": "outputCurrency",
+                      "value": "BTC"
+                    },
+                    {
+                      "key": "from",
+                      "value": "2024-10-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2024-10-02"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Private-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91550ec2-d3fa-4d2a-9513-377569572127",
+          "name": "Get order by id",
+          "request": {
+            "name": "Get order by id",
+            "description": {
+              "content": "Returns order details for the given order id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "orders",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier of the order."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Private-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "763e028f-0ddb-4892-a095-96b3e494c419",
+              "name": "Order details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Private-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orderId\": \"f41a3e45-6392-457c-8566-a282b5f3e177\",\n  \"orderType\": \"BUY\",\n  \"createdAt\": \"2024-10-01T12:00:00Z\",\n  \"orderState\": \"COMPLETED\",\n  \"orderStateUpdatedAt\": \"2024-10-01T13:00:00Z\",\n  \"paymentMethod\": \"CARD\",\n  \"inputCurrency\": \"USD\",\n  \"inputAmount\": \"100.00\",\n  \"outputCurrency\": \"BTC\",\n  \"outputAmount\": \"0.001\",\n  \"amountUsd\": \"100.00\",\n  \"processingFee\": \"1.00\",\n  \"processingFeeUsd\": \"1.00\",\n  \"partnerFee\": \"0.50\",\n  \"partnerFeeUsd\": \"0.50\",\n  \"networkFee\": \"1.50\",\n  \"networkFeeUsd\": \"1.50\",\n  \"userId\": \"2b6f0cc9-7b0c-4f3b-8f3b-6f0cc97b0c4f\",\n  \"targetWalletAddress\": \"bc1q897va9he4zcppqgp3h7ue8hj7448ra0mr6xqtu\",\n  \"externalReference\": \"your_order_id\",\n  \"subPartnerId\": \"your_sub_partner_id\",\n  \"transactionHash\": \"4b1549abe58cface17d400bf50ff0fe0c2e2ca8121f4e3764d807dc841a2ab80\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9ae06b5-a962-448c-b261-7d3789629152",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Private-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b10a113-b825-4e5a-bdfe-7810a76f0d59",
+              "name": "Order not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "orders",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier of the order."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Private-API-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.info/partner-gateway/partner-api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "439c99e5-f9ea-4ba0-8bc3-b1d86bd03e64",
+    "name": "Blockchain.com Pay Partner Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Partner API enables Blockchain.com Pay partners to integrate crypto purchase flows\ninto their backends. It provides eligibility data (currencies, regions, payment methods),\nreal-time buy quotes, and order management.\n\nAll endpoints require the `X-Public-API-Key` header to identify the partner.\nOrder endpoints additionally require the `X-Private-API-Key` header.\n",
+      "type": "text/plain"
+    }
+  }
+}

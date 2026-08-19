@@ -1,27 +1,22 @@
 generated: '2026-08-02'
 method: derived
-source: >-
-  openapi/blockchain.com-exchange-openapi.yml,
-  openapi/blockchain.com-pay-partner-api-openapi.yml
+source: openapi/blockchain.com-exchange-openapi.yml, openapi/blockchain.com-pay-partner-api-openapi.yml
 status: candidate
-summary: >-
-  No official hosted, remote or local Model Context Protocol server was found for
-  Blockchain.com. Searched the developer docs (api.blockchain.com/v3,
-  docs.blockchain.com, exchange.blockchain.com/api), the github.com/blockchain
-  organization (64 repositories), npm under @modelcontextprotocol and the public
-  MCP directories. The third-party "blockchain" MCP servers that surface in search
-  belong to other vendors (Tatum, thirdweb and similar) and are not
-  Blockchain.com projects. The candidate tool set below is DERIVED from the
-  published OpenAPI operations as a proposal only — it is not published by
-  Blockchain.com, and no MCPServer pointer is wired into apis.yml.
+summary: No official hosted, remote or local Model Context Protocol server was found for Blockchain.com.
+  Searched the developer docs (api.blockchain.com/v3, docs.blockchain.com, exchange.blockchain.com/api),
+  the github.com/blockchain organization (64 repositories), npm under @modelcontextprotocol and the public
+  MCP directories. The third-party "blockchain" MCP servers that surface in search belong to other vendors
+  (Tatum, thirdweb and similar) and are not Blockchain.com projects. The candidate tool set below is DERIVED
+  from the published OpenAPI operations as a proposal only — it is not published by Blockchain.com, and
+  no MCPServer pointer is wired into apis.yml.
 server: null
 transport: null
 auth:
   type: apiKey
   headers:
-  - X-API-Token          # Exchange REST API
-  - X-Public-API-Key     # Pay Partner API, all endpoints
-  - X-Private-API-Key    # Pay Partner API, order endpoints
+  - X-API-Token
+  - X-Public-API-Key
+  - X-Private-API-Key
 candidate_tools:
 - name: list_symbols
   maps_to: GET /symbols
@@ -177,3 +172,8 @@ coverage:
   candidate_tools: 29
   unmapped_operations:
   - openapi/blockchain.com-nft-market-api-swagger.json (6 duplicate trailing-slash paths, 3 distinct operations)
+deployment:
+  mode: none
+  verified: derived
+  checked: '2026-08-12'
+  source: catalog MCP census

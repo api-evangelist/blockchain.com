@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Blockchain.com Pay Partner Quote API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quote",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get buy quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/partner-gateway/partner-api/v1/quote/buy",
+            "params": [
+              {
+                "name": "quoteCurrencyCode",
+                "value": "USD",
+                "type": "query",
+                "description": "The fiat currency to buy with."
+              },
+              {
+                "name": "baseCurrencyCode",
+                "value": "BTC",
+                "type": "query",
+                "description": "The crypto currency to buy."
+              },
+              {
+                "name": "quoteCurrencyAmount",
+                "value": "100.00",
+                "type": "query",
+                "description": "The fiat amount the customer wants to spend. Must be a positive decimal with precision no higher than the currency precision."
+              },
+              {
+                "name": "paymentMethod",
+                "value": "",
+                "type": "query",
+                "description": "Payment method to be used for the order. If omitted, the quote will not factor in payment method fees."
+              },
+              {
+                "name": "countryCode",
+                "value": "US",
+                "type": "query",
+                "description": "ISO 3166-1 alpha-2 country code, e.g. `US`."
+              },
+              {
+                "name": "usStateCode",
+                "value": "AL",
+                "type": "query",
+                "description": "US state code, e.g. `AL`. Ignored if `countryCode` is not `US`."
+              },
+              {
+                "name": "walletAddress",
+                "value": "",
+                "type": "query",
+                "description": "The wallet address where the user wants to receive the crypto."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Public-API-Key",
+              "value": "{{X-Public-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a real-time buy quote for a currency pair.\nSupply `quoteCurrencyCode`, `baseCurrencyCode`, and `quoteCurrencyAmount` (fiat amount) to get a\ndetailed buy quote including fees and the amount of crypto the user will receive."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

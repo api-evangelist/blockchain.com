@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "8e8a434e-eddc-4745-ae6e-4e25f3874911",
+      "name": "Eligibility",
+      "description": {
+        "content": "Available currencies, regions, and payment methods for the partner account.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1cd100ea-1c64-4dc5-a622-a4736ac3175a",
+          "name": "Get currencies",
+          "request": {
+            "name": "Get currencies",
+            "description": {
+              "content": "Returns an array of all currencies enabled on your account. Contact your account executive to customise your account settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "currencies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Public-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f7913c54-39b6-45de-8ba2-0b8084f2d6fc",
+              "name": "List of fiat and crypto currencies available for trading.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "currencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"FIAT\",\n    \"name\": \"US Dollar\",\n    \"code\": \"USD\",\n    \"precision\": 2,\n    \"minBuyAmount\": \"20.00\",\n    \"maxBuyAmount\": \"1200.00\",\n    \"network\": \"BTC\",\n    \"supportsDestinationTag\": false,\n    \"isSupportedInUS\": false,\n    \"allowedUSStates\": [\n      \"AL\",\n      \"CT\"\n    ]\n  },\n  {\n    \"type\": \"FIAT\",\n    \"name\": \"US Dollar\",\n    \"code\": \"USD\",\n    \"precision\": 2,\n    \"minBuyAmount\": \"20.00\",\n    \"maxBuyAmount\": \"1200.00\",\n    \"network\": \"BTC\",\n    \"supportsDestinationTag\": true,\n    \"isSupportedInUS\": true,\n    \"allowedUSStates\": [\n      \"AL\",\n      \"CT\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ff5f4f0-4a02-468d-8b5c-81b5356d63f1",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "currencies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e31683c-ef1a-46dc-924c-e45b1904dd17",
+          "name": "Get countries and states",
+          "request": {
+            "name": "Get countries and states",
+            "description": {
+              "content": "Returns an array of all countries and states supported by BcPay.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "regions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "onlyBuyAllowed",
+                  "value": "true",
+                  "description": "If true, only returns countries and states where buying is permitted."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Public-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "762c3b7d-77bf-4545-8f65-a59597b35e83",
+              "name": "Eligible regions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "onlyBuyAllowed",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"countries\": [\n    {\n      \"alpha2\": \"US\",\n      \"alpha3\": \"USA\",\n      \"isBuyAllowed\": true,\n      \"name\": \"United States\"\n    },\n    {\n      \"alpha2\": \"US\",\n      \"alpha3\": \"USA\",\n      \"isBuyAllowed\": true,\n      \"name\": \"United States\"\n    }\n  ],\n  \"usStates\": [\n    {\n      \"alpha2\": \"CA\",\n      \"isBuyAllowed\": true,\n      \"name\": \"California\"\n    },\n    {\n      \"alpha2\": \"CA\",\n      \"isBuyAllowed\": true,\n      \"name\": \"California\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f33862b0-b24c-4e20-a077-c3e69596092b",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "onlyBuyAllowed",
+                      "value": "true"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73a5db06-70e9-4a7b-8719-d7338f410d79",
+          "name": "Get payment methods",
+          "request": {
+            "name": "Get payment methods",
+            "description": {
+              "content": "Returns an array of all payment methods enabled on your account. Contact your account executive to customise your account settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Public-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9e23555f-7ea1-4712-b0bb-74e66ac05708",
+              "name": "List of eligible payment methods and their supported currencies.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"type\": \"CARD\",\n    \"supportedCurrencies\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"type\": \"CARD\",\n    \"supportedCurrencies\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a6c745a-9eed-4da8-9945-e47c977a776c",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Public-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    },\n    {\n      \"type\": \"RequestValidation.BadRequest.MissingParam\",\n      \"message\": \"Missing parameter 'quoteCurrencyCode'. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.blockchain.info/partner-gateway/partner-api",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cb56444c-1180-4bdf-8301-92b1e1b34521",
+    "name": "Blockchain.com Pay Partner Eligibility API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Partner API enables Blockchain.com Pay partners to integrate crypto purchase flows\ninto their backends. It provides eligibility data (currencies, regions, payment methods),\nreal-time buy quotes, and order management.\n\nAll endpoints require the `X-Public-API-Key` header to identify the partner.\nOrder endpoints additionally require the `X-Private-API-Key` header.\n",
+      "type": "text/plain"
+    }
+  }
+}

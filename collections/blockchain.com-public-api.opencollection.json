@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "NFT Market Public API",
+    "version": "1.0.12"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Public",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "GET /public/nft/account_assets/{owner_address}/",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/account_assets/:owner_address/"
+          }
+        },
+        {
+          "info": {
+            "name": "GET /public/nft/v2/account_assets/{owner_address}/",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/v2/account_assets/:owner_address/"
+          }
+        },
+        {
+          "info": {
+            "name": "GET /public/nft/v2/asset/{network}/{contract_address}/{token_id}/",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.blockchain.info/nft-market-api/public/nft/v2/asset/:network/:contract_address/:token_id/"
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
