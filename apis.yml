@@ -22,6 +22,19 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
+- Cryptocurrency
+- Bitcoin
+- Blockchain
+- Exchange
+- Trading
+- Market Data
+- Payments
+- On-Ramp
+- Wallets
+- Block Explorer
+- Fintech
+- Webhook
+tags_raw:
 - cryptocurrency
 - bitcoin
 - blockchain
@@ -48,6 +61,12 @@ apis:
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
+  - Cryptocurrency
+  - Exchange
+  - Trading
+  - Streaming
+  - WebSocket
+  tags_raw:
   - cryptocurrency
   - exchange
   - trading
@@ -67,6 +86,11 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/blockchain_api
   baseURL: https://blockchain.info
   tags:
+  - Bitcoin
+  - Blockchain
+  - Block Explorer
+  - Market Data
+  tags_raw:
   - bitcoin
   - blockchain
   - block-explorer
@@ -81,6 +105,10 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/q
   baseURL: https://blockchain.info/q
   tags:
+  - Bitcoin
+  - Blockchain
+  - Block Explorer
+  tags_raw:
   - bitcoin
   - blockchain
   - block-explorer
@@ -94,6 +122,10 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/exchange_rates_api
   baseURL: https://blockchain.info/ticker
   tags:
+  - Market Data
+  - Cryptocurrency
+  - Bitcoin
+  tags_raw:
   - market-data
   - cryptocurrency
   - bitcoin
@@ -107,6 +139,11 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/charts_api
   baseURL: https://api.blockchain.info/charts
   tags:
+  - Market Data
+  - Blockchain
+  - Bitcoin
+  - Statistics
+  tags_raw:
   - market-data
   - blockchain
   - bitcoin
@@ -121,6 +158,11 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/api_websocket
   baseURL: wss://ws.blockchain.info/inv
   tags:
+  - Bitcoin
+  - Blockchain
+  - Streaming
+  - WebSocket
+  tags_raw:
   - bitcoin
   - blockchain
   - streaming
@@ -138,6 +180,10 @@ apis:
   humanURL: https://api.blockchain.com/nft-market-api/documentation/
   baseURL: https://api.blockchain.com/nft-market-api
   tags:
+  - NFT
+  - Blockchain
+  - Market Data
+  tags_raw:
   - nft
   - blockchain
   - market-data
@@ -154,6 +200,11 @@ apis:
   humanURL: https://docs.blockchain.com/oauth-resources
   baseURL: https://api.blockchain.info/partner-resource-gateway
   tags:
+  - Authentication
+  - Wallets
+  - Cryptocurrency
+  - Fintech
+  tags_raw:
   - oauth
   - wallet
   - cryptocurrency
@@ -173,6 +224,10 @@ apis:
   humanURL: https://github.com/blockchain/service-my-wallet-v3
   baseURL: https://api.blockchain.info/v2
   tags:
+  - Wallets
+  - Payments
+  - Bitcoin
+  tags_raw:
   - wallet
   - payments
   - bitcoin
@@ -221,6 +276,8 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
+  - NFT
+  tags_raw:
   - nft
   properties:
   - type: OpenAPI
@@ -254,7 +311,8 @@ apis:
   description: The nft_v2 API from Blockchain.com — 2 operation(s) for nft_v2.
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
-  tags:
+  tags: []
+  tags_raw:
   - nft_v2
   properties:
   - type: OpenAPI
@@ -289,6 +347,8 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -323,6 +383,8 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
+  - Payments
+  tags_raw:
   - payments
   properties:
   - type: OpenAPI
@@ -391,6 +453,8 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
+  - Quotes
+  tags_raw:
   - Quote
   properties:
   - type: OpenAPI
@@ -425,6 +489,8 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
+  - Trading
+  tags_raw:
   - trading
   properties:
   - type: OpenAPI
