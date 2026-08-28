@@ -14,6 +14,19 @@ description: >-
   WebSocket notification stream, an NFT Market API, and the open-source Wallet
   API service (service-my-wallet-v3) with first-party client libraries for
   Python, Node.js, Ruby, PHP and Java.
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: true
+  callable_host: true
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - pricing
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 image: https://www.blockchain.com/static/apple-touch-icon.png
 url: https://raw.githubusercontent.com/api-evangelist/blockchain.com/refs/heads/main/apis.yml
 x-type: company
