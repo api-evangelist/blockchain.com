@@ -35,16 +35,16 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
-- cryptocurrency
-- bitcoin
+- Cryptocurrency
+- Bitcoin
 - Blockchain
-- exchange
+- Exchange
 - Trading
 - Market Data
 - Payments
-- on-ramp
+- On-Ramp
 - Wallets
-- block-explorer
+- Block Explorer
 - Fintech
 - Webhook
 tags_raw:
@@ -74,11 +74,11 @@ apis:
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
-  - cryptocurrency
-  - exchange
+  - Cryptocurrency
+  - Exchange
   - Trading
-  - streaming
-  - websocket
+  - Streaming
+  - WebSocket
   tags_raw:
   - cryptocurrency
   - exchange
@@ -99,9 +99,9 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/blockchain_api
   baseURL: https://blockchain.info
   tags:
-  - bitcoin
+  - Bitcoin
   - Blockchain
-  - block-explorer
+  - Block Explorer
   - Market Data
   tags_raw:
   - bitcoin
@@ -118,9 +118,9 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/q
   baseURL: https://blockchain.info/q
   tags:
-  - bitcoin
+  - Bitcoin
   - Blockchain
-  - block-explorer
+  - Block Explorer
   tags_raw:
   - bitcoin
   - blockchain
@@ -136,8 +136,8 @@ apis:
   baseURL: https://blockchain.info/ticker
   tags:
   - Market Data
-  - cryptocurrency
-  - bitcoin
+  - Cryptocurrency
+  - Bitcoin
   tags_raw:
   - market-data
   - cryptocurrency
@@ -154,7 +154,7 @@ apis:
   tags:
   - Market Data
   - Blockchain
-  - bitcoin
+  - Bitcoin
   - Statistics
   tags_raw:
   - market-data
@@ -171,10 +171,10 @@ apis:
   humanURL: https://www.blockchain.com/explorer/api/api_websocket
   baseURL: wss://ws.blockchain.info/inv
   tags:
-  - bitcoin
+  - Bitcoin
   - Blockchain
-  - streaming
-  - websocket
+  - Streaming
+  - WebSocket
   tags_raw:
   - bitcoin
   - blockchain
@@ -193,7 +193,7 @@ apis:
   humanURL: https://api.blockchain.com/nft-market-api/documentation/
   baseURL: https://api.blockchain.com/nft-market-api
   tags:
-  - nft
+  - NFT
   - Blockchain
   - Market Data
   tags_raw:
@@ -215,7 +215,7 @@ apis:
   tags:
   - Authentication
   - Wallets
-  - cryptocurrency
+  - Cryptocurrency
   - Fintech
   tags_raw:
   - oauth
@@ -239,7 +239,7 @@ apis:
   tags:
   - Wallets
   - Payments
-  - bitcoin
+  - Bitcoin
   tags_raw:
   - wallet
   - payments
@@ -289,7 +289,7 @@ apis:
   humanURL: https://api.blockchain.com/v3/
   baseURL: https://api.blockchain.com/v3/exchange
   tags:
-  - nft
+  - NFT
   tags_raw:
   - nft
   properties:
