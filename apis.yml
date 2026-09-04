@@ -1,19 +1,14 @@
 aid: blockchain.com
 name: Blockchain.com
-description: >-
-  Blockchain.com is a cryptocurrency financial services company that operates the
-  Blockchain.com Explorer (one of the longest-running Bitcoin block explorers), a
-  self-custody and custodial wallet, an institutional spot exchange, and
-  Blockchain.com Pay, an embeddable fiat-to-crypto on-ramp and off-ramp for
-  partners. Its public API surface spans the Exchange REST API (market data,
-  trading, deposits and withdrawals, authenticated with an X-API-Token header),
-  a FIX-named WebSocket trading and market-data gateway, the Pay Partner API
-  (eligibility, quotes and orders, authenticated with public and private API key
-  headers plus order webhooks), the free Blockchain Data, Simple Query, Exchange
-  Rates and Charts & Statistics APIs on blockchain.info, a real-time blockchain
-  WebSocket notification stream, an NFT Market API, and the open-source Wallet
-  API service (service-my-wallet-v3) with first-party client libraries for
-  Python, Node.js, Ruby, PHP and Java.
+description: Blockchain.com is a cryptocurrency financial services company that operates the Blockchain.com Explorer
+  (one of the longest-running Bitcoin block explorers), a self-custody and custodial wallet, an institutional spot
+  exchange, and Blockchain.com Pay, an embeddable fiat-to-crypto on-ramp and off-ramp for partners. Its public API
+  surface spans the Exchange REST API (market data, trading, deposits and withdrawals, authenticated with an X-API-Token
+  header), a FIX-named WebSocket trading and market-data gateway, the Pay Partner API (eligibility, quotes and orders,
+  authenticated with public and private API key headers plus order webhooks), the free Blockchain Data, Simple Query,
+  Exchange Rates and Charts & Statistics APIs on blockchain.info, a real-time blockchain WebSocket notification
+  stream, an NFT Market API, and the open-source Wallet API service (service-my-wallet-v3) with first-party client
+  libraries for Python, Node.js, Ruby, PHP and Java.
 deliveryModel:
   model: unknown
   open_source: unknown
@@ -26,6 +21,21 @@ deliveryModel:
   - pricing
   - repository-unlicensed
   generated: '2026-08-28'
+  method: derived
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  - scopes
+  - rate-limits
+  - security
+  generated: '2026-09-02'
   method: derived
 image: https://www.blockchain.com/static/apple-touch-icon.png
 url: https://raw.githubusercontent.com/api-evangelist/blockchain.com/refs/heads/main/apis.yml
@@ -67,10 +77,9 @@ maintainers:
   email: info@apis.io
 apis:
 - name: Blockchain.com Exchange WebSocket API
-  description: >-
-    Real-time WebSocket gateway for the Blockchain.com Exchange. Anonymous channels stream heartbeat,
-    L2/L3 order books, prices, symbols, ticker and trades; authenticated channels cover auth, balances
-    and FIX 4.2-named trading messages (NewOrderSingle, CancelOrderRequest, OrderMassCancelRequest, OrderMassStatusRequest).
+  description: Real-time WebSocket gateway for the Blockchain.com Exchange. Anonymous channels stream heartbeat,
+    L2/L3 order books, prices, symbols, ticker and trades; authenticated channels cover auth, balances and FIX 4.2-named
+    trading messages (NewOrderSingle, CancelOrderRequest, OrderMassCancelRequest, OrderMassStatusRequest).
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
@@ -93,8 +102,7 @@ apis:
   - type: Webhooks
     url: asyncapi/blockchain.com-event-surface.yml
 - name: Blockchain Data API
-  description: >-
-    Free JSON API over the Blockchain.com Explorer data set — single blocks, transactions, addresses,
+  description: Free JSON API over the Blockchain.com Explorer data set — single blocks, transactions, addresses,
     unspent outputs, block height and latest block queries for Bitcoin.
   humanURL: https://www.blockchain.com/explorer/api/blockchain_api
   baseURL: https://blockchain.info
@@ -112,8 +120,7 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
 - name: Blockchain.com Simple Query API
-  description: >-
-    Plain-text query API returning single values for blockchain statistics such as block count, difficulty,
+  description: Plain-text query API returning single values for blockchain statistics such as block count, difficulty,
     hash rate, total bitcoins in circulation, market cap and address balances.
   humanURL: https://www.blockchain.com/explorer/api/q
   baseURL: https://blockchain.info/q
@@ -129,8 +136,7 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/q
 - name: Blockchain.com Exchange Rates API
-  description: >-
-    Ticker and currency-conversion API returning bitcoin exchange rates across major fiat currencies,
+  description: Ticker and currency-conversion API returning bitcoin exchange rates across major fiat currencies,
     aggregated from the major exchanges.
   humanURL: https://www.blockchain.com/explorer/api/exchange_rates_api
   baseURL: https://blockchain.info/ticker
@@ -146,8 +152,7 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/exchange_rates_api
 - name: Blockchain.com Charts and Statistics API
-  description: >-
-    JSON/CSV feed behind the Blockchain.com charts and stats pages — per-chart time series, network statistics,
+  description: JSON/CSV feed behind the Blockchain.com charts and stats pages — per-chart time series, network statistics,
     and mining pool distribution.
   humanURL: https://www.blockchain.com/explorer/api/charts_api
   baseURL: https://api.blockchain.info/charts
@@ -165,8 +170,7 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/charts_api
 - name: Blockchain.com Explorer WebSocket API
-  description: >-
-    Low-latency streaming socket channel providing notifications on new bitcoin blocks, unconfirmed transactions
+  description: Low-latency streaming socket channel providing notifications on new bitcoin blocks, unconfirmed transactions
     and watched addresses via the unconfirmed_sub, blocks_sub and addr_sub subscription operations.
   humanURL: https://www.blockchain.com/explorer/api/api_websocket
   baseURL: wss://ws.blockchain.info/inv
@@ -186,10 +190,9 @@ apis:
   - type: Webhooks
     url: asyncapi/blockchain.com-event-surface.yml
 - name: Blockchain.com NFT Market API
-  description: >-
-    Public backend service for NFT market data, returning NFT assets owned by an address and individual
-    asset lookups by network, contract address and token id. Publishes a Swagger 2.0 definition at its
-    documentation endpoint.
+  description: Public backend service for NFT market data, returning NFT assets owned by an address and individual
+    asset lookups by network, contract address and token id. Publishes a Swagger 2.0 definition at its documentation
+    endpoint.
   humanURL: https://api.blockchain.com/nft-market-api/documentation/
   baseURL: https://api.blockchain.com/nft-market-api
   tags:
@@ -206,10 +209,9 @@ apis:
   - type: Documentation
     url: https://api.blockchain.com/nft-market-api/documentation/
 - name: Blockchain.com OAuth Resources API
-  description: >-
-    OAuth 2.0 resource gateway that lets a third-party app read a consenting user's Blockchain.com custodial
-    wallet data. Two endpoints are documented — transaction history (scope read_transactions, up to 30
-    days) and balances (scope read_balance) — accessed with a bearer access token.
+  description: OAuth 2.0 resource gateway that lets a third-party app read a consenting user's Blockchain.com custodial
+    wallet data. Two endpoints are documented — transaction history (scope read_transactions, up to 30 days) and
+    balances (scope read_balance) — accessed with a bearer access token.
   humanURL: https://docs.blockchain.com/oauth-resources
   baseURL: https://api.blockchain.info/partner-resource-gateway
   tags:
@@ -230,10 +232,9 @@ apis:
   - type: Authentication
     url: authentication/blockchain.com-authentication.yml
 - name: Blockchain.com Wallet API
-  description: >-
-    Open-source Wallet API service (service-my-wallet-v3) that runs locally and exposes HTTP endpoints
-    for creating wallets, sending payments, and checking balances against Blockchain.com wallets, plus
-    the Receive Payments V2 API for generating per-invoice receive addresses.
+  description: Open-source Wallet API service (service-my-wallet-v3) that runs locally and exposes HTTP endpoints
+    for creating wallets, sending payments, and checking balances against Blockchain.com wallets, plus the Receive
+    Payments V2 API for generating per-invoice receive addresses.
   humanURL: https://github.com/blockchain/service-my-wallet-v3
   baseURL: https://api.blockchain.info/v2
   tags:
@@ -566,9 +567,46 @@ apis:
     url: asyncapi/blockchain.com-event-surface.yml
   - type: JSONSchema
     url: json-schema/blockchain.com-pay-webhook-event.json
+- name: Blockchain.com WebSocket APIs
+  description: Real-time WebSocket APIs covering two distinct surfaces — the Bitcoin / blockchain.info explorer
+    socket (unconfirmed transactions, new blocks, per-address activity) and the Blockchain.com Exchange mercury-gateway
+    socket (heartbeat, ticker, L2/L3 order books, prices, symbols, trades, plus authenticated balances and trading).
+  humanURL: https://www.blockchain.com/explorer/api/api_websocket
+  baseURL: wss://ws.blockchain.info
+  tags:
+  - Cryptocurrency
+  - Bitcoin
+  - WebSocket
+  - Real-Time
+  - Exchange
+  properties:
+  - type: Documentation
+    title: Explorer WebSocket
+    url: https://www.blockchain.com/explorer/api/api_websocket
+  - type: Documentation
+    title: Exchange WebSocket
+    url: https://exchange.blockchain.com/api/
+  - type: AsyncAPI
+    url: asyncapi/blockchain-com-asyncapi.yml
+- name: Blockchain.com Pay Partner API
+  description: Partner API for embedding Blockchain.com crypto purchases. Covers authentication, eligibility (supported
+    currencies / regions), quotes (pricing for crypto transactions), and order state. Rate-limited per partner.
+  humanURL: https://docs.blockchain.com/pay/api
+  baseURL: https://api.blockchain.com/pay
+  tags:
+  - Cryptocurrency
+  - Payments
+  - Partner
+  properties:
+  - type: Documentation
+    url: https://docs.blockchain.com/pay/api
 common:
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/blockchain.com-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool
+    list derived from the published API contracts, not an existing server. The scorer already read the manifest
+    and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server
+    that does not exist.'
 - type: Overlay
   url: overlays/blockchain.com-exchange-overlay.yaml
 - type: Packages
@@ -639,6 +677,8 @@ common:
   url: https://www.blockchain.com/.well-known/security.txt
 - type: LLMsTxt
   url: llms/blockchain.com-llms.txt
+- type: Website
+  url: https://www.blockchain.com/api
 x-enrichment:
   date: '2026-08-02'
   status: enriched
