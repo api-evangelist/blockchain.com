@@ -69,7 +69,10 @@ maintainers:
   email: info@apis.io
 apis:
 - name: Blockchain.com Exchange WebSocket API
-  description: Real-time WebSocket gateway for the Blockchain.com Exchange. Anonymous channels stream heartbeat, L2/L3 order books, prices, symbols, ticker and trades; authenticated channels cover auth, balances and FIX 4.2-named trading messages (NewOrderSingle, CancelOrderRequest, OrderMassCancelRequest, OrderMassStatusRequest).
+  description: >-
+    Real-time WebSocket gateway for the Blockchain.com Exchange. Anonymous channels stream heartbeat,
+    L2/L3 order books, prices, symbols, ticker and trades; authenticated channels cover auth, balances
+    and FIX 4.2-named trading messages (NewOrderSingle, CancelOrderRequest, OrderMassCancelRequest, OrderMassStatusRequest).
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
@@ -92,7 +95,9 @@ apis:
   - type: Webhooks
     url: asyncapi/blockchain.com-event-surface.yml
 - name: Blockchain Data API
-  description: Free JSON API over the Blockchain.com Explorer data set — single blocks, transactions, addresses, unspent outputs, block height and latest block queries for Bitcoin.
+  description: >-
+    Free JSON API over the Blockchain.com Explorer data set — single blocks, transactions, addresses,
+    unspent outputs, block height and latest block queries for Bitcoin.
   humanURL: https://www.blockchain.com/explorer/api/blockchain_api
   baseURL: https://blockchain.info
   tags:
@@ -109,7 +114,9 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
 - name: Blockchain.com Simple Query API
-  description: Plain-text query API returning single values for blockchain statistics such as block count, difficulty, hash rate, total bitcoins in circulation, market cap and address balances.
+  description: >-
+    Plain-text query API returning single values for blockchain statistics such as block count, difficulty,
+    hash rate, total bitcoins in circulation, market cap and address balances.
   humanURL: https://www.blockchain.com/explorer/api/q
   baseURL: https://blockchain.info/q
   tags:
@@ -124,7 +131,9 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/q
 - name: Blockchain.com Exchange Rates API
-  description: Ticker and currency-conversion API returning bitcoin exchange rates across major fiat currencies, aggregated from the major exchanges.
+  description: >-
+    Ticker and currency-conversion API returning bitcoin exchange rates across major fiat currencies,
+    aggregated from the major exchanges.
   humanURL: https://www.blockchain.com/explorer/api/exchange_rates_api
   baseURL: https://blockchain.info/ticker
   tags:
@@ -139,7 +148,9 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/exchange_rates_api
 - name: Blockchain.com Charts and Statistics API
-  description: JSON/CSV feed behind the Blockchain.com charts and stats pages — per-chart time series, network statistics, and mining pool distribution.
+  description: >-
+    JSON/CSV feed behind the Blockchain.com charts and stats pages — per-chart time series, network statistics,
+    and mining pool distribution.
   humanURL: https://www.blockchain.com/explorer/api/charts_api
   baseURL: https://api.blockchain.info/charts
   tags:
@@ -156,7 +167,9 @@ apis:
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/charts_api
 - name: Blockchain.com Explorer WebSocket API
-  description: Low-latency streaming socket channel providing notifications on new bitcoin blocks, unconfirmed transactions and watched addresses via the unconfirmed_sub, blocks_sub and addr_sub subscription operations.
+  description: >-
+    Low-latency streaming socket channel providing notifications on new bitcoin blocks, unconfirmed transactions
+    and watched addresses via the unconfirmed_sub, blocks_sub and addr_sub subscription operations.
   humanURL: https://www.blockchain.com/explorer/api/api_websocket
   baseURL: wss://ws.blockchain.info/inv
   tags:
@@ -175,7 +188,10 @@ apis:
   - type: Webhooks
     url: asyncapi/blockchain.com-event-surface.yml
 - name: Blockchain.com NFT Market API
-  description: Public backend service for NFT market data, returning NFT assets owned by an address and individual asset lookups by network, contract address and token id. Publishes a Swagger 2.0 definition at its documentation endpoint.
+  description: >-
+    Public backend service for NFT market data, returning NFT assets owned by an address and individual
+    asset lookups by network, contract address and token id. Publishes a Swagger 2.0 definition at its
+    documentation endpoint.
   humanURL: https://api.blockchain.com/nft-market-api/documentation/
   baseURL: https://api.blockchain.com/nft-market-api
   tags:
@@ -192,7 +208,10 @@ apis:
   - type: Documentation
     url: https://api.blockchain.com/nft-market-api/documentation/
 - name: Blockchain.com OAuth Resources API
-  description: OAuth 2.0 resource gateway that lets a third-party app read a consenting user's Blockchain.com custodial wallet data. Two endpoints are documented — transaction history (scope read_transactions, up to 30 days) and balances (scope read_balance) — accessed with a bearer access token.
+  description: >-
+    OAuth 2.0 resource gateway that lets a third-party app read a consenting user's Blockchain.com custodial
+    wallet data. Two endpoints are documented — transaction history (scope read_transactions, up to 30
+    days) and balances (scope read_balance) — accessed with a bearer access token.
   humanURL: https://docs.blockchain.com/oauth-resources
   baseURL: https://api.blockchain.info/partner-resource-gateway
   tags:
@@ -213,7 +232,10 @@ apis:
   - type: Authentication
     url: authentication/blockchain.com-authentication.yml
 - name: Blockchain.com Wallet API
-  description: Open-source Wallet API service (service-my-wallet-v3) that runs locally and exposes HTTP endpoints for creating wallets, sending payments, and checking balances against Blockchain.com wallets, plus the Receive Payments V2 API for generating per-invoice receive addresses.
+  description: >-
+    Open-source Wallet API service (service-my-wallet-v3) that runs locally and exposes HTTP endpoints
+    for creating wallets, sending payments, and checking balances against Blockchain.com wallets, plus
+    the Receive Payments V2 API for generating per-invoice receive addresses.
   humanURL: https://github.com/blockchain/service-my-wallet-v3
   baseURL: https://api.blockchain.info/v2
   tags:
@@ -547,7 +569,11 @@ apis:
   - type: JSONSchema
     url: json-schema/blockchain.com-pay-webhook-event.json
 - name: Blockchain.com WebSocket APIs
-  description: Real-time WebSocket APIs covering two distinct surfaces — the Bitcoin / blockchain.info explorer socket (unconfirmed transactions, new blocks, per-address activity) and the Blockchain.com Exchange mercury-gateway socket (heartbeat, ticker, L2/L3 order books, prices, symbols, trades, plus authenticated balances and trading).
+  description: >-
+    Real-time WebSocket APIs covering two distinct surfaces — the Bitcoin / blockchain.info explorer socket
+    (unconfirmed transactions, new blocks, per-address activity) and the Blockchain.com Exchange mercury-gateway
+    socket (heartbeat, ticker, L2/L3 order books, prices, symbols, trades, plus authenticated balances
+    and trading).
   humanURL: https://www.blockchain.com/explorer/api/api_websocket
   baseURL: wss://ws.blockchain.info
   tags:
@@ -566,7 +592,10 @@ apis:
   - type: AsyncAPI
     url: asyncapi/blockchain-com-asyncapi.yml
 - name: Blockchain.com Pay Partner API
-  description: Partner API for embedding Blockchain.com crypto purchases. Covers authentication, eligibility (supported currencies / regions), quotes (pricing for crypto transactions), and order state. Rate-limited per partner.
+  description: >-
+    Partner API for embedding Blockchain.com crypto purchases. Covers authentication, eligibility (supported
+    currencies / regions), quotes (pricing for crypto transactions), and order state. Rate-limited per
+    partner.
   humanURL: https://docs.blockchain.com/pay/api
   baseURL: https://api.blockchain.com/pay
   tags:
@@ -576,16 +605,16 @@ apis:
   properties:
   - type: Documentation
     url: https://docs.blockchain.com/pay/api
-- aid: blockchain.com:blockchain-addresses-api
+- aid: blockchain.com:blockchain.com-addresses-api
   name: Blockchain.com Addresses API
   description: Bitcoin address summaries and unspent outputs.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Addresses
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-addresses-api-openapi.yml
+    url: openapi/blockchain.com-addresses-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -598,16 +627,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-blocks-api
+- aid: blockchain.com:blockchain.com-blocks-api
   name: Blockchain.com Blocks API
   description: Bitcoin block lookups and the latest block.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Blocks
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-blocks-api-openapi.yml
+    url: openapi/blockchain.com-blocks-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -620,16 +649,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-charts-api
+- aid: blockchain.com:blockchain.com-charts-api
   name: Blockchain.com Charts API
   description: Historical time-series datasets for Bitcoin network metrics.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Charts
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-charts-api-openapi.yml
+    url: openapi/blockchain.com-charts-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -642,16 +671,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-market-data-api
+- aid: blockchain.com:blockchain.com-market-data-api
   name: Blockchain.com Market Data API
   description: Bitcoin exchange rates and fiat conversion.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Market Data
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-market-data-api-openapi.yml
+    url: openapi/blockchain.com-market-data-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -664,16 +693,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-network-api
+- aid: blockchain.com:blockchain.com-network-api
   name: Blockchain.com Network API
   description: Simple network metrics — difficulty, block height, supply, ETA, averages.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Network
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-network-api-openapi.yml
+    url: openapi/blockchain.com-network-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -686,16 +715,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-pools-api
+- aid: blockchain.com:blockchain.com-pools-api
   name: Blockchain.com Pools API
   description: Mining pool distribution.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Pools
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-pools-api-openapi.yml
+    url: openapi/blockchain.com-pools-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -708,16 +737,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-stats-api
+- aid: blockchain.com:blockchain.com-stats-api
   name: Blockchain.com Stats API
   description: Real-time blockchain statistics.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
   - Stats
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-stats-api-openapi.yml
+    url: openapi/blockchain.com-stats-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
@@ -730,18 +759,16 @@ apis:
     url: https://exchange.blockchain.com/api/
   - type: Documentation
     url: https://api.blockchain.com/v3/
-- aid: blockchain.com:blockchain-transactions-api
+- aid: blockchain.com:blockchain.com-transactions-api
   name: Blockchain.com Transactions API
   description: Bitcoin transaction lookups.
-  humanURL: https://www.blockchain.com/explorer/api/blockchain_api
-  baseURL: https://blockchain.info
+  humanURL: https://exchange.blockchain.com/api/
+  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
-  - Transaction
-  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
-    url: openapi/blockchain-transactions-api-openapi.yml
+    url: openapi/blockchain.com-transactions-api-openapi.yml
   - type: Documentation
     url: https://www.blockchain.com/explorer/api/blockchain_api
   - type: Documentation
