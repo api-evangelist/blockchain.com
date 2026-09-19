@@ -601,6 +601,10 @@ apis:
   tags:
   - Cryptocurrency
   - Payments
+  - Partners
+  tags_raw:
+  - Cryptocurrency
+  - Payments
   - Partner
   properties:
   - type: Documentation
@@ -699,6 +703,8 @@ apis:
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
+  - Networks
+  tags_raw:
   - Network
   properties:
   - type: OpenAPI
@@ -765,6 +771,8 @@ apis:
   humanURL: https://exchange.blockchain.com/api/
   baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
