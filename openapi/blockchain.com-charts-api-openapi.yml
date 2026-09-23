@@ -1,0 +1,140 @@
+openapi: 3.2.0
+info:
+  title: Blockchain.com , Stats & Market Data Addresses Charts API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.'
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Charts
+  description: Historical time-series datasets for Bitcoin network metrics.
+paths:
+  /charts/{chartName}:
+    get:
+      operationId: getChart
+      summary: Blockchain.com Get a Chart Time-series
+      description: 'Returns a time-series dataset for the requested chart name. Common chart names include
+
+        `transactions-per-second`, `market-price`, `hash-rate`, `difficulty`, `miners-revenue`,
+
+        `mempool-size`, `n-transactions`, `total-bitcoins`, `avg-block-size`, `mempool-count`,
+
+        `cost-per-transaction`, and many others.'
+      tags:
+      - Charts
+      servers:
+      - url: https://api.blockchain.info
+      parameters:
+      - name: chartName
+        in: path
+        required: true
+        description: Chart identifier (kebab-case).
+        schema:
+          type: string
+          example: market-price
+      - name: timespan
+        in: query
+        required: false
+        description: Duration spanned by the dataset (e.g. `5weeks`, `1year`, `all`). Default `1year`.
+        schema:
+          type: string
+          default: 1year
+      - name: rollingAverage
+        in: query
+        required: false
+        description: Smoothing window applied to the time series (e.g. `8hours`, `7days`).
+        schema:
+          type: string
+      - name: start
+        in: query
+        required: false
+        description: Custom start date in `YYYY-MM-DD` format.
+        schema:
+          type: string
+          format: date
+      - name: format
+        in: query
+        required: false
+        description: Response format (`json` or `csv`). Default `json`.
+        schema:
+          type: string
+          enum:
+          - json
+          - csv
+          default: json
+      - name: sampled
+        in: query
+        required: false
+        description: If true, downsample to ~1.5k points for performance.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Chart time-series.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Chart'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ChartPoint:
+      type: object
+      description: Single time-series sample.
+      properties:
+        x:
+          type: integer
+          format: int64
+          description: Timestamp in Unix seconds.
+          example: 1
+        y:
+          type: number
+          description: Measured value at `x`.
+          example: 1.0
+    Chart:
+      type: object
+      description: Time-series dataset returned by the Charts API.
+      properties:
+        status:
+          type: string
+          description: Response status (e.g. `ok`).
+          example: ok
+        name:
+          type: string
+          description: Chart name.
+          example: Market Price (USD)
+        unit:
+          type: string
+          description: Unit of measure for `y` values.
+          example: USD
+        period:
+          type: string
+          description: Sampling period (e.g. `day`).
+        description:
+          type: string
+          description: Human-readable description of what the chart represents.
+        values:
+          type: array
+          description: Time-series data points.
+          items:
+            $ref: '#/components/schemas/ChartPoint'

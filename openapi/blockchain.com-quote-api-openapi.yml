@@ -10,9 +10,7 @@ info:
 
     All endpoints require the `X-Public-API-Key` header to identify the partner.
 
-    Order endpoints additionally require the `X-Private-API-Key` header.
-
-    '
+    Order endpoints additionally require the `X-Private-API-Key` header.'
   termsOfService: ''
   license:
     name: ''

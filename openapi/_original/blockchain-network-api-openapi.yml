@@ -1,0 +1,293 @@
+# x-archived-from: blockchain-network-api-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, Stats & Market Data Addresses Network API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Network
+  description: Simple network metrics — difficulty, block height, supply, ETA, averages.
+paths:
+  /q/getdifficulty:
+    get:
+      operationId: getDifficulty
+      summary: Blockchain.com Get Current Difficulty
+      description: Current mining difficulty target as a decimal number.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Difficulty value.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: '92671248843810.34'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/getblockcount:
+    get:
+      operationId: getBlockCount
+      summary: Blockchain.com Get Current Block Count
+      description: Current block height in the longest chain.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Block height.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 851234
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/latesthash:
+    get:
+      operationId: getLatestHash
+      summary: Blockchain.com Get the Latest Block Hash
+      description: Hash of the most recent block on the longest chain.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Latest block hash.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 00000000000000000004f4e7a1...
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/bcperblock:
+    get:
+      operationId: getBcPerBlock
+      summary: Blockchain.com Get the Current Block Reward
+      description: Current block reward in BTC.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Block reward in BTC.
+          content:
+            text/plain:
+              schema:
+                type: number
+                example: 3.125
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/totalbc:
+    get:
+      operationId: getTotalBc
+      summary: Blockchain.com Get Total Bitcoins in Circulation
+      description: Total Bitcoins in circulation (delayed by up to 1 hour), in Satoshi.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Total supply in Satoshi.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int64
+                example: 1968000000000000
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/probability:
+    get:
+      operationId: getProbability
+      summary: Blockchain.com Get Block Solve Probability
+      description: Probability of a single hash attempt solving the next block.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Probability value.
+          content:
+            text/plain:
+              schema:
+                type: number
+                example: 1.0e-23
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/hashestowin:
+    get:
+      operationId: getHashesToWin
+      summary: Blockchain.com Get Hashes Needed to Solve a Block
+      description: Average number of hashes required to solve a single block.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Hashes-to-win value.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int64
+                example: 100000000000000000000000
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/nextretarget:
+    get:
+      operationId: getNextRetarget
+      summary: Blockchain.com Get Next Difficulty Retarget Block
+      description: Block height of the next difficulty re-target event.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Block height.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 851840
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/avgtxsize:
+    get:
+      operationId: getAverageTxSize
+      summary: Blockchain.com Get Average Transaction Size
+      description: Average transaction size in bytes across the most recent blocks (configurable).
+      tags:
+      - Network
+      parameters:
+      - name: blocks
+        in: query
+        required: false
+        description: Number of trailing blocks to average over.
+        schema:
+          type: integer
+          default: 1000
+      responses:
+        '200':
+          description: Average transaction size in bytes.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 412
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/avgtxvalue:
+    get:
+      operationId: getAverageTxValue
+      summary: Blockchain.com Get Average Transaction Value
+      description: Average transaction value in Satoshi across the most recent blocks (configurable).
+      tags:
+      - Network
+      parameters:
+      - name: blocks
+        in: query
+        required: false
+        description: Number of trailing blocks to average over (default 1000).
+        schema:
+          type: integer
+          default: 1000
+      responses:
+        '200':
+          description: Average transaction value in Satoshi.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                format: int64
+                example: 18400000
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/interval:
+    get:
+      operationId: getBlockInterval
+      summary: Blockchain.com Get Average Interval Between Blocks
+      description: Average time between blocks in seconds.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: Interval in seconds.
+          content:
+            text/plain:
+              schema:
+                type: number
+                example: 612.4
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/eta:
+    get:
+      operationId: getEta
+      summary: Blockchain.com Get ETA of the Next Block
+      description: Estimated number of seconds until the next block is mined.
+      tags:
+      - Network
+      responses:
+        '200':
+          description: ETA in seconds.
+          content:
+            text/plain:
+              schema:
+                type: number
+                example: 235.0
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /q/avgtxnumber:
+    get:
+      operationId: getAverageTxNumber
+      summary: Blockchain.com Get Average Transactions Per Block
+      description: Average number of transactions per block over the most recent blocks.
+      tags:
+      - Network
+      parameters:
+      - name: blocks
+        in: query
+        required: false
+        description: Number of trailing blocks to average over.
+        schema:
+          type: integer
+          default: 1000
+      responses:
+        '200':
+          description: Average transactions per block.
+          content:
+            text/plain:
+              schema:
+                type: integer
+                example: 2840
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK

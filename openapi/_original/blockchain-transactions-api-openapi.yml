@@ -1,0 +1,201 @@
+# x-archived-from: blockchain-transactions-api-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, Stats & Market Data Addresses Transactions API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Transactions
+  description: Bitcoin transaction lookups.
+paths:
+  /rawtx/{tx_hash}:
+    get:
+      operationId: getTransaction
+      summary: Blockchain.com Get a Single Transaction
+      description: Returns a specific transaction with its inputs, outputs, fees, and block height.
+      tags:
+      - Transactions
+      parameters:
+      - name: tx_hash
+        in: path
+        required: true
+        description: Bitcoin transaction hash (64-character hex).
+        schema:
+          type: string
+          example: 0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+      - name: format
+        in: query
+        required: false
+        description: If set to `hex`, returns the raw transaction as a binary hex string.
+        schema:
+          type: string
+          enum:
+          - hex
+      responses:
+        '200':
+          description: Transaction detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Transaction:
+      type: object
+      description: A Bitcoin transaction with its inputs and outputs.
+      properties:
+        hash:
+          type: string
+          description: Transaction hash.
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        ver:
+          type: integer
+          description: Transaction version.
+          example: 1
+        vin_sz:
+          type: integer
+          description: Number of inputs.
+          example: 1
+        vout_sz:
+          type: integer
+          description: Number of outputs.
+          example: 1
+        size:
+          type: integer
+          description: Serialized transaction size in bytes.
+          example: 1
+        weight:
+          type: integer
+          description: Transaction weight (BIP141).
+          example: 1
+        fee:
+          type: integer
+          format: int64
+          description: Fee paid in Satoshi.
+          example: 1
+        relayed_by:
+          type: string
+          description: IP address that relayed the transaction.
+        lock_time:
+          type: integer
+          format: int64
+          description: Lock time (block height or Unix seconds).
+          example: 1748609400000
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        double_spend:
+          type: boolean
+          description: True if the transaction is a known double-spend.
+          example: true
+        time:
+          type: integer
+          format: int64
+          description: First-seen time (Unix seconds).
+          example: 1748609400000
+        block_index:
+          type: integer
+          format: int64
+          description: Block index containing the transaction (null if unconfirmed).
+          example: 1
+        block_height:
+          type: integer
+          description: Block height containing the transaction (null if unconfirmed).
+          example: 851234
+        inputs:
+          type: array
+          description: Transaction inputs.
+          items:
+            $ref: '#/components/schemas/TxInput'
+        out:
+          type: array
+          description: Transaction outputs.
+          items:
+            $ref: '#/components/schemas/TxOutput'
+    TxOutput:
+      type: object
+      description: A single Bitcoin transaction output (a UTXO before it is spent).
+      properties:
+        type:
+          type: integer
+          description: Output type indicator.
+          example: 1
+        spent:
+          type: boolean
+          description: True if the output has been spent.
+          example: true
+        value:
+          type: integer
+          format: int64
+          description: Value in Satoshi.
+          example: 100000
+        spending_outpoints:
+          type: array
+          description: Outpoints that spent this output (when spent).
+          items:
+            type: object
+            properties:
+              tx_index:
+                type: integer
+                format: int64
+              n:
+                type: integer
+        n:
+          type: integer
+          description: Output index within the transaction.
+          example: 1
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        script:
+          type: string
+          description: Output script (scriptPubKey) as hex.
+        addr:
+          type: string
+          description: Destination address (when derivable).
+    TxInput:
+      type: object
+      description: A single Bitcoin transaction input.
+      properties:
+        sequence:
+          type: integer
+          format: int64
+          description: Sequence number.
+          example: 1
+        witness:
+          type: string
+          description: SegWit witness data.
+        script:
+          type: string
+          description: Input script (scriptSig) as hex.
+        prev_out:
+          $ref: '#/components/schemas/TxOutput'

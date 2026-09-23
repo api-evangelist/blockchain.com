@@ -1,0 +1,66 @@
+# x-archived-from: blockchain-pools-api-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, Stats & Market Data Addresses Pools API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Pools
+  description: Mining pool distribution.
+paths:
+  /pools:
+    get:
+      operationId: getPools
+      summary: Blockchain.com Get Mining Pool Distribution
+      description: Returns block counts attributed to known mining pools over a rolling window.
+      tags:
+      - Pools
+      servers:
+      - url: https://api.blockchain.info
+      parameters:
+      - name: timespan
+        in: query
+        required: false
+        description: Duration window in days (max 10, default 4).
+        schema:
+          type: string
+          default: 4days
+      responses:
+        '200':
+          description: Mapping of pool name to block count.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PoolDistribution'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PoolDistribution:
+      type: object
+      description: Mapping of mining pool name to block count over the requested window.
+      additionalProperties:
+        type: integer

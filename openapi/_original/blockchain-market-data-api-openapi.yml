@@ -1,0 +1,364 @@
+# x-archived-from: blockchain-market-data-api-openapi.yml
+# x-archived-on: 2026-09-16
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, Stats & Addresses Market Data API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Market Data
+  description: Bitcoin exchange rates and fiat conversion.
+paths:
+  /ticker:
+    get:
+      operationId: getTicker
+      summary: Blockchain.com Get Exchange-rate Ticker
+      description: Returns a map of currency codes to current Bitcoin price data.
+      tags:
+      - Market Data
+      servers:
+      - url: https://blockchain.info
+      parameters:
+      - name: cors
+        in: query
+        required: false
+        description: If true, the response will include CORS headers.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Ticker map keyed by ISO currency code.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticker'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tobtc:
+    get:
+      operationId: convertToBtc
+      summary: Blockchain.com Convert Fiat to BTC
+      description: Converts a fiat amount to its current BTC equivalent.
+      tags:
+      - Market Data
+      servers:
+      - url: https://blockchain.info
+      parameters:
+      - name: currency
+        in: query
+        required: true
+        description: ISO currency code (e.g. `USD`, `EUR`, `GBP`).
+        schema:
+          type: string
+          example: USD
+      - name: value
+        in: query
+        required: true
+        description: Amount of fiat to convert.
+        schema:
+          type: number
+          example: 500
+      responses:
+        '200':
+          description: BTC equivalent value.
+          content:
+            application/json:
+              schema:
+                type: number
+                example: 0.00702345
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /symbols:
+    get:
+      operationId: listSymbols
+      summary: Blockchain.com List Trading Symbols
+      description: Returns the full set of trading symbols and their metadata.
+      tags:
+      - Market Data
+      security: []
+      responses:
+        '200':
+          description: Map of symbol code to symbol metadata.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Symbol'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /symbols/{symbol}:
+    get:
+      operationId: getSymbol
+      summary: Blockchain.com Get a Single Symbol
+      description: Returns metadata for a specific trading symbol.
+      tags:
+      - Market Data
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/SymbolPath'
+      responses:
+        '200':
+          description: Symbol metadata.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Symbol'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tickers:
+    get:
+      operationId: listTickers
+      summary: Blockchain.com List Tickers
+      description: Returns current price and 24-hour metrics for all trading pairs.
+      tags:
+      - Market Data
+      security: []
+      responses:
+        '200':
+          description: Array of tickers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticker_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /tickers/{symbol}:
+    get:
+      operationId: getTicker
+      summary: Blockchain.com Get a Single Ticker
+      description: Returns the current price and 24-hour metrics for one trading pair.
+      tags:
+      - Market Data
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/SymbolPath'
+      responses:
+        '200':
+          description: Single ticker.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ticker_2'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /l2/{symbol}:
+    get:
+      operationId: getL2OrderBook
+      summary: Blockchain.com Get Level-2 Order Book
+      description: Returns the aggregated price-level order book for a symbol.
+      tags:
+      - Market Data
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/SymbolPath'
+      responses:
+        '200':
+          description: L2 order book.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBook'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /l3/{symbol}:
+    get:
+      operationId: getL3OrderBook
+      summary: Blockchain.com Get Level-3 Order Book
+      description: Returns the full per-order book for a symbol.
+      tags:
+      - Market Data
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/SymbolPath'
+      responses:
+        '200':
+          description: L3 order book.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderBook'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    OrderBook:
+      type: object
+      description: Aggregated (L2) or per-order (L3) order book for a symbol.
+      properties:
+        symbol:
+          type: string
+          example: BTC-USD
+        bids:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceLevel'
+        asks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceLevel'
+    Ticker_2:
+      type: object
+      description: Current price and 24-hour metrics for a single trading pair.
+      properties:
+        symbol:
+          type: string
+          example: BTC-USD
+        price_24h:
+          type: number
+          description: 24-hour reference price.
+          example: 72525.0
+        volume_24h:
+          type: number
+          description: Trading volume over the last 24 hours.
+          example: 0.5
+        last_trade_price:
+          type: number
+          description: Most recent trade price.
+          example: 72525.0
+    TickerEntry:
+      type: object
+      description: Current BTC pricing in a single fiat currency.
+      properties:
+        15m:
+          type: number
+          description: 15-minute delayed market price.
+          example: 1.0
+        last:
+          type: number
+          description: Most recent market price.
+          example: 1.0
+        buy:
+          type: number
+          description: Current buy price.
+          example: 1.0
+        sell:
+          type: number
+          description: Current sell price.
+          example: 1.0
+        symbol:
+          type: string
+          description: Currency symbol (e.g. `$`, `€`, `£`).
+          example: BTC-USD
+    PriceLevel:
+      type: object
+      description: One side of the order book at a single price.
+      properties:
+        px:
+          type: number
+          description: Price.
+          example: 72525.0
+        qty:
+          type: number
+          description: Quantity available at this price.
+          example: 0.5
+        num:
+          type: integer
+          description: Number of orders at this price (L2 only).
+    Ticker:
+      type: object
+      description: Map of currency code to Bitcoin price data.
+      additionalProperties:
+        $ref: '#/components/schemas/TickerEntry'
+    Symbol:
+      type: object
+      description: Metadata describing one trading pair on the Exchange.
+      properties:
+        base_currency:
+          type: string
+          description: Base currency ticker.
+          example: BTC
+        base_currency_scale:
+          type: integer
+          description: Decimal precision of the base currency.
+          example: 8
+        counter_currency:
+          type: string
+          description: Counter currency ticker.
+          example: USD
+        counter_currency_scale:
+          type: integer
+          description: Decimal precision of the counter currency.
+          example: 2
+        min_price_increment:
+          type: number
+          description: Smallest price increment allowed.
+          example: 72525.0
+        min_price_increment_scale:
+          type: integer
+          example: 8
+        min_order_size:
+          type: integer
+          description: Minimum order size (in counter currency minor units).
+        min_order_size_scale:
+          type: integer
+          example: 8
+        max_order_size:
+          type: integer
+        max_order_size_scale:
+          type: integer
+          example: 8
+        lot_size:
+          type: integer
+          description: Lot size for orders.
+        lot_size_scale:
+          type: integer
+          example: 8
+        status:
+          type: string
+          description: Symbol status (`open` or `close`).
+          example: open
+        id:
+          type: integer
+          description: Internal symbol identifier.
+        auction_price:
+          type: number
+          example: 72525.0
+        auction_size:
+          type: number
+        auction_time:
+          type: integer
+          format: int64
+          example: 1748609400000
+        imbalance:
+          type: number
+  parameters:
+    SymbolPath:
+      name: symbol
+      in: path
+      required: true
+      description: Trading pair symbol (e.g. `BTC-USD`).
+      schema:
+        type: string
+        example: BTC-USD

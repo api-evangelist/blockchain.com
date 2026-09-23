@@ -1,0 +1,136 @@
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, & Market Data Addresses Stats API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.'
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Stats
+  description: Real-time blockchain statistics.
+paths:
+  /stats:
+    get:
+      operationId: getStats
+      summary: Blockchain.com Get Bitcoin Network Statistics
+      description: Real-time blockchain statistics — price, hash rate, transaction counts, mining economics.
+      tags:
+      - Stats
+      servers:
+      - url: https://api.blockchain.info
+      responses:
+        '200':
+          description: Network statistics snapshot.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Stats:
+      type: object
+      description: Real-time blockchain statistics snapshot.
+      properties:
+        market_price_usd:
+          type: number
+          description: BTC price in USD.
+          example: 72525.0
+        hash_rate:
+          type: number
+          description: Network hash rate (GH/s).
+          example: 72525.0
+        total_fees_btc:
+          type: integer
+          format: int64
+          description: Total fees in Satoshi over the period.
+          example: 1
+        n_btc_mined:
+          type: integer
+          format: int64
+          description: New BTC mined over the period (Satoshi).
+          example: 1
+        n_tx:
+          type: integer
+          description: Number of transactions over the period.
+          example: 1
+        n_blocks_mined:
+          type: integer
+          description: Number of blocks mined over the period.
+          example: 1
+        minutes_between_blocks:
+          type: number
+          description: Average minutes between blocks.
+          example: 1.0
+        totalbc:
+          type: integer
+          format: int64
+          description: Total Bitcoins in circulation (Satoshi).
+          example: 1
+        n_blocks_total:
+          type: integer
+          description: Chain height.
+          example: 1
+        estimated_transaction_volume_usd:
+          type: number
+          description: Estimated transaction volume in USD over the period.
+          example: 0.5
+        miners_revenue_usd:
+          type: number
+          description: Miners revenue in USD over the period.
+          example: 1.0
+        miners_revenue_btc:
+          type: integer
+          format: int64
+          description: Miners revenue in Satoshi over the period.
+          example: 1
+        difficulty:
+          type: number
+          description: Current difficulty target.
+          example: 1.0
+        estimated_btc_sent:
+          type: integer
+          format: int64
+          description: Estimated BTC sent (Satoshi).
+          example: 1
+        total_btc_sent:
+          type: integer
+          format: int64
+          description: Total BTC sent (Satoshi).
+          example: 1
+        trade_volume_btc:
+          type: number
+          description: Trading volume in BTC.
+          example: 0.5
+        trade_volume_usd:
+          type: number
+          description: Trading volume in USD.
+          example: 0.5
+        nextretarget:
+          type: integer
+          description: Block height of the next difficulty retarget.
+          example: 1
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp of the snapshot.
+          example: 1748609400000

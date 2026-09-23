@@ -6,14 +6,14 @@ info:
 servers:
 - url: https://api.blockchain.info/nft-market-api
 tags:
-- name: nft
+- name: NFT
 paths:
   /public/nft/account_assets/{owner_address}:
     get:
-      summary: Get an NFT assets owned by an address.
+      summary: Get an NFT assets owned by an address
       description: Used to fetch assets owned by a particular address.
       tags:
-      - nft
+      - NFT
       parameters:
       - description: The page of assets to get. Default to 0
         required: false
@@ -30,3 +30,5 @@ paths:
       responses:
         '200':
           description: Default Response
+      operationId: getPublicNftAccountAssetsByOwnerAddress
+      x-operation-id-source: derived

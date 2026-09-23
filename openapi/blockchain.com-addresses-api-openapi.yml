@@ -1,0 +1,423 @@
+openapi: 3.2.0
+info:
+  title: Blockchain.com Charts, Stats & Market Data Addresses API
+  description: 'Aggregated JSON endpoints covering Bitcoin network statistics, historical chart datasets,
+
+    mining pool distribution, BTC exchange rates (ticker) and fiat-to-BTC conversion. Generated
+
+    from https://www.blockchain.com/explorer/api/charts_api and
+
+    https://www.blockchain.com/explorer/api/exchange_rates_api.'
+  version: 1.0.0
+  contact:
+    name: Blockchain.com
+    url: https://www.blockchain.com/api
+  license:
+    name: Blockchain.com API Terms of Service
+    url: https://www.blockchain.com/legal/terms
+  x-generated-from: documentation
+  x-last-validated: '2026-05-30'
+servers:
+- url: https://api.blockchain.info
+  description: Blockchain.com aggregated data host (charts, stats, pools).
+- url: https://blockchain.info
+  description: Blockchain.info explorer host (ticker, fiat-to-BTC conversion).
+tags:
+- name: Addresses
+  description: Bitcoin address summaries and unspent outputs.
+paths:
+  /rawaddr/{bitcoin_address}:
+    get:
+      operationId: getAddress
+      summary: Blockchain.com Get a Single Address
+      description: 'Returns information about a Bitcoin address including total received, total sent, final
+
+        balance, and transactions (paginated).'
+      tags:
+      - Addresses
+      parameters:
+      - name: bitcoin_address
+        in: path
+        required: true
+        description: Bitcoin address (Base58 or Bech32).
+        schema:
+          type: string
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of transactions to return (default 50).
+        schema:
+          type: integer
+          default: 50
+          maximum: 50
+      - name: offset
+        in: query
+        required: false
+        description: Number of transactions to skip for pagination (multiples of 50).
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Address detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /multiaddr:
+    get:
+      operationId: getMultiAddress
+      summary: Blockchain.com Get Multi-address Summary
+      description: Returns balance and recent transactions for up to multiple addresses at once.
+      tags:
+      - Addresses
+      parameters:
+      - name: active
+        in: query
+        required: true
+        description: Pipe-delimited Bitcoin addresses (e.g. `addr1|addr2|addr3`).
+        schema:
+          type: string
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa|3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
+      - name: n
+        in: query
+        required: false
+        description: Number of recent transactions to return across all addresses (max 100).
+        schema:
+          type: integer
+          default: 50
+          maximum: 100
+      - name: offset
+        in: query
+        required: false
+        description: Number of transactions to skip for pagination.
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Multi-address response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MultiAddressResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /unspent:
+    get:
+      operationId: getUnspentOutputs
+      summary: Blockchain.com Get Unspent Outputs
+      description: Returns the unspent transaction outputs (UTXOs) for one or more addresses.
+      tags:
+      - Addresses
+      parameters:
+      - name: active
+        in: query
+        required: true
+        description: Pipe-delimited Bitcoin addresses.
+        schema:
+          type: string
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa|3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of UTXOs to return (default 250, max 1000).
+        schema:
+          type: integer
+          default: 250
+          maximum: 1000
+      - name: confirmations
+        in: query
+        required: false
+        description: Minimum confirmations a UTXO must have to be returned.
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: Unspent outputs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnspentResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Transaction:
+      type: object
+      description: A Bitcoin transaction with its inputs and outputs.
+      properties:
+        hash:
+          type: string
+          description: Transaction hash.
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        ver:
+          type: integer
+          description: Transaction version.
+          example: 1
+        vin_sz:
+          type: integer
+          description: Number of inputs.
+          example: 1
+        vout_sz:
+          type: integer
+          description: Number of outputs.
+          example: 1
+        size:
+          type: integer
+          description: Serialized transaction size in bytes.
+          example: 1
+        weight:
+          type: integer
+          description: Transaction weight (BIP141).
+          example: 1
+        fee:
+          type: integer
+          format: int64
+          description: Fee paid in Satoshi.
+          example: 1
+        relayed_by:
+          type: string
+          description: IP address that relayed the transaction.
+        lock_time:
+          type: integer
+          format: int64
+          description: Lock time (block height or Unix seconds).
+          example: 1748609400000
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        double_spend:
+          type: boolean
+          description: True if the transaction is a known double-spend.
+          example: true
+        time:
+          type: integer
+          format: int64
+          description: First-seen time (Unix seconds).
+          example: 1748609400000
+        block_index:
+          type: integer
+          format: int64
+          description: Block index containing the transaction (null if unconfirmed).
+          example: 1
+        block_height:
+          type: integer
+          description: Block height containing the transaction (null if unconfirmed).
+          example: 851234
+        inputs:
+          type: array
+          description: Transaction inputs.
+          items:
+            $ref: '#/components/schemas/TxInput'
+        out:
+          type: array
+          description: Transaction outputs.
+          items:
+            $ref: '#/components/schemas/TxOutput'
+    Address:
+      type: object
+      description: Address summary including balances and transaction history.
+      properties:
+        hash160:
+          type: string
+          description: Hash160 representation of the address.
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        address:
+          type: string
+          description: Bitcoin address.
+          example: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+        n_tx:
+          type: integer
+          description: Number of transactions involving this address.
+          example: 1
+        n_unredeemed:
+          type: integer
+          description: Number of unredeemed outputs.
+          example: 1
+        total_received:
+          type: integer
+          format: int64
+          description: Total received in Satoshi.
+          example: 1
+        total_sent:
+          type: integer
+          format: int64
+          description: Total sent in Satoshi.
+          example: 1
+        final_balance:
+          type: integer
+          format: int64
+          description: Current balance in Satoshi.
+          example: 100000
+        txs:
+          type: array
+          description: Recent transactions involving the address (paginated).
+          items:
+            $ref: '#/components/schemas/Transaction'
+    TxOutput:
+      type: object
+      description: A single Bitcoin transaction output (a UTXO before it is spent).
+      properties:
+        type:
+          type: integer
+          description: Output type indicator.
+          example: 1
+        spent:
+          type: boolean
+          description: True if the output has been spent.
+          example: true
+        value:
+          type: integer
+          format: int64
+          description: Value in Satoshi.
+          example: 100000
+        spending_outpoints:
+          type: array
+          description: Outpoints that spent this output (when spent).
+          items:
+            type: object
+            properties:
+              tx_index:
+                type: integer
+                format: int64
+              n:
+                type: integer
+        n:
+          type: integer
+          description: Output index within the transaction.
+          example: 1
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        script:
+          type: string
+          description: Output script (scriptPubKey) as hex.
+        addr:
+          type: string
+          description: Destination address (when derivable).
+    UnspentResponse:
+      type: object
+      description: Unspent outputs for the requested addresses.
+      properties:
+        notice:
+          type: string
+          description: Optional explanatory notice.
+        unspent_outputs:
+          type: array
+          description: List of UTXOs.
+          items:
+            $ref: '#/components/schemas/UnspentOutput'
+    TxInput:
+      type: object
+      description: A single Bitcoin transaction input.
+      properties:
+        sequence:
+          type: integer
+          format: int64
+          description: Sequence number.
+          example: 1
+        witness:
+          type: string
+          description: SegWit witness data.
+        script:
+          type: string
+          description: Input script (scriptSig) as hex.
+        prev_out:
+          $ref: '#/components/schemas/TxOutput'
+    MultiAddressResponse:
+      type: object
+      description: Multi-address summary plus recent transactions across all addresses.
+      properties:
+        addresses:
+          type: array
+          description: Per-address summary entries.
+          items:
+            type: object
+            properties:
+              address:
+                type: string
+              n_tx:
+                type: integer
+              total_received:
+                type: integer
+                format: int64
+              total_sent:
+                type: integer
+                format: int64
+              final_balance:
+                type: integer
+                format: int64
+              change_index:
+                type: integer
+              account_index:
+                type: integer
+        wallet:
+          type: object
+          description: Aggregate balances across the supplied addresses.
+          properties:
+            n_tx:
+              type: integer
+            n_tx_filtered:
+              type: integer
+            total_received:
+              type: integer
+              format: int64
+            total_sent:
+              type: integer
+              format: int64
+            final_balance:
+              type: integer
+              format: int64
+        txs:
+          type: array
+          description: Most recent transactions across all addresses.
+          items:
+            $ref: '#/components/schemas/Transaction'
+    UnspentOutput:
+      type: object
+      description: A single UTXO owned by one of the requested addresses.
+      properties:
+        tx_hash:
+          type: string
+          description: Hash of the funding transaction (little-endian).
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        tx_hash_big_endian:
+          type: string
+          description: Hash of the funding transaction (big-endian).
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        tx_output_n:
+          type: integer
+          description: Output index within the funding transaction.
+          example: 1
+        script:
+          type: string
+          description: Output script (scriptPubKey) as hex.
+        value:
+          type: integer
+          format: int64
+          description: Output value in Satoshi.
+          example: 100000
+        value_hex:
+          type: string
+          description: Output value in hex.
+        confirmations:
+          type: integer
+          description: Number of confirmations.
+          example: 1
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1

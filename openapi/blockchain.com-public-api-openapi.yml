@@ -15,6 +15,10 @@ paths:
           description: Default Response
       tags:
       - Public
+      summary: Get public nft account assets by owner address
+      x-summary-source: derived
+      operationId: getPublicNftAccountAssetsByOwnerAddress
+      x-operation-id-source: derived
   /public/nft/v2/account_assets/{owner_address}/:
     get:
       responses:
@@ -22,6 +26,10 @@ paths:
           description: Default Response
       tags:
       - Public
+      summary: Get public nft account assets by owner address
+      x-summary-source: derived
+      operationId: getPublicNftV2AccountAssetsByOwnerAddress
+      x-operation-id-source: derived
   /public/nft/v2/asset/{network}/{contract_address}/{token_id}/:
     get:
       responses:
@@ -29,3 +37,7 @@ paths:
           description: Default Response
       tags:
       - Public
+      summary: Get public nft asset by network by contract address by token id
+      x-summary-source: derived
+      operationId: getPublicNftV2AssetByNetworkByContractAddressByTokenId
+      x-operation-id-source: derived

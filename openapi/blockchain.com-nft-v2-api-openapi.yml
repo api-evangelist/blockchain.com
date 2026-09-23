@@ -10,7 +10,7 @@ tags:
 paths:
   /public/nft/v2/asset/{network}/{contract_address}/{token_id}:
     get:
-      summary: Get an NFT asset.
+      summary: Get an NFT asset
       description: Used to fetch the details of an individual asset.
       tags:
       - nft_v2
@@ -36,9 +36,11 @@ paths:
       responses:
         '200':
           description: Default Response
+      operationId: getPublicNftV2AssetByNetworkByContractAddressByTokenId
+      x-operation-id-source: derived
   /public/nft/v2/account_assets/{owner_address}:
     get:
-      summary: Get NFT assets owned by an address.
+      summary: Get NFT assets owned by an address
       description: Used to fetch assets owned by a particular address.
       tags:
       - nft_v2
@@ -73,3 +75,5 @@ paths:
       responses:
         '200':
           description: Default Response
+      operationId: getPublicNftV2AccountAssetsByOwnerAddress
+      x-operation-id-source: derived

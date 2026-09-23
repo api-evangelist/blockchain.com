@@ -10,9 +10,7 @@ info:
 
     All endpoints require the `X-Public-API-Key` header to identify the partner.
 
-    Order endpoints additionally require the `X-Private-API-Key` header.
-
-    '
+    Order endpoints additionally require the `X-Private-API-Key` header.'
   termsOfService: ''
   license:
     name: ''
@@ -106,28 +104,19 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedError'
 components:
+  responses:
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
   schemas:
-    PartnerPaymentMethodResponse:
-      type: object
-      required:
-      - type
-      - supportedCurrencies
-      properties:
-        type:
-          allOf:
-          - $ref: '#/components/schemas/PaymentMethod'
-          description: Payment method type.
-        supportedCurrencies:
-          type: array
-          description: Fiat currency codes supported for this payment method.
-          items:
-            type: string
-      example:
-      - type: CARD
-        supportedCurrencies:
-        - USD
-        - GBP
-        - EUR
     Currency:
       type: object
       required:
@@ -183,27 +172,20 @@ components:
           example:
           - AL
           - CT
-    UsState:
+    Error:
       type: object
       required:
-      - alpha2
-      - isBuyAllowed
-      - name
+      - type
+      - message
       properties:
-        alpha2:
+        type:
           type: string
-          description: ISO 3166-2:US state code (last 2 characters), e.g. `CA`.
-          minLength: 2
-          maxLength: 2
-          example: CA
-        isBuyAllowed:
-          type: boolean
-          description: Whether residents of this state can buy crypto.
-          example: true
-        name:
+          description: Machine-readable error type.
+          example: RequestValidation.BadRequest.MissingParam
+        message:
           type: string
-          description: State name in English.
-          example: California
+          description: Human-readable description of the error.
+          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
     Country:
       type: object
       required:
@@ -232,6 +214,48 @@ components:
           type: string
           description: Country name in English.
           example: United States
+    UsState:
+      type: object
+      required:
+      - alpha2
+      - isBuyAllowed
+      - name
+      properties:
+        alpha2:
+          type: string
+          description: ISO 3166-2:US state code (last 2 characters), e.g. `CA`.
+          minLength: 2
+          maxLength: 2
+          example: CA
+        isBuyAllowed:
+          type: boolean
+          description: Whether residents of this state can buy crypto.
+          example: true
+        name:
+          type: string
+          description: State name in English.
+          example: California
+    PartnerPaymentMethodResponse:
+      type: object
+      required:
+      - type
+      - supportedCurrencies
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/PaymentMethod'
+          description: Payment method type.
+        supportedCurrencies:
+          type: array
+          description: Fiat currency codes supported for this payment method.
+          items:
+            type: string
+      example:
+      - type: CARD
+        supportedCurrencies:
+        - USD
+        - GBP
+        - EUR
     PaymentMethod:
       type: string
       description: Payment method to be used for the order.
@@ -241,32 +265,6 @@ components:
       - GOOGLE_PAY
       - BANK_TRANSFER_NIP
       example: CARD
-    Error:
-      type: object
-      required:
-      - type
-      - message
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type.
-          example: RequestValidation.BadRequest.MissingParam
-        message:
-          type: string
-          description: Human-readable description of the error.
-          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
-  responses:
-    UnauthorizedError:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey
