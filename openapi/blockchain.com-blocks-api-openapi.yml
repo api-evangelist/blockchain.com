@@ -111,6 +111,144 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Block:
+      type: object
+      description: A Bitcoin block including its transactions, header, and chain status.
+      properties:
+        hash:
+          type: string
+          description: Block hash.
+          example: 00000000000000000004f4e7a1...
+        ver:
+          type: integer
+          description: Block version.
+          example: 536870912
+        prev_block:
+          type: string
+          description: Previous block hash.
+        mrkl_root:
+          type: string
+          description: Merkle root.
+        time:
+          type: integer
+          format: int64
+          description: Block timestamp (Unix seconds).
+          example: 1748609400000
+        bits:
+          type: integer
+          description: Difficulty bits.
+          example: 1
+        nonce:
+          type: integer
+          format: int64
+          description: Nonce used to mine the block.
+          example: 1
+        n_tx:
+          type: integer
+          description: Number of transactions in the block.
+          example: 1
+        size:
+          type: integer
+          description: Block size in bytes.
+          example: 1
+        block_index:
+          type: integer
+          format: int64
+          description: Internal block index.
+          example: 1
+        main_chain:
+          type: boolean
+          description: True if this block is part of the main chain.
+          example: true
+        height:
+          type: integer
+          description: Block height.
+          example: 851234
+        tx:
+          type: array
+          description: List of transactions included in the block.
+          items:
+            $ref: '#/components/schemas/Transaction'
+    TxOutput:
+      type: object
+      description: A single Bitcoin transaction output (a UTXO before it is spent).
+      properties:
+        type:
+          type: integer
+          description: Output type indicator.
+          example: 1
+        spent:
+          type: boolean
+          description: True if the output has been spent.
+          example: true
+        value:
+          type: integer
+          format: int64
+          description: Value in Satoshi.
+          example: 100000
+        spending_outpoints:
+          type: array
+          description: Outpoints that spent this output (when spent).
+          items:
+            type: object
+            properties:
+              tx_index:
+                type: integer
+                format: int64
+              n:
+                type: integer
+        n:
+          type: integer
+          description: Output index within the transaction.
+          example: 1
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        script:
+          type: string
+          description: Output script (scriptPubKey) as hex.
+        addr:
+          type: string
+          description: Destination address (when derivable).
+    BlockListResponse:
+      type: object
+      description: Wrapper used by `block-height/{height}` returning an array of `Block` objects.
+      properties:
+        blocks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Block'
+    LatestBlock:
+      type: object
+      description: Lightweight summary of the most recent block.
+      properties:
+        hash:
+          type: string
+          description: Block hash.
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        time:
+          type: integer
+          format: int64
+          description: Block timestamp (Unix seconds).
+          example: 1748609400000
+        block_index:
+          type: integer
+          format: int64
+          description: Internal block index.
+          example: 1
+        height:
+          type: integer
+          description: Block height.
+          example: 851234
+        txIndexes:
+          type: array
+          description: Internal transaction indexes for transactions in this block.
+          items:
+            type: integer
+            format: int64
+            example: 1
     Transaction:
       type: object
       description: A Bitcoin transaction with its inputs and outputs.
@@ -185,57 +323,6 @@ components:
           description: Transaction outputs.
           items:
             $ref: '#/components/schemas/TxOutput'
-    BlockListResponse:
-      type: object
-      description: Wrapper used by `block-height/{height}` returning an array of `Block` objects.
-      properties:
-        blocks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Block'
-    TxOutput:
-      type: object
-      description: A single Bitcoin transaction output (a UTXO before it is spent).
-      properties:
-        type:
-          type: integer
-          description: Output type indicator.
-          example: 1
-        spent:
-          type: boolean
-          description: True if the output has been spent.
-          example: true
-        value:
-          type: integer
-          format: int64
-          description: Value in Satoshi.
-          example: 100000
-        spending_outpoints:
-          type: array
-          description: Outpoints that spent this output (when spent).
-          items:
-            type: object
-            properties:
-              tx_index:
-                type: integer
-                format: int64
-              n:
-                type: integer
-        n:
-          type: integer
-          description: Output index within the transaction.
-          example: 1
-        tx_index:
-          type: integer
-          format: int64
-          description: Internal transaction index.
-          example: 1
-        script:
-          type: string
-          description: Output script (scriptPubKey) as hex.
-        addr:
-          type: string
-          description: Destination address (when derivable).
     TxInput:
       type: object
       description: A single Bitcoin transaction input.
@@ -253,90 +340,3 @@ components:
           description: Input script (scriptSig) as hex.
         prev_out:
           $ref: '#/components/schemas/TxOutput'
-    LatestBlock:
-      type: object
-      description: Lightweight summary of the most recent block.
-      properties:
-        hash:
-          type: string
-          description: Block hash.
-          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
-        time:
-          type: integer
-          format: int64
-          description: Block timestamp (Unix seconds).
-          example: 1748609400000
-        block_index:
-          type: integer
-          format: int64
-          description: Internal block index.
-          example: 1
-        height:
-          type: integer
-          description: Block height.
-          example: 851234
-        txIndexes:
-          type: array
-          description: Internal transaction indexes for transactions in this block.
-          items:
-            type: integer
-            format: int64
-            example: 1
-    Block:
-      type: object
-      description: A Bitcoin block including its transactions, header, and chain status.
-      properties:
-        hash:
-          type: string
-          description: Block hash.
-          example: 00000000000000000004f4e7a1...
-        ver:
-          type: integer
-          description: Block version.
-          example: 536870912
-        prev_block:
-          type: string
-          description: Previous block hash.
-        mrkl_root:
-          type: string
-          description: Merkle root.
-        time:
-          type: integer
-          format: int64
-          description: Block timestamp (Unix seconds).
-          example: 1748609400000
-        bits:
-          type: integer
-          description: Difficulty bits.
-          example: 1
-        nonce:
-          type: integer
-          format: int64
-          description: Nonce used to mine the block.
-          example: 1
-        n_tx:
-          type: integer
-          description: Number of transactions in the block.
-          example: 1
-        size:
-          type: integer
-          description: Block size in bytes.
-          example: 1
-        block_index:
-          type: integer
-          format: int64
-          description: Internal block index.
-          example: 1
-        main_chain:
-          type: boolean
-          description: True if this block is part of the main chain.
-          example: true
-        height:
-          type: integer
-          description: Block height.
-          example: 851234
-        tx:
-          type: array
-          description: List of transactions included in the block.
-          items:
-            $ref: '#/components/schemas/Transaction'

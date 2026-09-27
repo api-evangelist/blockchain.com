@@ -201,7 +201,24 @@ paths:
                     items:
                       $ref: '#/components/schemas/Error'
 components:
+  parameters:
+    PaymentMethodParam:
+      in: query
+      name: paymentMethod
+      required: false
+      description: Payment method to be used for the order. If omitted, the quote will not factor in payment method fees.
+      schema:
+        $ref: '#/components/schemas/PaymentMethod'
   schemas:
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
     Currency:
       type: object
       required:
@@ -257,15 +274,6 @@ components:
           example:
           - AL
           - CT
-    PaymentMethod:
-      type: string
-      description: Payment method to be used for the order.
-      enum:
-      - CARD
-      - APPLE_PAY
-      - GOOGLE_PAY
-      - BANK_TRANSFER_NIP
-      example: CARD
     Error:
       type: object
       required:
@@ -280,14 +288,6 @@ components:
           type: string
           description: Human-readable description of the error.
           example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
-  parameters:
-    PaymentMethodParam:
-      in: query
-      name: paymentMethod
-      required: false
-      description: Payment method to be used for the order. If omitted, the quote will not factor in payment method fees.
-      schema:
-        $ref: '#/components/schemas/PaymentMethod'
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey

@@ -135,23 +135,6 @@ components:
           description: Transaction outputs.
           items:
             $ref: '#/components/schemas/TxOutput'
-    TxInput:
-      type: object
-      description: A single Bitcoin transaction input.
-      properties:
-        sequence:
-          type: integer
-          format: int64
-          description: Sequence number.
-          example: 1
-        witness:
-          type: string
-          description: SegWit witness data.
-        script:
-          type: string
-          description: Input script (scriptSig) as hex.
-        prev_out:
-          $ref: '#/components/schemas/TxOutput'
     TxOutput:
       type: object
       description: A single Bitcoin transaction output (a UTXO before it is spent).
@@ -195,3 +178,20 @@ components:
         addr:
           type: string
           description: Destination address (when derivable).
+    TxInput:
+      type: object
+      description: A single Bitcoin transaction input.
+      properties:
+        sequence:
+          type: integer
+          format: int64
+          description: Sequence number.
+          example: 1
+        witness:
+          type: string
+          description: SegWit witness data.
+        script:
+          type: string
+          description: Input script (scriptSig) as hex.
+        prev_out:
+          $ref: '#/components/schemas/TxOutput'

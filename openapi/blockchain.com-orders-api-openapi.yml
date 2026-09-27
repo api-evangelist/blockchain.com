@@ -133,6 +133,18 @@ paths:
         '404':
           description: Order not found.
 components:
+  responses:
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
   schemas:
     PartnerOrderResponse:
       type: object
@@ -258,6 +270,15 @@ components:
           type: string
           description: Blockchain transaction hash. Only present for COMPLETED orders.
           example: 4b1549abe58cface17d400bf50ff0fe0c2e2ca8121f4e3764d807dc841a2ab80
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
     Error:
       type: object
       required:
@@ -272,27 +293,6 @@ components:
           type: string
           description: Human-readable description of the error.
           example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
-    PaymentMethod:
-      type: string
-      description: Payment method to be used for the order.
-      enum:
-      - CARD
-      - APPLE_PAY
-      - GOOGLE_PAY
-      - BANK_TRANSFER_NIP
-      example: CARD
-  responses:
-    UnauthorizedError:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey
