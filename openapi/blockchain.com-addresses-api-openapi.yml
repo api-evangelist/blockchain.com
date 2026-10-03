@@ -150,6 +150,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TxInput:
+      type: object
+      description: A single Bitcoin transaction input.
+      properties:
+        sequence:
+          type: integer
+          format: int64
+          description: Sequence number.
+          example: 1
+        witness:
+          type: string
+          description: SegWit witness data.
+        script:
+          type: string
+          description: Input script (scriptSig) as hex.
+        prev_out:
+          $ref: '#/components/schemas/TxOutput'
     TxOutput:
       type: object
       description: A single Bitcoin transaction output (a UTXO before it is spent).
@@ -229,18 +246,6 @@ components:
           format: int64
           description: Internal transaction index.
           example: 1
-    UnspentResponse:
-      type: object
-      description: Unspent outputs for the requested addresses.
-      properties:
-        notice:
-          type: string
-          description: Optional explanatory notice.
-        unspent_outputs:
-          type: array
-          description: List of UTXOs.
-          items:
-            $ref: '#/components/schemas/UnspentOutput'
     Address:
       type: object
       description: Address summary including balances and transaction history.
@@ -404,20 +409,15 @@ components:
           description: Transaction outputs.
           items:
             $ref: '#/components/schemas/TxOutput'
-    TxInput:
+    UnspentResponse:
       type: object
-      description: A single Bitcoin transaction input.
+      description: Unspent outputs for the requested addresses.
       properties:
-        sequence:
-          type: integer
-          format: int64
-          description: Sequence number.
-          example: 1
-        witness:
+        notice:
           type: string
-          description: SegWit witness data.
-        script:
-          type: string
-          description: Input script (scriptSig) as hex.
-        prev_out:
-          $ref: '#/components/schemas/TxOutput'
+          description: Optional explanatory notice.
+        unspent_outputs:
+          type: array
+          description: List of UTXOs.
+          items:
+            $ref: '#/components/schemas/UnspentOutput'

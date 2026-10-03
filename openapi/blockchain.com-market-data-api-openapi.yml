@@ -210,7 +210,46 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
+  parameters:
+    SymbolPath:
+      name: symbol
+      in: path
+      required: true
+      description: Trading pair symbol (e.g. `BTC-USD`).
+      schema:
+        type: string
+        example: BTC-USD
   schemas:
+    OrderBook:
+      type: object
+      description: Aggregated (L2) or per-order (L3) order book for a symbol.
+      properties:
+        symbol:
+          type: string
+          example: BTC-USD
+        bids:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceLevel'
+        asks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriceLevel'
+    PriceLevel:
+      type: object
+      description: One side of the order book at a single price.
+      properties:
+        px:
+          type: number
+          description: Price.
+          example: 72525.0
+        qty:
+          type: number
+          description: Quantity available at this price.
+          example: 0.5
+        num:
+          type: integer
+          description: Number of orders at this price (L2 only).
     Symbol:
       type: object
       description: Metadata describing one trading pair on the Exchange.
@@ -273,6 +312,30 @@ components:
           example: 1748609400000
         imbalance:
           type: number
+    Ticker:
+      type: object
+      description: Map of currency code to Bitcoin price data.
+      additionalProperties:
+        $ref: '#/components/schemas/TickerEntry'
+    Ticker_2:
+      type: object
+      description: Current price and 24-hour metrics for a single trading pair.
+      properties:
+        symbol:
+          type: string
+          example: BTC-USD
+        price_24h:
+          type: number
+          description: 24-hour reference price.
+          example: 72525.0
+        volume_24h:
+          type: number
+          description: Trading volume over the last 24 hours.
+          example: 0.5
+        last_trade_price:
+          type: number
+          description: Most recent trade price.
+          example: 72525.0
     TickerEntry:
       type: object
       description: Current BTC pricing in a single fiat currency.
@@ -297,66 +360,3 @@ components:
           type: string
           description: Currency symbol (e.g. `$`, `€`, `£`).
           example: BTC-USD
-    Ticker:
-      type: object
-      description: Map of currency code to Bitcoin price data.
-      additionalProperties:
-        $ref: '#/components/schemas/TickerEntry'
-    OrderBook:
-      type: object
-      description: Aggregated (L2) or per-order (L3) order book for a symbol.
-      properties:
-        symbol:
-          type: string
-          example: BTC-USD
-        bids:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceLevel'
-        asks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriceLevel'
-    PriceLevel:
-      type: object
-      description: One side of the order book at a single price.
-      properties:
-        px:
-          type: number
-          description: Price.
-          example: 72525.0
-        qty:
-          type: number
-          description: Quantity available at this price.
-          example: 0.5
-        num:
-          type: integer
-          description: Number of orders at this price (L2 only).
-    Ticker_2:
-      type: object
-      description: Current price and 24-hour metrics for a single trading pair.
-      properties:
-        symbol:
-          type: string
-          example: BTC-USD
-        price_24h:
-          type: number
-          description: 24-hour reference price.
-          example: 72525.0
-        volume_24h:
-          type: number
-          description: Trading volume over the last 24 hours.
-          example: 0.5
-        last_trade_price:
-          type: number
-          description: Most recent trade price.
-          example: 72525.0
-  parameters:
-    SymbolPath:
-      name: symbol
-      in: path
-      required: true
-      description: Trading pair symbol (e.g. `BTC-USD`).
-      schema:
-        type: string
-        example: BTC-USD

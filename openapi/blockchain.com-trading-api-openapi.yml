@@ -136,6 +136,38 @@ paths:
                   $ref: '#/components/schemas/OrderSummary'
 components:
   parameters:
+    symbolFilter:
+      name: symbol
+      in: query
+      description: Only return results for this symbol
+      required: false
+      schema:
+        $ref: '#/components/schemas/symbol'
+    orderIdParam:
+      name: orderId
+      in: path
+      description: Order ID
+      required: true
+      schema:
+        $ref: '#/components/schemas/ExchangeOrderId'
+    limitFilter:
+      name: limit
+      in: query
+      description: 'Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. '
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 1000
+        example: 100
+    timeToFilter:
+      name: to
+      in: query
+      description: Epoch timestamp in ms
+      required: false
+      schema:
+        $ref: '#/components/schemas/TimestampEpoch'
     timeFromFilter:
       name: from
       in: query
@@ -150,45 +182,132 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/OrderStatus'
-    timeToFilter:
-      name: to
-      in: query
-      description: Epoch timestamp in ms
-      required: false
-      schema:
-        $ref: '#/components/schemas/TimestampEpoch'
-    orderIdParam:
-      name: orderId
-      in: path
-      description: Order ID
-      required: true
-      schema:
-        $ref: '#/components/schemas/ExchangeOrderId'
-    symbolFilter:
-      name: symbol
-      in: query
-      description: Only return results for this symbol
-      required: false
-      schema:
-        $ref: '#/components/schemas/symbol'
-    limitFilter:
-      name: limit
-      in: query
-      description: 'Maximum amount of results to return in a single call. If omitted, 100 results are returned by default. '
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 1000
-        example: 100
   schemas:
+    side:
+      type: string
+      enum:
+      - BUY
+      - SELL
+      description: '"buy" for Buy, "sell" for Sell'
+      example: BUY
+    OrderStatus:
+      type: string
+      example: FILLED
+      enum:
+      - OPEN
+      - REJECTED
+      - CANCELED
+      - FILLED
+      - PART_FILLED
+      - EXPIRED
+    ordType:
+      type: string
+      title: Order type
+      enum:
+      - MARKET
+      - LIMIT
+      - STOP
+      - STOPLIMIT
+    minQty:
+      type: number
+      format: double
+      description: The minimum quantity required for an IOC fill
+      example: '10.0'
     expireDate:
       type: integer
       minimum: 20200101
       maximum: 20501231
       description: expiry date in the format YYYYMMDD
       example: '20200103'
+    ExchangeOrderId:
+      type: integer
+      format: int64
+      description: The unique order id assigned by the exchange
+      example: '11111111'
+    orderQty:
+      type: number
+      format: double
+      description: The order size in the terms of the base currency
+      example: '10.23'
+    BaseOrder:
+      type: object
+      required:
+      - clOrdId
+      - ordType
+      - symbol
+      - side
+      - orderQty
+      properties:
+        clOrdId:
+          $ref: '#/components/schemas/ClientOrderId'
+        ordType:
+          $ref: '#/components/schemas/ordType'
+        symbol:
+          $ref: '#/components/schemas/symbol'
+        side:
+          $ref: '#/components/schemas/side'
+        orderQty:
+          $ref: '#/components/schemas/orderQty'
+        timeInForce:
+          $ref: '#/components/schemas/TimeInForce'
+        price:
+          $ref: '#/components/schemas/price'
+        expireDate:
+          $ref: '#/components/schemas/expireDate'
+        minQty:
+          $ref: '#/components/schemas/minQty'
+        stopPx:
+          $ref: '#/components/schemas/price'
+      example:
+        clOrdId: '123456'
+        ordType: LIMIT
+        symbol: BTC-USD
+        side: BUY
+        orderQty: '0.1'
+        price: '100'
+    TimestampEpoch:
+      type: integer
+      format: int64
+      description: Time in ms since 01/01/1970 (epoch)
+      example: '1592830770594'
+    price:
+      type: number
+      format: double
+      description: The limit price for the order
+      example: 0.12345
+    Fees:
+      type: object
+      required:
+      - makerRate
+      - takerRate
+      - volumeInUSD
+      properties:
+        makerRate:
+          type: number
+          format: double
+          example: '0.0014'
+          description: ''
+        takerRate:
+          type: number
+          format: double
+          example: '0.0024'
+          description: ''
+        volumeInUSD:
+          type: number
+          format: double
+          example: '1500.00'
+          description: ''
+    ClientOrderId:
+      type: string
+      maxLength: 20
+      pattern: ^[a-zA-Z0-9]{1,20}$
+      description: Reference field provided by client. Cannot exceed 20 characters, only alphanumeric characters are allowed.
+      example: ABC
+    symbol:
+      type: string
+      pattern: ^[A-Z]{3,5}-[A-Z]{3,5}$
+      description: Blockchain symbol identifier
+      example: BTC-USD
     TimeInForce:
       type: string
       enum:
@@ -198,27 +317,6 @@ components:
       - GTD
       description: '"GTC" for Good Till Cancel, "IOC" for Immediate or Cancel, "FOK" for Fill or Kill, "GTD" Good Till Date'
       example: GTC
-    ExchangeOrderId:
-      type: integer
-      format: int64
-      description: The unique order id assigned by the exchange
-      example: '11111111'
-    price:
-      type: number
-      format: double
-      description: The limit price for the order
-      example: 0.12345
-    TimestampEpoch:
-      type: integer
-      format: int64
-      description: Time in ms since 01/01/1970 (epoch)
-      example: '1592830770594'
-    ClientOrderId:
-      type: string
-      maxLength: 20
-      pattern: ^[a-zA-Z0-9]{1,20}$
-      description: Reference field provided by client. Cannot exceed 20 characters, only alphanumeric characters are allowed.
-      example: ABC
     OrderSummary:
       type: object
       required:
@@ -272,104 +370,6 @@ components:
           example: '345.33'
         timestamp:
           $ref: '#/components/schemas/TimestampEpoch'
-    side:
-      type: string
-      enum:
-      - BUY
-      - SELL
-      description: '"buy" for Buy, "sell" for Sell'
-      example: BUY
-    symbol:
-      type: string
-      pattern: ^[A-Z]{3,5}-[A-Z]{3,5}$
-      description: Blockchain symbol identifier
-      example: BTC-USD
-    BaseOrder:
-      type: object
-      required:
-      - clOrdId
-      - ordType
-      - symbol
-      - side
-      - orderQty
-      properties:
-        clOrdId:
-          $ref: '#/components/schemas/ClientOrderId'
-        ordType:
-          $ref: '#/components/schemas/ordType'
-        symbol:
-          $ref: '#/components/schemas/symbol'
-        side:
-          $ref: '#/components/schemas/side'
-        orderQty:
-          $ref: '#/components/schemas/orderQty'
-        timeInForce:
-          $ref: '#/components/schemas/TimeInForce'
-        price:
-          $ref: '#/components/schemas/price'
-        expireDate:
-          $ref: '#/components/schemas/expireDate'
-        minQty:
-          $ref: '#/components/schemas/minQty'
-        stopPx:
-          $ref: '#/components/schemas/price'
-      example:
-        clOrdId: '123456'
-        ordType: LIMIT
-        symbol: BTC-USD
-        side: BUY
-        orderQty: '0.1'
-        price: '100'
-    ordType:
-      type: string
-      title: Order type
-      enum:
-      - MARKET
-      - LIMIT
-      - STOP
-      - STOPLIMIT
-    Fees:
-      type: object
-      required:
-      - makerRate
-      - takerRate
-      - volumeInUSD
-      properties:
-        makerRate:
-          type: number
-          format: double
-          example: '0.0014'
-          description: ''
-        takerRate:
-          type: number
-          format: double
-          example: '0.0024'
-          description: ''
-        volumeInUSD:
-          type: number
-          format: double
-          example: '1500.00'
-          description: ''
-    minQty:
-      type: number
-      format: double
-      description: The minimum quantity required for an IOC fill
-      example: '10.0'
-    orderQty:
-      type: number
-      format: double
-      description: The order size in the terms of the base currency
-      example: '10.23'
-    OrderStatus:
-      type: string
-      example: FILLED
-      enum:
-      - OPEN
-      - REJECTED
-      - CANCELED
-      - FILLED
-      - PART_FILLED
-      - EXPIRED
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

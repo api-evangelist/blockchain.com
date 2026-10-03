@@ -133,6 +133,35 @@ paths:
                 $ref: '#/components/schemas/SymbolStatus'
 components:
   schemas:
+    OrderBookEntry:
+      type: object
+      properties:
+        px:
+          type: number
+          format: double
+          example: '8723.45'
+        qty:
+          type: number
+          format: double
+          example: '1.45'
+        num:
+          type: integer
+          format: int64
+          description: Either the quantity of orders on this price level for L2, or the individual order id for L3
+          example: '1'
+    OrderBook:
+      type: object
+      properties:
+        symbol:
+          $ref: '#/components/schemas/symbol'
+        bids:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderBookEntry'
+        asks:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderBookEntry'
     SymbolStatus:
       type: object
       properties:
@@ -216,19 +245,6 @@ components:
       pattern: ^[A-Z]{3,5}-[A-Z]{3,5}$
       description: Blockchain symbol identifier
       example: BTC-USD
-    OrderBook:
-      type: object
-      properties:
-        symbol:
-          $ref: '#/components/schemas/symbol'
-        bids:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderBookEntry'
-        asks:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderBookEntry'
     PriceEvent:
       type: object
       properties:
@@ -246,22 +262,6 @@ components:
           type: number
           format: double
           example: '5000.0'
-    OrderBookEntry:
-      type: object
-      properties:
-        px:
-          type: number
-          format: double
-          example: '8723.45'
-        qty:
-          type: number
-          format: double
-          example: '1.45'
-        num:
-          type: integer
-          format: int64
-          description: Either the quantity of orders on this price level for L2, or the individual order id for L3
-          example: '1'
   parameters:
     symbolParam:
       name: symbol

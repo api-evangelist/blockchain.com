@@ -111,6 +111,66 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TxInput:
+      type: object
+      description: A single Bitcoin transaction input.
+      properties:
+        sequence:
+          type: integer
+          format: int64
+          description: Sequence number.
+          example: 1
+        witness:
+          type: string
+          description: SegWit witness data.
+        script:
+          type: string
+          description: Input script (scriptSig) as hex.
+        prev_out:
+          $ref: '#/components/schemas/TxOutput'
+    TxOutput:
+      type: object
+      description: A single Bitcoin transaction output (a UTXO before it is spent).
+      properties:
+        type:
+          type: integer
+          description: Output type indicator.
+          example: 1
+        spent:
+          type: boolean
+          description: True if the output has been spent.
+          example: true
+        value:
+          type: integer
+          format: int64
+          description: Value in Satoshi.
+          example: 100000
+        spending_outpoints:
+          type: array
+          description: Outpoints that spent this output (when spent).
+          items:
+            type: object
+            properties:
+              tx_index:
+                type: integer
+                format: int64
+              n:
+                type: integer
+        n:
+          type: integer
+          description: Output index within the transaction.
+          example: 1
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        script:
+          type: string
+          description: Output script (scriptPubKey) as hex.
+        addr:
+          type: string
+          description: Destination address (when derivable).
     Block:
       type: object
       description: A Bitcoin block including its transactions, header, and chain status.
@@ -169,49 +229,6 @@ components:
           description: List of transactions included in the block.
           items:
             $ref: '#/components/schemas/Transaction'
-    TxOutput:
-      type: object
-      description: A single Bitcoin transaction output (a UTXO before it is spent).
-      properties:
-        type:
-          type: integer
-          description: Output type indicator.
-          example: 1
-        spent:
-          type: boolean
-          description: True if the output has been spent.
-          example: true
-        value:
-          type: integer
-          format: int64
-          description: Value in Satoshi.
-          example: 100000
-        spending_outpoints:
-          type: array
-          description: Outpoints that spent this output (when spent).
-          items:
-            type: object
-            properties:
-              tx_index:
-                type: integer
-                format: int64
-              n:
-                type: integer
-        n:
-          type: integer
-          description: Output index within the transaction.
-          example: 1
-        tx_index:
-          type: integer
-          format: int64
-          description: Internal transaction index.
-          example: 1
-        script:
-          type: string
-          description: Output script (scriptPubKey) as hex.
-        addr:
-          type: string
-          description: Destination address (when derivable).
     BlockListResponse:
       type: object
       description: Wrapper used by `block-height/{height}` returning an array of `Block` objects.
@@ -323,20 +340,3 @@ components:
           description: Transaction outputs.
           items:
             $ref: '#/components/schemas/TxOutput'
-    TxInput:
-      type: object
-      description: A single Bitcoin transaction input.
-      properties:
-        sequence:
-          type: integer
-          format: int64
-          description: Sequence number.
-          example: 1
-        witness:
-          type: string
-          description: SegWit witness data.
-        script:
-          type: string
-          description: Input script (scriptSig) as hex.
-        prev_out:
-          $ref: '#/components/schemas/TxOutput'

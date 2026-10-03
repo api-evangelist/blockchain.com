@@ -210,15 +210,6 @@ components:
       schema:
         $ref: '#/components/schemas/PaymentMethod'
   schemas:
-    PaymentMethod:
-      type: string
-      description: Payment method to be used for the order.
-      enum:
-      - CARD
-      - APPLE_PAY
-      - GOOGLE_PAY
-      - BANK_TRANSFER_NIP
-      example: CARD
     Currency:
       type: object
       required:
@@ -288,6 +279,15 @@ components:
           type: string
           description: Human-readable description of the error.
           example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey

@@ -98,6 +98,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ChartPoint:
+      type: object
+      description: Single time-series sample.
+      properties:
+        x:
+          type: integer
+          format: int64
+          description: Timestamp in Unix seconds.
+          example: 1
+        y:
+          type: number
+          description: Measured value at `x`.
+          example: 1.0
     Chart:
       type: object
       description: Time-series dataset returned by the Charts API.
@@ -125,16 +138,3 @@ components:
           description: Time-series data points.
           items:
             $ref: '#/components/schemas/ChartPoint'
-    ChartPoint:
-      type: object
-      description: Single time-series sample.
-      properties:
-        x:
-          type: integer
-          format: int64
-          description: Timestamp in Unix seconds.
-          example: 1
-        y:
-          type: number
-          description: Measured value at `x`.
-          example: 1.0
