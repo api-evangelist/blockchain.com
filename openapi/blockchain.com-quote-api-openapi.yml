@@ -201,15 +201,21 @@ paths:
                     items:
                       $ref: '#/components/schemas/Error'
 components:
-  parameters:
-    PaymentMethodParam:
-      in: query
-      name: paymentMethod
-      required: false
-      description: Payment method to be used for the order. If omitted, the quote will not factor in payment method fees.
-      schema:
-        $ref: '#/components/schemas/PaymentMethod'
   schemas:
+    Error:
+      type: object
+      required:
+      - type
+      - message
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type.
+          example: RequestValidation.BadRequest.MissingParam
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
     Currency:
       type: object
       required:
@@ -265,20 +271,6 @@ components:
           example:
           - AL
           - CT
-    Error:
-      type: object
-      required:
-      - type
-      - message
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type.
-          example: RequestValidation.BadRequest.MissingParam
-        message:
-          type: string
-          description: Human-readable description of the error.
-          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
     PaymentMethod:
       type: string
       description: Payment method to be used for the order.
@@ -288,6 +280,14 @@ components:
       - GOOGLE_PAY
       - BANK_TRANSFER_NIP
       example: CARD
+  parameters:
+    PaymentMethodParam:
+      in: query
+      name: paymentMethod
+      required: false
+      description: Payment method to be used for the order. If omitted, the quote will not factor in payment method fees.
+      schema:
+        $ref: '#/components/schemas/PaymentMethod'
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey

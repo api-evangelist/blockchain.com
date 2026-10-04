@@ -206,48 +206,13 @@ paths:
           description: Not found
 components:
   schemas:
-    DepositInfo:
-      type: object
-      required:
-      - depositId
-      - amount
-      - currency
-      - address
-      - state
-      properties:
-        depositId:
-          $ref: '#/components/schemas/DepositId'
-        amount:
-          type: number
-          format: double
-          example: '12.23'
-          description: The amount that is credited in the currency specified
-        currency:
-          $ref: '#/components/schemas/currency'
-        address:
-          $ref: '#/components/schemas/CryptoAddress'
-        txHash:
-          type: string
-          description: The transaction hash of the transaction that deposited funds
-        state:
-          type: string
-          enum:
-          - REJECTED
-          - UNCONFIRMED
-          - COMPLETED
-        timestamp:
-          $ref: '#/components/schemas/TimestampEpoch'
-    DepositId:
+    BalanceList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Balance'
+    WithdrawalId:
       type: string
       description: Unique ID for this withdrawal
-    WithdrawalStatus:
-      type: string
-      enum:
-      - REJECTED
-      - PENDING
-      - REFUNDED
-      - FAILED
-      - COMPLETED
     BalanceMap:
       type: object
       properties:
@@ -257,76 +222,8 @@ components:
       - primary
       additionalProperties:
         $ref: '#/components/schemas/BalanceList'
-    BalanceList:
-      type: array
-      items:
-        $ref: '#/components/schemas/Balance'
-    WithdrawalId:
-      type: string
-      description: Unique ID for this withdrawal
-    WithdrawalInfo:
-      type: object
-      required:
-      - amount
-      - currency
-      - beneficiary
-      properties:
-        withdrawalId:
-          $ref: '#/components/schemas/WithdrawalId'
-        amount:
-          $ref: '#/components/schemas/WithdrawalAmount'
-        fee:
-          $ref: '#/components/schemas/WithdrawalFee'
-        currency:
-          $ref: '#/components/schemas/currency'
-        beneficiary:
-          $ref: '#/components/schemas/WithdrawalBeneficiary'
-        state:
-          $ref: '#/components/schemas/WithdrawalStatus'
-        timestamp:
-          $ref: '#/components/schemas/TimestampEpoch'
-    currency:
-      type: string
-      pattern: ^[A-Z]{3,5}$
-      description: ''
-      example: BTC
-    WithdrawalFee:
-      type: number
-      format: double
-      example: '0.0005'
-      description: The amount charged in fees for this withdrawal
-    TimestampEpoch:
-      type: integer
-      format: int64
-      description: Time in ms since 01/01/1970 (epoch)
-      example: '1592830770594'
     WithdrawalBeneficiary:
       type: string
-    DepositAddressCrypto:
-      type: object
-      required:
-      - type
-      - address
-      properties:
-        type:
-          type: string
-        address:
-          type: string
-          description: Address to deposit to. If a tag or memo must be used, it is separated by a colon.
-    WhitelistEntry:
-      type: object
-      properties:
-        whitelistId:
-          type: string
-          description: Unique ID for each whitelist entry
-        name:
-          type: string
-          description: User specified name for this entry
-        currency:
-          $ref: '#/components/schemas/currency'
-    CryptoAddress:
-      type: string
-      description: Address to deposit to. If a tag or memo must be used, it is separated by a colon.
     CreateWithdrawalRequest:
       type: object
       required:
@@ -342,11 +239,6 @@ components:
         sendMax:
           type: boolean
           description: 'If set, sends the full available amount, minus fees. Amount may not be specified in that case. '
-    WithdrawalAmount:
-      type: number
-      format: double
-      example: '12.23'
-      description: The amount to withdraw in the currency specified
     Balance:
       type: object
       required:
@@ -379,6 +271,114 @@ components:
           type: number
           format: double
           example: '10558.77'
+    WhitelistEntry:
+      type: object
+      properties:
+        whitelistId:
+          type: string
+          description: Unique ID for each whitelist entry
+        name:
+          type: string
+          description: User specified name for this entry
+        currency:
+          $ref: '#/components/schemas/currency'
+    WithdrawalAmount:
+      type: number
+      format: double
+      example: '12.23'
+      description: The amount to withdraw in the currency specified
+    currency:
+      type: string
+      pattern: ^[A-Z]{3,5}$
+      description: ''
+      example: BTC
+    DepositAddressCrypto:
+      type: object
+      required:
+      - type
+      - address
+      properties:
+        type:
+          type: string
+        address:
+          type: string
+          description: Address to deposit to. If a tag or memo must be used, it is separated by a colon.
+    DepositId:
+      type: string
+      description: Unique ID for this withdrawal
+    CryptoAddress:
+      type: string
+      description: Address to deposit to. If a tag or memo must be used, it is separated by a colon.
+    DepositInfo:
+      type: object
+      required:
+      - depositId
+      - amount
+      - currency
+      - address
+      - state
+      properties:
+        depositId:
+          $ref: '#/components/schemas/DepositId'
+        amount:
+          type: number
+          format: double
+          example: '12.23'
+          description: The amount that is credited in the currency specified
+        currency:
+          $ref: '#/components/schemas/currency'
+        address:
+          $ref: '#/components/schemas/CryptoAddress'
+        txHash:
+          type: string
+          description: The transaction hash of the transaction that deposited funds
+        state:
+          type: string
+          enum:
+          - REJECTED
+          - UNCONFIRMED
+          - COMPLETED
+        timestamp:
+          $ref: '#/components/schemas/TimestampEpoch'
+    WithdrawalStatus:
+      type: string
+      enum:
+      - REJECTED
+      - PENDING
+      - REFUNDED
+      - FAILED
+      - COMPLETED
+    WithdrawalFee:
+      type: number
+      format: double
+      example: '0.0005'
+      description: The amount charged in fees for this withdrawal
+    WithdrawalInfo:
+      type: object
+      required:
+      - amount
+      - currency
+      - beneficiary
+      properties:
+        withdrawalId:
+          $ref: '#/components/schemas/WithdrawalId'
+        amount:
+          $ref: '#/components/schemas/WithdrawalAmount'
+        fee:
+          $ref: '#/components/schemas/WithdrawalFee'
+        currency:
+          $ref: '#/components/schemas/currency'
+        beneficiary:
+          $ref: '#/components/schemas/WithdrawalBeneficiary'
+        state:
+          $ref: '#/components/schemas/WithdrawalStatus'
+        timestamp:
+          $ref: '#/components/schemas/TimestampEpoch'
+    TimestampEpoch:
+      type: integer
+      format: int64
+      description: Time in ms since 01/01/1970 (epoch)
+      example: '1592830770594'
   parameters:
     timeToFilter:
       name: to

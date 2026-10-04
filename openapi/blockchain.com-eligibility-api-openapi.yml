@@ -104,49 +104,49 @@ paths:
         '401':
           $ref: '#/components/responses/UnauthorizedError'
 components:
+  responses:
+    UnauthorizedError:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
   schemas:
-    Country:
+    UsState:
       type: object
       required:
       - alpha2
-      - alpha3
       - isBuyAllowed
       - name
       properties:
         alpha2:
           type: string
-          description: ISO 3166-1 alpha-2 country code.
+          description: ISO 3166-2:US state code (last 2 characters), e.g. `CA`.
           minLength: 2
           maxLength: 2
-          example: US
-        alpha3:
-          type: string
-          description: ISO 3166-1 alpha-3 country code.
-          minLength: 3
-          maxLength: 3
-          example: USA
+          example: CA
         isBuyAllowed:
           type: boolean
-          description: Whether residents of this country can buy cryptocurrencies.
+          description: Whether residents of this state can buy crypto.
           example: true
         name:
           type: string
-          description: Country name in English.
-          example: United States
-    Error:
-      type: object
-      required:
-      - type
-      - message
-      properties:
-        type:
-          type: string
-          description: Machine-readable error type.
-          example: RequestValidation.BadRequest.MissingParam
-        message:
-          type: string
-          description: Human-readable description of the error.
-          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
+          description: State name in English.
+          example: California
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
     Currency:
       type: object
       required:
@@ -223,48 +223,48 @@ components:
         - USD
         - GBP
         - EUR
-    PaymentMethod:
-      type: string
-      description: Payment method to be used for the order.
-      enum:
-      - CARD
-      - APPLE_PAY
-      - GOOGLE_PAY
-      - BANK_TRANSFER_NIP
-      example: CARD
-    UsState:
+    Error:
+      type: object
+      required:
+      - type
+      - message
+      properties:
+        type:
+          type: string
+          description: Machine-readable error type.
+          example: RequestValidation.BadRequest.MissingParam
+        message:
+          type: string
+          description: Human-readable description of the error.
+          example: 'Missing parameter ''quoteCurrencyCode''. Required params: [quoteCurrencyCode, baseCurrencyCode, quoteCurrencyAmount]'
+    Country:
       type: object
       required:
       - alpha2
+      - alpha3
       - isBuyAllowed
       - name
       properties:
         alpha2:
           type: string
-          description: ISO 3166-2:US state code (last 2 characters), e.g. `CA`.
+          description: ISO 3166-1 alpha-2 country code.
           minLength: 2
           maxLength: 2
-          example: CA
+          example: US
+        alpha3:
+          type: string
+          description: ISO 3166-1 alpha-3 country code.
+          minLength: 3
+          maxLength: 3
+          example: USA
         isBuyAllowed:
           type: boolean
-          description: Whether residents of this state can buy crypto.
+          description: Whether residents of this country can buy cryptocurrencies.
           example: true
         name:
           type: string
-          description: State name in English.
-          example: California
-  responses:
-    UnauthorizedError:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
+          description: Country name in English.
+          example: United States
   securitySchemes:
     PublicApiKeyAuth:
       type: apiKey
