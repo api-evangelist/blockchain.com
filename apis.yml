@@ -621,7 +621,7 @@ apis:
   name: Blockchain.com Addresses API
   description: Bitcoin address summaries and unspent outputs.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Addresses
   properties:
@@ -643,7 +643,7 @@ apis:
   name: Blockchain.com Blocks API
   description: Bitcoin block lookups and the latest block.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Blocks
   properties:
@@ -665,7 +665,7 @@ apis:
   name: Blockchain.com Charts API
   description: Historical time-series datasets for Bitcoin network metrics.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Charts
   properties:
@@ -687,7 +687,7 @@ apis:
   name: Blockchain.com Market Data API
   description: Bitcoin exchange rates and fiat conversion.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Market Data
   properties:
@@ -709,7 +709,7 @@ apis:
   name: Blockchain.com Network API
   description: Simple network metrics — difficulty, block height, supply, ETA, averages.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Networks
   tags_raw:
@@ -733,7 +733,7 @@ apis:
   name: Blockchain.com Pools API
   description: Mining pool distribution.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Pools
   properties:
@@ -755,7 +755,7 @@ apis:
   name: Blockchain.com Stats API
   description: Real-time blockchain statistics.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Stats
   properties:
@@ -777,7 +777,7 @@ apis:
   name: Blockchain.com Transactions API
   description: Bitcoin transaction lookups.
   humanURL: https://exchange.blockchain.com/api/
-  baseURL: wss://ws.blockchain.info/mercury-gateway/v1/ws
+  baseURL: https://api.blockchain.info
   tags:
   - Transaction
   tags_raw:
