@@ -1,0 +1,62 @@
+edges:
+- partner_name: CCXT
+  partner: null
+  partner_match: null
+  type: coverage
+  channel: open-source-node
+  relationship: connector-coverage
+  direction: partner-built
+  evidence: https://github.com/ccxt/ccxt/blob/master/ts/src/blockchaincom.ts
+  ccxt_id: blockchaincom
+  ccxt_certified: null
+  ccxt_pro: true
+  matched_by: domain:blockchain.com
+  partner_gap: no ccxt repo in all/* (catalog gap)
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+- partner_name: CoinGecko
+  partner: coingecko
+  partner_match: aggregator
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://api.coingecko.com/api/v3/exchanges/blockchain_com
+  matched_by: domain:blockchain.com
+  coingecko_id: blockchain_com
+  trust_score: 5
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+- partner_name: MiCA (EU)
+  partner: null
+  type: contract
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
+  contract_reference:
+    register: 'ESMA interim MiCA register: crypto-asset service providers (CASPS.csv)'
+    spec_file: null
+    role: authorised-casp
+    registered_name: Blockchain.com Operations (Malta) Limited
+    register_id: 254900GDCT8070R2VV26
+    competent_authority: Malta Financial Services Authority (MFSA)
+    home_member_state: MT
+    authorised: 22/10/2025
+    services:
+    - "a.\tproviding custody and administration of crypto-assets on behalf of clients"
+    - c. exchange of crypto-assets for funds
+    - d. exchange of crypto-assets for other crypto-assets
+    - "e.\texecution of orders for crypto-assets on behalf of clients"
+    - j. providing transfer services for crypto-assets on behalf of clients.
+    matched_domain: blockchain.com
+    detected_by: sweep-crypto.py
+    detected: '2026-10-13'
+  detected_by: sweep-crypto.py
+  first_seen: '2026-10-13'
+generated: '2026-10-13'
+method: searched
+checked:
+- https://api.coingecko.com/api/v3/exchanges
+- https://raw.githubusercontent.com/ccxt/ccxt/master/exchanges.json
+- https://www.esma.europa.eu/sites/default/files/2024-12/CASPS.csv
