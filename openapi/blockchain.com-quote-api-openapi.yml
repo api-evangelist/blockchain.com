@@ -202,6 +202,15 @@ paths:
                       $ref: '#/components/schemas/Error'
 components:
   schemas:
+    PaymentMethod:
+      type: string
+      description: Payment method to be used for the order.
+      enum:
+      - CARD
+      - APPLE_PAY
+      - GOOGLE_PAY
+      - BANK_TRANSFER_NIP
+      example: CARD
     Error:
       type: object
       required:
@@ -271,15 +280,6 @@ components:
           example:
           - AL
           - CT
-    PaymentMethod:
-      type: string
-      description: Payment method to be used for the order.
-      enum:
-      - CARD
-      - APPLE_PAY
-      - GOOGLE_PAY
-      - BANK_TRANSFER_NIP
-      example: CARD
   parameters:
     PaymentMethodParam:
       in: query

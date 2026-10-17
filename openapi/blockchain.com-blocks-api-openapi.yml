@@ -111,6 +111,80 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Transaction:
+      type: object
+      description: A Bitcoin transaction with its inputs and outputs.
+      properties:
+        hash:
+          type: string
+          description: Transaction hash.
+          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
+        ver:
+          type: integer
+          description: Transaction version.
+          example: 1
+        vin_sz:
+          type: integer
+          description: Number of inputs.
+          example: 1
+        vout_sz:
+          type: integer
+          description: Number of outputs.
+          example: 1
+        size:
+          type: integer
+          description: Serialized transaction size in bytes.
+          example: 1
+        weight:
+          type: integer
+          description: Transaction weight (BIP141).
+          example: 1
+        fee:
+          type: integer
+          format: int64
+          description: Fee paid in Satoshi.
+          example: 1
+        relayed_by:
+          type: string
+          description: IP address that relayed the transaction.
+        lock_time:
+          type: integer
+          format: int64
+          description: Lock time (block height or Unix seconds).
+          example: 1748609400000
+        tx_index:
+          type: integer
+          format: int64
+          description: Internal transaction index.
+          example: 1
+        double_spend:
+          type: boolean
+          description: True if the transaction is a known double-spend.
+          example: true
+        time:
+          type: integer
+          format: int64
+          description: First-seen time (Unix seconds).
+          example: 1748609400000
+        block_index:
+          type: integer
+          format: int64
+          description: Block index containing the transaction (null if unconfirmed).
+          example: 1
+        block_height:
+          type: integer
+          description: Block height containing the transaction (null if unconfirmed).
+          example: 851234
+        inputs:
+          type: array
+          description: Transaction inputs.
+          items:
+            $ref: '#/components/schemas/TxInput'
+        out:
+          type: array
+          description: Transaction outputs.
+          items:
+            $ref: '#/components/schemas/TxOutput'
     TxOutput:
       type: object
       description: A single Bitcoin transaction output (a UTXO before it is spent).
@@ -220,80 +294,6 @@ components:
           description: List of transactions included in the block.
           items:
             $ref: '#/components/schemas/Transaction'
-    Transaction:
-      type: object
-      description: A Bitcoin transaction with its inputs and outputs.
-      properties:
-        hash:
-          type: string
-          description: Transaction hash.
-          example: 00000000000000000004f4e7a18a09b1f8e96d6fb01d9b6fce4d12cb3f8a7e21
-        ver:
-          type: integer
-          description: Transaction version.
-          example: 1
-        vin_sz:
-          type: integer
-          description: Number of inputs.
-          example: 1
-        vout_sz:
-          type: integer
-          description: Number of outputs.
-          example: 1
-        size:
-          type: integer
-          description: Serialized transaction size in bytes.
-          example: 1
-        weight:
-          type: integer
-          description: Transaction weight (BIP141).
-          example: 1
-        fee:
-          type: integer
-          format: int64
-          description: Fee paid in Satoshi.
-          example: 1
-        relayed_by:
-          type: string
-          description: IP address that relayed the transaction.
-        lock_time:
-          type: integer
-          format: int64
-          description: Lock time (block height or Unix seconds).
-          example: 1748609400000
-        tx_index:
-          type: integer
-          format: int64
-          description: Internal transaction index.
-          example: 1
-        double_spend:
-          type: boolean
-          description: True if the transaction is a known double-spend.
-          example: true
-        time:
-          type: integer
-          format: int64
-          description: First-seen time (Unix seconds).
-          example: 1748609400000
-        block_index:
-          type: integer
-          format: int64
-          description: Block index containing the transaction (null if unconfirmed).
-          example: 1
-        block_height:
-          type: integer
-          description: Block height containing the transaction (null if unconfirmed).
-          example: 851234
-        inputs:
-          type: array
-          description: Transaction inputs.
-          items:
-            $ref: '#/components/schemas/TxInput'
-        out:
-          type: array
-          description: Transaction outputs.
-          items:
-            $ref: '#/components/schemas/TxOutput'
     LatestBlock:
       type: object
       description: Lightweight summary of the most recent block.
