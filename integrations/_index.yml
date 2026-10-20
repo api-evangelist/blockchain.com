@@ -52,3 +52,67 @@
     detected: '2026-10-14'
   status: not-a-workflow
   arazzo: null
+- slug: blockchain.com-rubygems
+  label: RubyGems
+  partner: rubygems
+  partner_name: RubyGems
+  category: official SDK (Ruby)
+  type: register
+  channel: package-registry
+  evidence: https://rubygems.org/gems/blockchain
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: blockchain
+      version: 3.0.1
+      released: '2017-06-15'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/blockchain
+      repo_leg: github-org:blockchain
+      publisher_leg: org:blockchain
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: blockchain.com-fincen-msb-registration
+  label: FinCEN (MSB registration)
+  partner_name: FinCEN (MSB registration)
+  category: Money services business
+  type: contract
+  channel: regulator-register
+  evidence: https://msb.fincen.gov/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: FinCEN MSB Registrant Search (msb.fincen.gov, full list export)
+    spec_file: null
+    standard: FinCEN MSB registration (US Bank Secrecy Act)
+    role: fincen-msb-registrant
+    registered_name: Blockchain.com, Inc
+    dba_name: null
+    register_id: Blockchain.com, Inc
+    matched_domain: null
+    matched_by: register-name
+    identity: 'register-name: register-name ''blockchaincom'' = blockchain.com; no wikidata P856'
+    identity_source: register-name
+    msb_activities:
+    - 409 money transmitter
+    states_of_activity: 48
+    received_date: 11/14/2025
+    signal_note: 'participation only: an MSB registration is not a licence or a certification; activities and states
+      are context, never counted'
+    detected_by: sweep-regtech-aml.py
+    detected: '2026-10-20'
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  status: not-a-workflow
+  arazzo: null
